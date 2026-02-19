@@ -1,43 +1,56 @@
-# Astro Starter Kit: Minimal
+# Results Bot — Beat the AI at predicting EPL scores
 
-```sh
-pnpm create astro@latest -- --template minimal
+This repository is a small, playful web app that challenges you to beat an AI at predicting English Premier League (EPL) match scores.
+
+Players submit score predictions for upcoming matches and compete against an automated model that makes its own predictions. Track leaderboards, compare human vs. machine performance, and see detailed stats about accuracy and deviation.
+
+## What this repo contains
+
+- The frontend app built with Astro (pages live under `src/pages`).
+- Reusable UI in `src/components` (leaderboard, predictions UI, stats).
+- Small helpers in `src/helpers` for fetching odds and AI predictions.
+- Mock data for local testing under `src/mocks`.
+
+## Quick start (development)
+
+Run these from the project root:
+
+```bash
+pnpm install
+pnpm dev
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Open http://localhost:4321 to play locally.
 
-## 🚀 Project Structure
+Build for production:
 
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+```bash
+pnpm build
+pnpm preview
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Local configuration
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+- Create a `.env` file for any provider keys (for example, `ODDS_API_KEY`). Example:
 
-Any static assets, like images, can be placed in the `public/` directory.
+```env
+ODDS_API_KEY=your_api_key_here
+```
 
-## 🧞 Commands
+Do not commit `.env` — it is already ignored by `.gitignore`.
 
-All commands are run from the root of the project, from a terminal:
+## How to play
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
+1. Open the app and make your score predictions for upcoming EPL fixtures.
+2. The AI will predict the same fixtures; scores and points are compared on the leaderboard.
+3. Try to outperform the model over a gameweek or an entire season.
 
-## 👀 Want to learn more?
+## Contributing
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+- Tweak UI components in `src/components`.
+- Update the prediction logic in `src/helpers/prediction-engine.ts`.
+- Add tests or CI checks in the project root.
+
+If you find any sensitive keys accidentally committed, rotate them immediately and use a history-cleaning tool if needed.
+
+Have fun beating the bot — and good luck!
