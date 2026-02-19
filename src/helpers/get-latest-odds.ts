@@ -1,5 +1,5 @@
 import { getSecret } from 'astro:env/server';
-import axios, { AxiosError } from 'axios';
+import axios, { type AxiosError } from 'axios';
 
 export async function getLatestOdds(): Promise<any[]> {
   const now = new Date();

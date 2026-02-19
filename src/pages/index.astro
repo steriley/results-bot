@@ -3,11 +3,13 @@ import '../styles/globals.css';
 import DateGroup from '../components/DateGroup.astro';
 import MainLayout from '../components/MainLayout.astro';
 import PageWrapper from '../components/PageWrapper.astro';
-import type { Game } from '../types/game';
+import { getLatestOdds } from '../helpers/get-latest-odds';
+import { predictScores } from '../helpers/prediction-engine';
+import mockData from '../mocks/premier-league-games.json';
 
-const url = new URL('/api/predictions', Astro.url.origin);
-const response = await fetch(url);
-const scores: Game[] = await response.json();
+const USE_MOCK_DATA = true;
+const odds = USE_MOCK_DATA ? mockData : await getLatestOdds();
+const scores = predictScores(odds as any);
 
 // Group games by date
 const gamesByDate = scores.reduce(
@@ -26,7 +28,7 @@ const gamesByDate = scores.reduce(
     acc[dateKey].push(game);
     return acc;
   },
-  {} as Record<string, Game[]>,
+  {} as Record<string, typeof scores>,
 );
 
 // Sort dates chronologically

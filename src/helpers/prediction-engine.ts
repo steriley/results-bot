@@ -40,6 +40,7 @@ type SimulationResult = {
 
 type Prediction = {
   gameId: string;
+  commenceTime: string;
   homeTeam: string;
   awayTeam: string;
   expectedGoals: { home: number; away: number };
