@@ -102,14 +102,11 @@ function formatTime(commenceTime: string): string {
           <div class="flex items-center gap-2 lg:ml-auto">
             {showAIPredict && (
               <div class="flex flex-col items-center justify-center bg-primary/10 border border-primary/30 rounded-lg px-4 py-2 min-w-[100px]">
-                <span class="text-[9px] uppercase font-bold text-primary tracking-tighter">
-                  AI Predict
+                <span class="text-[9px] uppercase font-bold text-secondary tracking-tighter">
+                  AI Predict {Math.round(game.confidence * 100)}%
                 </span>
-                <span class="text-lg font-black text-primary leading-none">
+                <span class="text-lg font-black text-secondary leading-none">
                   {game.mostLikelyScore.home} - {game.mostLikelyScore.away}
-                </span>
-                <span class="text-[8px] text-primary/70 font-semibold">
-                  {Math.round(game.confidence * 100)}%
                 </span>
               </div>
             )}
