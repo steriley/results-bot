@@ -82,7 +82,7 @@ function formatTime(commenceTime: string): string {
                 />
               )}
               {!showUserInputs && showAIPredict && (
-                <div class="w-8 h-8 md:w-12 md:h-10 flex items-center justify-center text-sm md:text-xl font-bold bg-primary/10 border border-primary/30 text-primary rounded-md md:rounded-lg flex-shrink-0">
+                <div class="w-8 h-8 md:w-12 md:h-10 flex items-center justify-center text-sm md:text-xl font-bold bg-slate-200 dark:bg-border-dark text-slate-900 dark:text-white rounded-md md:rounded-lg flex-shrink-0">
                   {game.mostLikelyScore.home}
                 </div>
               )}
@@ -90,10 +90,10 @@ function formatTime(commenceTime: string): string {
             <div class="px-2 md:px-4 shrink-0 flex flex-col items-center justify-center">
               {showAIPredict && !showUserInputs ? (
                 <div class="flex flex-col items-center justify-center">
-                  <span class="text-[8px] md:text-[9px] uppercase font-bold text-primary tracking-tighter leading-none mb-0.5 whitespace-nowrap">
+                  <span class="text-[8px] md:text-[9px] uppercase font-bold text-muted-dark tracking-tighter leading-none mb-0.5 whitespace-nowrap">
                     AI Predict
                   </span>
-                  <span class="text-[9px] md:text-xs font-black text-primary bg-primary/10 px-1 md:px-1.5 py-0.5 rounded leading-none">
+                  <span class="text-[9px] md:text-xs font-black text-muted-dark px-1 md:px-1.5 py-0.5 rounded leading-none">
                     {Math.round(game.confidence * 100)}%
                   </span>
                 </div>
@@ -105,7 +105,7 @@ function formatTime(commenceTime: string): string {
             </div>
             <div class="flex items-center gap-1.5 md:gap-3 flex-1 min-w-0">
               {!showUserInputs && showAIPredict && (
-                <div class="w-8 h-8 md:w-12 md:h-10 flex items-center justify-center text-sm md:text-xl font-bold bg-primary/10 border border-primary/30 text-primary rounded-md md:rounded-lg flex-shrink-0">
+                <div class="w-8 h-8 md:w-12 md:h-10 flex items-center justify-center text-sm md:text-xl font-bold bg-slate-200 dark:bg-border-dark text-slate-900 dark:text-white rounded-md md:rounded-lg flex-shrink-0">
                   {game.mostLikelyScore.away}
                 </div>
               )}
