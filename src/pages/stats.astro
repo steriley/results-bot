@@ -1,0 +1,442 @@
+---
+import '../styles/globals.css';
+import MainLayout from '../components/MainLayout.astro';
+import PageWrapper from '../components/PageWrapper.astro';
+import PageTitle from '../components/PageTitle.astro';
+---
+
+<PageWrapper title="Results Bot | Premier League Dashboard">
+  <MainLayout
+    pageTitle="Stats & Insights"
+    pageSubtitle="Human vs Machine: Gameweek 24 Performance"
+  >
+    <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div
+        class="glass-card p-6 rounded-xl border border-slate-200 dark:border-slate-800"
+      >
+        <div class="flex justify-between items-start mb-4">
+          <span class="text-slate-500 dark:text-slate-400 text-sm font-medium"
+            >AI Beat Rate</span
+          >
+          <span class="material-symbols-outlined text-emerald-500"
+            >trending_up</span
+          >
+        </div>
+        <div class="flex items-baseline gap-2">
+          <h3 class="text-4xl font-black text-slate-900 dark:text-white">
+            64%
+          </h3>
+          <span class="text-emerald-500 text-sm font-bold">+12%</span>
+        </div>
+        <p class="text-slate-500 text-xs mt-2 italic">
+          Beating the model in 16/25 rounds
+        </p>
+      </div>
+      <div
+        class="glass-card p-6 rounded-xl border border-slate-200 dark:border-slate-800"
+      >
+        <div class="flex justify-between items-start mb-4">
+          <span class="text-slate-500 dark:text-slate-400 text-sm font-medium"
+            >Average Deviation</span
+          >
+          <span class="material-symbols-outlined text-primary">target</span>
+        </div>
+        <div class="flex items-baseline gap-2">
+          <h3 class="text-4xl font-black text-slate-900 dark:text-white">
+            2.1
+          </h3>
+          <span class="text-slate-400 text-sm">pts</span>
+        </div>
+        <p class="text-slate-500 text-xs mt-2 italic">
+          0.4 closer than AI average
+        </p>
+      </div>
+      <div
+        class="glass-card p-6 rounded-xl border border-slate-200 dark:border-slate-800 bg-emerald-500/5 border-emerald-500/20"
+      >
+        <div class="flex justify-between items-start mb-4">
+          <span class="text-emerald-600 dark:text-emerald-400 text-sm font-bold"
+            >AI Upset Alert</span
+          >
+          <span class="material-symbols-outlined text-emerald-500"
+            >verified</span
+          >
+        </div>
+        <p class="text-slate-900 dark:text-white text-sm font-bold">
+          Wolves 2-1 Spurs
+        </p>
+        <p class="text-slate-500 text-xs mt-1">
+          You predicted a home win. AI predicted a 0-2 Spurs rout.
+        </p>
+        <div class="mt-3 flex gap-1">
+          <span
+            class="px-2 py-1 bg-emerald-500/20 text-emerald-500 text-[10px] font-bold rounded uppercase tracking-wider"
+            >+15 pts earned</span
+          >
+        </div>
+      </div>
+      <div
+        class="glass-card p-6 rounded-xl border border-slate-200 dark:border-slate-800"
+      >
+        <div class="flex justify-between items-start mb-4">
+          <span class="text-slate-500 dark:text-slate-400 text-sm font-medium"
+            >Optimist Score</span
+          >
+          <span class="material-symbols-outlined text-primary">speed</span>
+        </div>
+        <div
+          class="w-full bg-slate-200 dark:bg-slate-800 h-2 rounded-full overflow-hidden mt-4"
+        >
+          <div class="bg-primary h-full rounded-full" style="width: 72%;"></div>
+        </div>
+        <div class="flex justify-between mt-2">
+          <span class="text-[10px] font-bold text-slate-500">CONSERVATIVE</span>
+          <span class="text-[10px] font-bold text-primary">BULLISH</span>
+        </div>
+        <p class="text-slate-500 text-xs mt-2">
+          72% bias towards high-scoring games.
+        </p>
+      </div>
+    </section>
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <!-- Accuracy by Team Chart -->
+      <section class="lg:col-span-2 space-y-6">
+        <div
+          class="glass-card rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800"
+        >
+          <div
+            class="p-6 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center"
+          >
+            <h4 class="font-bold text-lg">Prediction Accuracy by Team</h4>
+            <select
+              class="bg-slate-800 border-none text-xs font-bold rounded-lg focus:ring-primary"
+            >
+              <option>Top 10 Teams</option>
+              <option>Bottom 10 Teams</option>
+            </select>
+          </div>
+          <div class="p-6 space-y-5">
+            <div class="space-y-2">
+              <div class="flex justify-between text-sm">
+                <div class="flex items-center gap-2">
+                  <div
+                    class="size-6 bg-red-600 rounded-full flex items-center justify-center text-[10px] font-black text-white"
+                  >
+                    LFC
+                  </div>
+                  <span class="font-medium">Liverpool</span>
+                </div>
+                <span class="font-bold">90%</span>
+              </div>
+              <div class="h-2 bg-slate-800 rounded-full overflow-hidden">
+                <div class="h-full bg-primary" style="width: 90%;"></div>
+              </div>
+            </div>
+            <div class="space-y-2">
+              <div class="flex justify-between text-sm">
+                <div class="flex items-center gap-2">
+                  <div
+                    class="size-6 bg-blue-500 rounded-full flex items-center justify-center text-[10px] font-black text-white"
+                  >
+                    MCI
+                  </div>
+                  <span class="font-medium">Man City</span>
+                </div>
+                <span class="font-bold">84%</span>
+              </div>
+              <div class="h-2 bg-slate-800 rounded-full overflow-hidden">
+                <div class="h-full bg-primary" style="width: 84%;"></div>
+              </div>
+            </div>
+            <div class="space-y-2">
+              <div class="flex justify-between text-sm">
+                <div class="flex items-center gap-2">
+                  <div
+                    class="size-6 bg-red-500 rounded-full flex items-center justify-center text-[10px] font-black text-white"
+                  >
+                    ARS
+                  </div>
+                  <span class="font-medium">Arsenal</span>
+                </div>
+                <span class="font-bold">78%</span>
+              </div>
+              <div class="h-2 bg-slate-800 rounded-full overflow-hidden">
+                <div class="h-full bg-primary" style="width: 78%;"></div>
+              </div>
+            </div>
+            <div class="space-y-2">
+              <div class="flex justify-between text-sm text-slate-500">
+                <div class="flex items-center gap-2">
+                  <div
+                    class="size-6 bg-orange-500 rounded-full flex items-center justify-center text-[10px] font-black text-white"
+                  >
+                    WOL
+                  </div>
+                  <span class="font-medium">Wolves</span>
+                </div>
+                <span class="font-bold">12%</span>
+              </div>
+              <div class="h-2 bg-slate-800 rounded-full overflow-hidden">
+                <div class="h-full bg-red-500/40" style="width: 12%;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Match H2H Analysis -->
+        <div
+          class="glass-card rounded-xl p-6 border border-slate-200 dark:border-slate-800"
+        >
+          <div class="flex justify-between items-center mb-6">
+            <div>
+              <h4 class="font-bold text-lg leading-tight text-primary">
+                Match Research Hub
+              </h4>
+              <p
+                class="text-xs text-slate-500 mt-1 uppercase tracking-widest font-bold"
+              >
+                Featured: Arsenal vs Liverpool
+              </p>
+            </div>
+            <span
+              class="bg-primary/20 text-primary text-[10px] font-black px-2 py-1 rounded"
+              >DATA SYNCED</span
+            >
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+            <div class="space-y-4">
+              <p
+                class="text-xs font-bold text-slate-400 uppercase tracking-tighter"
+              >
+                H2H Historical Scores (Last 5)
+              </p>
+              <div class="flex flex-wrap gap-2">
+                <div
+                  class="px-3 py-2 bg-slate-800/50 border border-slate-700 rounded-lg text-sm font-bold"
+                >
+                  2 - 2
+                </div>
+                <div
+                  class="px-3 py-2 bg-slate-800/50 border border-slate-700 rounded-lg text-sm font-bold"
+                >
+                  1 - 2
+                </div>
+                <div
+                  class="px-3 py-2 bg-primary/20 border border-primary/40 rounded-lg text-sm font-bold text-primary"
+                >
+                  3 - 1
+                </div>
+                <div
+                  class="px-3 py-2 bg-slate-800/50 border border-slate-700 rounded-lg text-sm font-bold"
+                >
+                  0 - 0
+                </div>
+                <div
+                  class="px-3 py-2 bg-slate-800/50 border border-slate-700 rounded-lg text-sm font-bold"
+                >
+                  2 - 3
+                </div>
+              </div>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+              <div class="text-center p-3 bg-slate-800/30 rounded-lg">
+                <p class="text-[10px] font-bold text-slate-500 uppercase">
+                  Clean Sheet %
+                </p>
+                <p class="text-xl font-black mt-1">32%</p>
+              </div>
+              <div class="text-center p-3 bg-slate-800/30 rounded-lg">
+                <p class="text-[10px] font-bold text-slate-500 uppercase">
+                  Goal Supremacy
+                </p>
+                <p class="text-xl font-black mt-1 text-emerald-500">+0.85</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Sidebar Content -->
+      <aside class="space-y-6">
+        <!-- League Rank Velocity -->
+        <div
+          class="glass-card rounded-xl p-6 border border-slate-200 dark:border-slate-800"
+        >
+          <h4 class="font-bold text-sm mb-4">League Rank Velocity</h4>
+          <div class="h-32 flex items-end justify-between gap-1 mb-4">
+            <div
+              class="w-full bg-primary/10 rounded-t-sm relative group h-12 hover:bg-primary/30 transition-all"
+            >
+              <div
+                class="absolute bottom-full left-1/2 -translate-x-1/2 mb-1 hidden group-hover:block bg-slate-900 text-white text-[10px] px-1.5 py-0.5 rounded"
+              >
+                #12k
+              </div>
+            </div>
+            <div
+              class="w-full bg-primary/20 rounded-t-sm relative group h-20 hover:bg-primary/40 transition-all"
+            >
+            </div>
+            <div
+              class="w-full bg-primary/40 rounded-t-sm relative group h-16 hover:bg-primary/60 transition-all"
+            >
+            </div>
+            <div
+              class="w-full bg-primary/60 rounded-t-sm relative group h-24 hover:bg-primary/80 transition-all"
+            >
+            </div>
+            <div
+              class="w-full bg-primary rounded-t-sm relative group h-32 hover:bg-primary transition-all"
+            >
+              <div
+                class="absolute bottom-full left-1/2 -translate-x-1/2 mb-1 bg-primary text-white text-[10px] font-bold px-1.5 py-0.5 rounded"
+              >
+                #432
+              </div>
+            </div>
+          </div>
+          <div
+            class="flex justify-between text-[10px] font-bold text-slate-500 uppercase"
+          >
+            <span>GW20</span>
+            <span>GW21</span>
+            <span>GW22</span>
+            <span>GW23</span>
+            <span>GW24</span>
+          </div>
+          <div
+            class="mt-4 pt-4 border-t border-slate-800 flex items-center justify-between"
+          >
+            <p class="text-xs text-slate-400">Season Trend</p>
+            <p class="text-xs font-black text-emerald-500">TOP 1% GLOBAL</p>
+          </div>
+        </div>
+        <!-- Expertise Badges -->
+        <div
+          class="glass-card rounded-xl p-6 border border-slate-200 dark:border-slate-800"
+        >
+          <h4 class="font-bold text-sm mb-4">Expertise Badges</h4>
+          <div class="grid grid-cols-3 gap-4">
+            <div class="group cursor-help">
+              <div
+                class="aspect-square rounded-full bg-primary/10 border-2 border-primary flex items-center justify-center text-primary group-hover:scale-110 transition-transform shadow-[0_0_15px_rgba(37,106,244,0.3)]"
+              >
+                <span class="material-symbols-outlined font-bold">star</span>
+              </div>
+              <p
+                class="text-[9px] text-center mt-2 font-bold uppercase leading-tight text-slate-400"
+              >
+                Liverpool Expert
+              </p>
+            </div>
+            <div class="group cursor-help">
+              <div
+                class="aspect-square rounded-full bg-amber-500/10 border-2 border-amber-500/50 flex items-center justify-center text-amber-500"
+              >
+                <span class="material-symbols-outlined font-bold"
+                  >local_fire_department</span
+                >
+              </div>
+              <p
+                class="text-[9px] text-center mt-2 font-bold uppercase leading-tight text-slate-400"
+              >
+                Streak Master
+              </p>
+            </div>
+            <div class="group cursor-help">
+              <div
+                class="aspect-square rounded-full bg-slate-800 border-2 border-slate-700 flex items-center justify-center text-slate-600 grayscale"
+              >
+                <span class="material-symbols-outlined font-bold">shield</span>
+              </div>
+              <p
+                class="text-[9px] text-center mt-2 font-bold uppercase leading-tight text-slate-400"
+              >
+                Clean Sheet Pro
+              </p>
+            </div>
+          </div>
+        </div>
+        <!-- Global AI Leaderboard -->
+        <div
+          class="glass-card rounded-xl p-6 border border-slate-200 dark:border-slate-800"
+        >
+          <h4 class="font-bold text-sm mb-4">Global AI Leaderboard</h4>
+          <div class="space-y-4">
+            <div class="flex items-center gap-3">
+              <span class="text-xs font-bold text-slate-500 w-4">1</span>
+              <img
+                class="size-6 rounded-full"
+                data-alt="User avatar"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDV3vCZ9ohI7_dhSs_o0YF-2nD_qTNWSUquSKuXvLAtW0nlF2KqhbpH9Yn_p5lgERx_WKhnmYR26DU6mGiM9UP1OxyJXlvY09CcZRZLXHHkx0g2-9CB8C7OKxtDMEtttaeG0EDQ9XPZ2xJRAE2zR1CEkaPIoOdiToLENuyzjMzHEojl2iLTmcE4N2n2PvP0ZNpzatEmWecKdrpfoZO-CGXd1E9MRAL8LvyuGuJ8AzABN4Eb1XMtVTBrb6gN7Has0U6GlVQwtFrmMpTr"
+              />
+              <span class="text-xs font-bold flex-1 truncate"
+                >QuantPredictions</span
+              >
+              <span class="text-xs font-bold text-slate-400">2,410</span>
+            </div>
+            <div
+              class="flex items-center gap-3 bg-primary/10 -mx-6 px-6 py-2 border-y border-primary/20"
+            >
+              <span class="text-xs font-black text-primary w-4">432</span>
+              <img
+                class="size-6 rounded-full"
+                data-alt="User avatar"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCi1U8jUgD9uIeGrRHJkUwXZ2sUaRyChGddX0B07JzOGTeQL0U6hbbkJWJNwhAFawcxT8U-f8PYMaK-KAnS0aBLQSKJKK2kmuGcOP8iVZ7bv0AgKuEmFx5Gk7_xO4adbFKLfxHkLZlo4HjbjbSl4Tcs7TnsuGnT06SMJ0wUJ77tuQSx9dyH1bv6TbxffrIfpFeiyBRQEZkwAm8181yXSOL66YRlYTJtR3FB-ZuTA0VYsbpDVc0H1XfV5J9vwFmWf0t6SdEpZQAgfJgO"
+              />
+              <span class="text-xs font-black text-white flex-1 truncate"
+                >You (Alex J.)</span
+              >
+              <span class="text-xs font-black text-primary">1,894</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="text-xs font-bold text-slate-500 w-4">433</span>
+              <img
+                class="size-6 rounded-full"
+                data-alt="User avatar"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuD7bpsH6nVRRYoVcVBZF634_k8fjy05nJlBdKZb7L2HMQmLxf6ZYtXIdkm8VP7GNgu3JAm4OEETSuETajlHNB7Da4Uz0wjuYF_unpd2swNmPoCzSoEnUAWymXbD1ABawKjS5NoTY8UwioOhpecGRI34rimUDf3Zik-Q8GREQmZZsy1WbkvXMhYbXp51240VtYCmWyO0_dD_0vfV2MSW52i5AA-X9Lxly7TB2p7sLHbhgT-U9shyAqCJrmO7v84zc0YdijaJGUkLVSav"
+              />
+              <span class="text-xs font-bold flex-1 truncate"
+                >TacticalBot_99</span
+              >
+              <span class="text-xs font-bold text-slate-400">1,892</span>
+            </div>
+          </div>
+          <button
+            class="w-full mt-4 text-[10px] font-black text-slate-500 hover:text-white transition-colors uppercase tracking-widest"
+            >View Full Standings</button
+          >
+        </div>
+      </aside>
+    </div>
+    <!-- Score Hit Rate Breakdown -->
+    <section
+      class="glass-card rounded-xl p-8 border border-slate-200 dark:border-slate-800"
+    >
+      <div
+        class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6"
+      >
+        <div>
+          <h4 class="font-bold text-xl">Hit Rate Analysis</h4>
+          <p class="text-sm text-slate-400">
+            Comparing exact scores vs. outcome only
+          </p>
+        </div>
+        <div class="flex gap-8">
+          <div class="text-center">
+            <p class="text-[10px] font-bold text-slate-500 uppercase">
+              Exact Score
+            </p>
+            <p class="text-3xl font-black text-primary">18%</p>
+            <p class="text-[10px] text-emerald-500 font-bold mt-1">AI: 12%</p>
+          </div>
+          <div class="text-center">
+            <p class="text-[10px] font-bold text-slate-500 uppercase">
+              Result Only
+            </p>
+            <p class="text-3xl font-black text-white">52%</p>
+            <p class="text-[10px] text-slate-500 font-bold mt-1">AI: 58%</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </MainLayout>
+</PageWrapper>

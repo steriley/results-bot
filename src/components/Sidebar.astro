@@ -1,0 +1,38 @@
+---
+import SidebarHeader from './SidebarHeader.astro';
+import SidebarFooter from './SidebarFooter.astro';
+
+const navItems = [
+  { icon: 'calendar_today', label: 'Fixtures', href: '/' },
+  { icon: 'diamond', label: 'My Predictions', href: '/predictions' },
+  { icon: 'leaderboard', label: 'Leaderboard', href: '/leaderboard' },
+  { icon: 'analytics', label: 'Stats & Insights', href: '/stats' },
+];
+
+const currentPath = new URL(Astro.request.url).pathname;
+---
+
+<!-- Sidebar Navigation -->
+<aside
+  class="w-20 md:w-64 border-r border-slate-200 dark:border-border-dark bg-white dark:bg-slate-900 flex flex-col h-screen sticky top-0"
+>
+  <SidebarHeader />
+  <nav class="flex-1 px-3 space-y-1 mt-4">
+    {
+      navItems.map((item) => (
+        <a
+          class={`flex items-center gap-4 px-4 py-3 rounded-lg group ${
+            currentPath === item.href
+              ? 'bg-primary/10 text-primary'
+              : 'text-slate-600 dark:text-muted-dark hover:bg-slate-100 dark:hover:bg-surface-dark transition-colors'
+          }`}
+          href={item.href}
+        >
+          <span class="material-symbols-outlined">{item.icon}</span>
+          <span class="hidden md:block font-medium">{item.label}</span>
+        </a>
+      ))
+    }
+  </nav>
+  <SidebarFooter />
+</aside>

@@ -1,0 +1,29 @@
+{
+  "name": "result-bot-v1",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/vercel": "^9.0.4",
+    "@astrojs/vue": "^5.1.4",
+    "@tailwindcss/vite": "^4.2.0",
+    "@vercel/analytics": "^1.6.1",
+    "astro": "^5.17.3",
+    "axios": "^1.13.5",
+    "sass": "^1.97.3",
+    "tailwindcss": "^4.2.0"
+  },
+  "devDependencies": {
+    "@trivago/prettier-plugin-sort-imports": "github:trivago/prettier-plugin-sort-imports",
+    "@vue/test-utils": "^2.4.6",
+    "jsdom": "^28.1.0",
+    "prettier": "^3.8.1",
+    "prettier-plugin-astro": "^0.14.1",
+    "vitest": "^4.0.18"
+  }
+}

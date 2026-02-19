@@ -1,0 +1,65 @@
+---
+import '../styles/globals.css';
+import DateGroup from '../components/DateGroup.astro';
+import MainLayout from '../components/MainLayout.astro';
+import PageWrapper from '../components/PageWrapper.astro';
+import type { Game } from '../types/game';
+
+const url = new URL('/api/predictions', Astro.url.origin);
+const response = await fetch(url);
+const scores: Game[] = await response.json();
+
+// Group games by date
+const gamesByDate = scores.reduce(
+  (acc, game) => {
+    const date = new Date(game.commenceTime);
+    const dateKey = date.toLocaleDateString('en-GB', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+    });
+
+    if (!acc[dateKey]) {
+      acc[dateKey] = [];
+    }
+    acc[dateKey].push(game);
+    return acc;
+  },
+  {} as Record<string, Game[]>,
+);
+
+// Sort dates chronologically
+const sortedDates = Object.keys(gamesByDate).sort((a, b) => {
+  return new Date(a).getTime() - new Date(b).getTime();
+});
+---
+
+<PageWrapper title="Results Bot | Premier League Dashboard">
+  <MainLayout
+    pageTitle="Upcoming Fixtures"
+    pageSubtitle="Next 10 Days of Premier League Action • 21 Feb - 2 Mar"
+  >
+    <div slot="titleActions" class="flex items-center gap-2">
+      <button
+        class="px-4 py-2 rounded-lg bg-white dark:bg-surface-dark border border-slate-200 dark:border-border-dark text-sm font-semibold flex items-center gap-2"
+      >
+        <span class="material-symbols-outlined text-sm">filter_list</span>
+        All Teams
+      </button>
+      <button
+        class="px-4 py-2 rounded-lg bg-white dark:bg-surface-dark border border-slate-200 dark:border-border-dark text-sm font-semibold flex items-center gap-2"
+      >
+        <span class="material-symbols-outlined text-sm">tune</span>
+        Odds: Decimal
+      </button>
+    </div>
+    <div class="space-y-6 pb-20">
+      {
+        sortedDates.map((date) => (
+          <DateGroup date={date} games={gamesByDate[date]} />
+        ))
+      }
+    </div>
+  </MainLayout>
+</PageWrapper>
