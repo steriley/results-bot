@@ -2,22 +2,24 @@
 
 ---
 
-<div class="p-4 border-t border-slate-200 dark:border-border-dark space-y-2">
-  <div class="flex items-center gap-3 px-4 py-2">
+<div class="p-4 border-t border-slate-200 dark:border-border-dark space-y-2 overflow-hidden">
+  <div class="flex items-center gap-3 px-2 py-2">
     <div
-      class="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center"
+      class="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center shrink-0"
     >
       <span class="material-symbols-outlined text-primary text-sm">person</span>
     </div>
-    <div class="hidden md:block overflow-hidden">
-      <p class="text-sm font-semibold truncate">Guest User</p>
-      <p class="text-xs text-muted-dark">Basic Plan</p>
+    <div class="sidebar-text origin-left transition-opacity duration-300">
+      <p class="text-sm font-semibold whitespace-nowrap">Guest User</p>
+      <p class="text-[10px] text-muted-dark whitespace-nowrap uppercase tracking-wider font-semibold">Basic Plan</p>
     </div>
   </div>
   <button
-    class="w-full flex items-center justify-center gap-2 p-2 rounded-lg text-slate-600 dark:text-muted-dark hover:bg-slate-100 dark:hover:bg-surface-dark transition-colors"
+    class="w-full flex items-center gap-3 px-2 py-2 rounded-lg text-slate-600 dark:text-muted-dark hover:bg-slate-100 dark:hover:bg-surface-dark transition-colors overflow-hidden"
   >
-    <span class="material-symbols-outlined text-xl">settings</span>
-    <span class="hidden md:block text-sm font-medium">Settings</span>
+    <div class="w-8 h-8 flex items-center justify-center shrink-0">
+      <span class="material-symbols-outlined text-xl">settings</span>
+    </div>
+    <span class="sidebar-text text-sm font-medium whitespace-nowrap origin-left transition-opacity duration-300">Settings</span>
   </button>
 </div>

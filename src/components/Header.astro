@@ -3,16 +3,22 @@
 ---
 
 <header
-  class="h-16 border-b border-slate-200 dark:border-border-dark bg-white/80 dark:bg-background-dark/80 backdrop-blur-md flex items-center justify-between px-8 z-10 shrink-0"
+  class="h-14 md:h-16 border-b border-slate-200 dark:border-border-dark bg-white/80 dark:bg-background-dark/80 backdrop-blur-md flex items-center justify-between px-4 md:px-8 z-10 shrink-0"
 >
-  <div class="flex items-center gap-4">
+  <div class="flex items-center gap-2 md:gap-4">
+    <button
+      id="mobile-sidebar-toggle"
+      class="md:hidden w-10 h-10 flex items-center justify-center rounded-lg bg-slate-100 dark:bg-surface-dark text-slate-600 dark:text-muted-dark hover:bg-slate-200 shrink-0"
+    >
+      <span class="material-symbols-outlined">menu</span>
+    </button>
     <div class="flex items-center gap-2">
       <div
-        class="w-6 h-6 rounded-sm bg-primary flex items-center justify-center text-[10px] font-black text-white italic"
+        class="w-6 h-6 rounded-sm bg-primary flex items-center justify-center text-[10px] font-black text-white italic shrink-0"
       >
         EPL
       </div>
-      <h2 class="font-bold text-lg">English Premier League</h2>
+      <h2 class="font-bold text-base md:text-lg hidden sm:block">English Premier League</h2>
     </div>
     <div
       class="hidden sm:flex items-center ml-4 px-3 py-1 bg-slate-100 dark:bg-surface-dark border border-slate-200 dark:border-border-dark rounded-full"
