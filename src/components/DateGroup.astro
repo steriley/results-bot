@@ -39,25 +39,35 @@ function formatTime(commenceTime: string): string {
   >
     {
       games.map((game) => (
-        <div class="flex flex-col lg:flex-row lg:items-center p-4 gap-4 fixture-row transition-colors">
-          <div class="w-16 flex flex-col items-center justify-center lg:border-r lg:border-slate-100 dark:lg:border-border-dark">
-            <span class="text-sm font-bold">
+        <div class="flex flex-row items-center p-3 md:p-4 gap-2 md:gap-4 fixture-row transition-colors">
+          <div class="w-14 md:w-16 flex flex-col items-center justify-center md:border-r md:border-solid md:border-slate-100 dark:md:border-border-dark shrink-0">
+            <span class="text-xs md:text-sm font-bold">
               {formatTime(game.commenceTime)}
             </span>
-            <span class="text-[10px] text-muted-dark font-medium uppercase">
+            <span class="text-[9px] md:text-[10px] text-muted-dark font-medium uppercase mt-0.5">
               GMT
             </span>
+            {game.trapWarning && (
+              <div
+                class="mt-1.5 w-5 h-5 md:w-6 md:h-6 flex items-center justify-center rounded bg-yellow-100 dark:bg-yellow-900/30 border border-yellow-300 dark:border-yellow-700"
+                title="Trap warning: Exercise caution"
+              >
+                <span class="material-symbols-outlined text-[12px] md:text-[14px] text-yellow-600 dark:text-yellow-400">
+                  warning
+                </span>
+              </div>
+            )}
           </div>
-          <div class="flex-1 flex items-center justify-between px-2">
-            <div class="flex items-center gap-3 w-1/3 justify-end text-right">
-              <span class="text-sm md:text-base font-bold truncate">
+          <div class="flex-1 flex flex-row items-center justify-between min-w-0">
+            <div class="flex items-center gap-1.5 md:gap-3 flex-1 justify-end text-right min-w-0">
+              <span class="text-xs md:text-base font-bold truncate">
                 {game.homeTeam}
               </span>
               {getTeamLogo(game.homeTeam) && (
                 <img
                   src={getTeamLogo(game.homeTeam)}
                   alt={game.homeTeam}
-                  class="w-8 h-8 flex-shrink-0"
+                  class="w-5 h-5 md:w-8 md:h-8 flex-shrink-0"
                 />
               )}
               {showUserInputs && (
@@ -65,23 +75,46 @@ function formatTime(commenceTime: string): string {
                   type="number"
                   min="0"
                   max="20"
-                  class="w-12 h-10 text-center text-xl border-none focus:ring-0 text-slate-900 dark:text-white font-bold p-0 bg-slate-200 dark:bg-border-dark rounded-lg"
+                  class="w-8 h-8 md:w-12 md:h-10 text-center text-sm md:text-xl border-none focus:ring-0 text-slate-900 dark:text-white font-bold p-0 bg-slate-200 dark:bg-border-dark rounded-md md:rounded-lg flex-shrink-0"
                   data-game-id={game.gameId}
                   data-side="home"
                   aria-label={`${game.homeTeam} score`}
                 />
               )}
+              {!showUserInputs && showAIPredict && (
+                <div class="w-8 h-8 md:w-12 md:h-10 flex items-center justify-center text-sm md:text-xl font-bold bg-primary/10 border border-primary/30 text-primary rounded-md md:rounded-lg flex-shrink-0">
+                  {game.mostLikelyScore.home}
+                </div>
+              )}
             </div>
-            <div class="px-4 text-xs font-black text-muted-dark tracking-widest">
-              VS
+            <div class="px-2 md:px-4 shrink-0 flex flex-col items-center justify-center">
+              {showAIPredict && !showUserInputs ? (
+                <div class="flex flex-col items-center justify-center">
+                  <span class="text-[8px] md:text-[9px] uppercase font-bold text-primary tracking-tighter leading-none mb-0.5 whitespace-nowrap">
+                    AI Predict
+                  </span>
+                  <span class="text-[9px] md:text-xs font-black text-primary bg-primary/10 px-1 md:px-1.5 py-0.5 rounded leading-none">
+                    {Math.round(game.confidence * 100)}%
+                  </span>
+                </div>
+              ) : (
+                <div class="text-[10px] md:text-xs font-black text-muted-dark tracking-widest">
+                  VS
+                </div>
+              )}
             </div>
-            <div class="flex items-center gap-3 w-1/3">
+            <div class="flex items-center gap-1.5 md:gap-3 flex-1 min-w-0">
+              {!showUserInputs && showAIPredict && (
+                <div class="w-8 h-8 md:w-12 md:h-10 flex items-center justify-center text-sm md:text-xl font-bold bg-primary/10 border border-primary/30 text-primary rounded-md md:rounded-lg flex-shrink-0">
+                  {game.mostLikelyScore.away}
+                </div>
+              )}
               {showUserInputs && (
                 <input
                   type="number"
                   min="0"
                   max="20"
-                  class="w-12 h-10 text-center text-xl border-none focus:ring-0 text-slate-900 dark:text-white font-bold p-0 bg-slate-200 dark:bg-border-dark rounded-lg"
+                  class="w-8 h-8 md:w-12 md:h-10 text-center text-sm md:text-xl border-none focus:ring-0 text-slate-900 dark:text-white font-bold p-0 bg-slate-200 dark:bg-border-dark rounded-md md:rounded-lg flex-shrink-0"
                   data-game-id={game.gameId}
                   data-side="away"
                   aria-label={`${game.awayTeam} score`}
@@ -91,36 +124,13 @@ function formatTime(commenceTime: string): string {
                 <img
                   src={getTeamLogo(game.awayTeam)}
                   alt={game.awayTeam}
-                  class="w-8 h-8 flex-shrink-0"
+                  class="w-5 h-5 md:w-8 md:h-8 flex-shrink-0"
                 />
               )}
-              <span class="text-sm md:text-base font-bold truncate">
+              <span class="text-xs md:text-base font-bold truncate">
                 {game.awayTeam}
               </span>
             </div>
-          </div>
-          <div class="flex items-center gap-2 lg:ml-auto">
-            {showAIPredict && (
-              <div class="flex flex-col items-center justify-center bg-primary/10 border border-primary/30 rounded-lg px-4 py-2 min-w-[100px]">
-                <span class="text-[9px] uppercase font-bold text-secondary tracking-tighter">
-                  AI Predict {Math.round(game.confidence * 100)}%
-                </span>
-                <span class="text-lg font-black text-secondary leading-none">
-                  {game.mostLikelyScore.home} - {game.mostLikelyScore.away}
-                </span>
-              </div>
-            )}
-
-            {game.trapWarning && (
-              <div
-                class="w-8 h-8 flex items-center justify-center rounded-lg bg-yellow-100 dark:bg-yellow-900/30 border border-yellow-300 dark:border-yellow-700"
-                title="Trap warning: Exercise caution"
-              >
-                <span class="material-symbols-outlined text-xs text-yellow-600 dark:text-yellow-400">
-                  warning
-                </span>
-              </div>
-            )}
           </div>
         </div>
       ))
