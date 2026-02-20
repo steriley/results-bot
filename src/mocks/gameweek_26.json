@@ -1,0 +1,123 @@
+[
+  {
+    "gameWeek": 26,
+    "commenceTime": "2026-02-10T19:30:00Z",
+    "homeTeam": "Chelsea",
+    "awayTeam": "Leeds",
+    "finished": true,
+    "finalScore": {
+      "homeTeam": 2,
+      "awayTeam": 2
+    }
+  },
+  {
+    "gameWeek": 26,
+    "commenceTime": "2026-02-10T19:30:00Z",
+    "homeTeam": "Everton",
+    "awayTeam": "Bournemouth",
+    "finished": true,
+    "finalScore": {
+      "homeTeam": 1,
+      "awayTeam": 2
+    }
+  },
+  {
+    "gameWeek": 26,
+    "commenceTime": "2026-02-10T19:30:00Z",
+    "homeTeam": "Spurs",
+    "awayTeam": "Newcastle",
+    "finished": true,
+    "finalScore": {
+      "homeTeam": 1,
+      "awayTeam": 2
+    }
+  },
+  {
+    "gameWeek": 26,
+    "commenceTime": "2026-02-10T20:15:00Z",
+    "homeTeam": "West Ham",
+    "awayTeam": "Man Utd",
+    "finished": true,
+    "finalScore": {
+      "homeTeam": 1,
+      "awayTeam": 1
+    }
+  },
+  {
+    "gameWeek": 26,
+    "commenceTime": "2026-02-11T19:30:00Z",
+    "homeTeam": "Aston Villa",
+    "awayTeam": "Brighton",
+    "finished": true,
+    "finalScore": {
+      "homeTeam": 1,
+      "awayTeam": 0
+    }
+  },
+  {
+    "gameWeek": 26,
+    "commenceTime": "2026-02-11T19:30:00Z",
+    "homeTeam": "Man City",
+    "awayTeam": "Fulham",
+    "finished": true,
+    "finalScore": {
+      "homeTeam": 3,
+      "awayTeam": 0
+    }
+  },
+  {
+    "gameWeek": 26,
+    "commenceTime": "2026-02-11T19:30:00Z",
+    "homeTeam": "Nott'm Forest",
+    "awayTeam": "Wolves",
+    "finished": true,
+    "finalScore": {
+      "homeTeam": 0,
+      "awayTeam": 0
+    }
+  },
+  {
+    "gameWeek": 26,
+    "commenceTime": "2026-02-11T19:40:00Z",
+    "homeTeam": "Crystal Palace",
+    "awayTeam": "Burnley",
+    "finished": true,
+    "finalScore": {
+      "homeTeam": 2,
+      "awayTeam": 3
+    }
+  },
+  {
+    "gameWeek": 26,
+    "commenceTime": "2026-02-11T20:15:00Z",
+    "homeTeam": "Sunderland",
+    "awayTeam": "Liverpool",
+    "finished": true,
+    "finalScore": {
+      "homeTeam": 0,
+      "awayTeam": 1
+    }
+  },
+  {
+    "gameWeek": 26,
+    "commenceTime": "2026-02-12T20:00:00Z",
+    "homeTeam": "Brentford",
+    "awayTeam": "Arsenal",
+    "finished": true,
+    "finalScore": {
+      "homeTeam": 1,
+      "awayTeam": 1
+    }
+  },
+  {
+    "gameWeek": 26,
+    "commenceTime": "2026-02-18T20:00:00Z",
+    "homeTeam": "Wolves",
+    "awayTeam": "Arsenal",
+    "finished": true,
+    "finalScore": {
+      "homeTeam": 2,
+      "awayTeam": 2
+    }
+  }
+]

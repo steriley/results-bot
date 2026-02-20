@@ -6,10 +6,19 @@ import PageWrapper from '../components/PageWrapper.astro';
 import { getLatestOdds } from '../helpers/get-latest-odds';
 import { predictScores } from '../helpers/prediction-engine';
 import mockData from '../mocks/premier-league-games.json';
+// import { getGameweekFixtures } from '../helpers/gameweek';
 
 const USE_MOCK_DATA = true;
 const odds = USE_MOCK_DATA ? mockData : await getLatestOdds();
 const scores = predictScores(odds as any);
+
+// const gameWeek = 26;
+
+// console.log(`Fetching fixtures for Gameweek ${gameWeek}...\n`);
+
+// const fixtures = await getGameweekFixtures(gameWeek);
+
+// console.log(JSON.stringify(fixtures, null, 2));
 
 // Group games by date
 const gamesByDate = scores.reduce(
