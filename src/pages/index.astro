@@ -9,16 +9,12 @@ import mockData from '../mocks/premier-league-games.json';
 // import { getGameweekFixtures } from '../helpers/gameweek';
 
 const USE_MOCK_DATA = true;
-const odds = USE_MOCK_DATA ? mockData : await getLatestOdds();
+const odds = USE_MOCK_DATA
+  ? mockData
+  : await getLatestOdds('2026-02-21T15:00:00Z', '2026-02-23T20:00:00Z');
 const scores = predictScores(odds as any);
 
-// const gameWeek = 26;
-
-// console.log(`Fetching fixtures for Gameweek ${gameWeek}...\n`);
-
-// const fixtures = await getGameweekFixtures(gameWeek);
-
-// console.log(JSON.stringify(fixtures, null, 2));
+// const fixtures = await getGameweekFixtures(27);
 
 // Group games by date
 const gamesByDate = scores.reduce(
@@ -49,7 +45,7 @@ const sortedDates = Object.keys(gamesByDate).sort((a, b) => {
 <PageWrapper title="Results Bot | Premier League Dashboard">
   <MainLayout
     pageTitle="Upcoming Fixtures"
-    pageSubtitle="Next 10 Days of Premier League Action • 21 Feb - 2 Mar"
+    pageSubtitle="Gameweek 27 • 21 Feb - 23 Feb"
   >
     <div slot="titleActions" class="flex items-center gap-2">
       <button

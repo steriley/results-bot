@@ -1,20 +1,16 @@
+import type { OddsGame } from '../types/odds';
 import { getSecret } from 'astro:env/server';
 import axios, { type AxiosError } from 'axios';
 
-export async function getLatestOdds(): Promise<any[]> {
-  const now = new Date();
-  now.setUTCHours(0, 0, 0, 0);
-
+export async function getLatestOdds(
+  commenceTimeFrom: string,
+  commenceTimeTo: string,
+): Promise<OddsGame[]> {
   const apiKey = getSecret('ODDS_API_KEY');
   const regions = 'uk';
   const markets = 'h2h,totals';
   const oddsFormat = 'decimal';
   const dateFormat = 'iso';
-  const commenceTimeFrom = now.toISOString().split('.')[0] + 'Z';
-  const commenceTimeTo =
-    new Date(now.getTime() + 10 * 24 * 60 * 60 * 1000)
-      .toISOString()
-      .split('.')[0] + 'Z';
   const includeLinks = true;
   const includeSids = true;
   const includeBetLimits = true;
@@ -50,5 +46,6 @@ export async function getLatestOdds(): Promise<any[]> {
     const axiosError = error as AxiosError;
     console.log('Error status', axiosError.response?.status);
     console.log(axiosError.response?.data);
+    return [];
   }
 }

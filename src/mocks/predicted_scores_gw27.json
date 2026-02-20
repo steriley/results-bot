@@ -1,0 +1,162 @@
+[
+  {
+    "gameId": "f38e853e6d4accab249a51501f2806ef",
+    "commenceTime": "2026-02-21T15:00:00Z",
+    "homeTeam": "Brentford",
+    "awayTeam": "Brighton and Hove Albion",
+    "expectedGoals": {
+      "home": 1.7,
+      "away": 1.1
+    },
+    "mostLikelyScore": {
+      "home": 1,
+      "away": 1
+    },
+    "confidence": 0.3,
+    "trapWarning": false
+  },
+  {
+    "gameId": "7b0c7dd2f5e825fc904d669a946e3a74",
+    "commenceTime": "2026-02-21T15:00:00Z",
+    "homeTeam": "Chelsea",
+    "awayTeam": "Burnley",
+    "expectedGoals": {
+      "home": 2.8,
+      "away": 0.4
+    },
+    "mostLikelyScore": {
+      "home": 2,
+      "away": 0
+    },
+    "confidence": 0.85,
+    "trapWarning": false
+  },
+  {
+    "gameId": "13c335daab252110beaa73f1dbf3ae1f",
+    "commenceTime": "2026-02-21T17:30:00Z",
+    "homeTeam": "West Ham United",
+    "awayTeam": "Bournemouth",
+    "expectedGoals": {
+      "home": 1.49,
+      "away": 1.37
+    },
+    "mostLikelyScore": {
+      "home": 1,
+      "away": 1
+    },
+    "confidence": 0.16,
+    "trapWarning": false
+  },
+  {
+    "gameId": "cf641a7ccfddaeccd926ca123d72a4b5",
+    "commenceTime": "2026-02-21T20:00:00Z",
+    "homeTeam": "Manchester City",
+    "awayTeam": "Newcastle United",
+    "expectedGoals": {
+      "home": 2.52,
+      "away": 0.72
+    },
+    "mostLikelyScore": {
+      "home": 2,
+      "away": 0
+    },
+    "confidence": 0.67,
+    "trapWarning": false
+  },
+  {
+    "gameId": "0674c077e5225c0795ebb7866e06ac4c",
+    "commenceTime": "2026-02-22T14:00:00Z",
+    "homeTeam": "Crystal Palace",
+    "awayTeam": "Wolverhampton Wanderers",
+    "expectedGoals": {
+      "home": 1.92,
+      "away": 0.82
+    },
+    "mostLikelyScore": {
+      "home": 1,
+      "away": 0
+    },
+    "confidence": 0.45,
+    "trapWarning": false
+  },
+  {
+    "gameId": "9da0932d1255c3f7d4156ec7730ffa75",
+    "commenceTime": "2026-02-22T14:00:00Z",
+    "homeTeam": "Sunderland",
+    "awayTeam": "Fulham",
+    "expectedGoals": {
+      "home": 1.35,
+      "away": 1.34
+    },
+    "mostLikelyScore": {
+      "home": 1,
+      "away": 1
+    },
+    "confidence": 0.09,
+    "trapWarning": false
+  },
+  {
+    "gameId": "55754da4f841e3997e766dd7ff5eafe2",
+    "commenceTime": "2026-02-22T14:00:00Z",
+    "homeTeam": "Nottingham Forest",
+    "awayTeam": "Liverpool",
+    "expectedGoals": {
+      "home": 0.86,
+      "away": 1.96
+    },
+    "mostLikelyScore": {
+      "home": 0,
+      "away": 1
+    },
+    "confidence": 0.44,
+    "trapWarning": false
+  },
+  {
+    "gameId": "ea3c0df9b0c96cc6a4c80022bbf85720",
+    "commenceTime": "2026-02-22T16:30:00Z",
+    "homeTeam": "Tottenham Hotspur",
+    "awayTeam": "Arsenal",
+    "expectedGoals": {
+      "home": 0.86,
+      "away": 1.92
+    },
+    "mostLikelyScore": {
+      "home": 0,
+      "away": 1
+    },
+    "confidence": 0.46,
+    "trapWarning": false
+  },
+  {
+    "gameId": "b2dfd255beca9618d6796a7e79a4b398",
+    "commenceTime": "2026-02-23T20:00:00Z",
+    "homeTeam": "Everton",
+    "awayTeam": "Manchester United",
+    "expectedGoals": {
+      "home": 1.15,
+      "away": 1.66
+    },
+    "mostLikelyScore": {
+      "home": 1,
+      "away": 1
+    },
+    "confidence": 0.28,
+    "trapWarning": false
+  },
+  {
+    "gameId": "b9ade3f715e4c344543f672014bc2188",
+    "commenceTime": "2026-02-27T20:00:00Z",
+    "homeTeam": "Wolverhampton Wanderers",
+    "awayTeam": "Aston Villa",
+    "expectedGoals": {
+      "home": 1.11,
+      "away": 1.68
+    },
+    "mostLikelyScore": {
+      "home": 1,
+      "away": 1
+    },
+    "confidence": 0.3,
+    "trapWarning": false
+  }
+]
