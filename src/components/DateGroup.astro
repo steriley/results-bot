@@ -46,11 +46,13 @@ function formatTime(commenceTime: string): string {
                 {game.homeTeam}
               </span>
               {getTeamLogo(game.homeTeam) && (
-                <img
-                  src={getTeamLogo(game.homeTeam)}
-                  alt={game.homeTeam}
-                  class="w-5 h-5 md:w-8 md:h-8 flex-shrink-0"
-                />
+                <span class="w-5 md:w-8 flex items-center justify-center">
+                  <img
+                    src={getTeamLogo(game.homeTeam)}
+                    alt={game.homeTeam}
+                    class="h-5 md:h-8 flex-shrink-0"
+                  />
+                </span>
               )}
               {showUserInputs && (
                 <input
@@ -105,11 +107,13 @@ function formatTime(commenceTime: string): string {
                 />
               )}
               {getTeamLogo(game.awayTeam) && (
-                <img
-                  src={getTeamLogo(game.awayTeam)}
-                  alt={game.awayTeam}
-                  class="w-5 h-5 md:w-8 md:h-8 flex-shrink-0"
-                />
+                <span class="w-5 md:w-8 flex items-center justify-center">
+                  <img
+                    src={getTeamLogo(game.awayTeam)}
+                    alt={game.awayTeam}
+                    class="h-5 md:h-8 flex-shrink-0"
+                  />
+                </span>
               )}
               <span class="text-xs md:text-base font-bold truncate">
                 {game.awayTeam}
