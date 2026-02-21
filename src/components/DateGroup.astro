@@ -40,24 +40,6 @@ function formatTime(commenceTime: string): string {
     {
       games.map((game) => (
         <div class="flex flex-row items-center p-3 md:p-4 gap-2 md:gap-4 fixture-row transition-colors">
-          <div class="w-14 md:w-16 flex flex-col items-center justify-center md:border-r md:border-solid md:border-slate-100 dark:md:border-border-dark shrink-0">
-            <span class="text-xs md:text-sm font-bold">
-              {formatTime(game.commenceTime)}
-            </span>
-            <span class="text-[9px] md:text-[10px] text-muted-dark font-medium uppercase mt-0.5">
-              GMT
-            </span>
-            {game.trapWarning && (
-              <div
-                class="mt-1.5 w-5 h-5 md:w-6 md:h-6 flex items-center justify-center rounded bg-yellow-100 dark:bg-yellow-900/30 border border-yellow-300 dark:border-yellow-700"
-                title="Trap warning: Exercise caution"
-              >
-                <span class="material-symbols-outlined text-[12px] md:text-[14px] text-yellow-600 dark:text-yellow-400">
-                  warning
-                </span>
-              </div>
-            )}
-          </div>
           <div class="flex-1 flex flex-row items-center justify-between min-w-0">
             <div class="flex items-center gap-1.5 md:gap-3 flex-1 justify-end text-right min-w-0">
               <span class="text-xs md:text-base font-bold truncate">
@@ -88,18 +70,20 @@ function formatTime(commenceTime: string): string {
               )}
             </div>
             <div class="px-2 md:px-4 shrink-0 flex flex-col items-center justify-center">
-              {showAIPredict && !showUserInputs ? (
-                <div class="flex flex-col items-center justify-center">
-                  <span class="text-[8px] md:text-[9px] uppercase font-bold text-muted-dark tracking-tighter leading-none mb-0.5 whitespace-nowrap">
-                    AI Predict
+              <span class="text-xs md:text-sm font-bold whitespace-nowrap">
+                {formatTime(game.commenceTime)}
+              </span>
+              <span class="text-[9px] md:text-[10px] text-muted-dark font-medium uppercase mt-0.5">
+                GMT
+              </span>
+              {game.trapWarning && (
+                <div
+                  class="mt-1.5 w-5 h-5 md:w-6 md:h-6 flex items-center justify-center rounded bg-yellow-100 dark:bg-yellow-900/30 border border-yellow-300 dark:border-yellow-700"
+                  title="Trap warning: Exercise caution"
+                >
+                  <span class="material-symbols-outlined text-[12px] md:text-[14px] text-yellow-600 dark:text-yellow-400">
+                    warning
                   </span>
-                  <span class="text-[9px] md:text-xs font-black text-muted-dark px-1 md:px-1.5 py-0.5 rounded leading-none">
-                    {Math.round(game.confidence * 100)}%
-                  </span>
-                </div>
-              ) : (
-                <div class="text-[10px] md:text-xs font-black text-muted-dark tracking-widest">
-                  VS
                 </div>
               )}
             </div>
