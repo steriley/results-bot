@@ -1,0 +1,82 @@
+[
+  {
+    "gameWeek": 27,
+    "commenceTime": "2026-02-21T15:00:00Z",
+    "homeTeam": "Aston Villa",
+    "awayTeam": "Leeds",
+    "homeScore": 2,
+    "awayScore": 1
+  },
+  {
+    "gameWeek": 27,
+    "commenceTime": "2026-02-21T15:00:00Z",
+    "homeTeam": "Brentford",
+    "awayTeam": "Brighton",
+    "homeScore": 0,
+    "awayScore": 0
+  },
+  {
+    "gameWeek": 27,
+    "commenceTime": "2026-02-21T15:00:00Z",
+    "homeTeam": "Chelsea",
+    "awayTeam": "Burnley",
+    "homeScore": 2,
+    "awayScore": 1
+  },
+  {
+    "gameWeek": 27,
+    "commenceTime": "2026-02-21T17:30:00Z",
+    "homeTeam": "West Ham",
+    "awayTeam": "Bournemouth",
+    "homeScore": 1,
+    "awayScore": 0
+  },
+  {
+    "gameWeek": 27,
+    "commenceTime": "2026-02-21T20:00:00Z",
+    "homeTeam": "Man City",
+    "awayTeam": "Newcastle",
+    "homeScore": 3,
+    "awayScore": 1
+  },
+  {
+    "gameWeek": 27,
+    "commenceTime": "2026-02-22T14:00:00Z",
+    "homeTeam": "Crystal Palace",
+    "awayTeam": "Wolves",
+    "homeScore": 1,
+    "awayScore": 2
+  },
+  {
+    "gameWeek": 27,
+    "commenceTime": "2026-02-22T14:00:00Z",
+    "homeTeam": "Nott'm Forest",
+    "awayTeam": "Liverpool",
+    "homeScore": 0,
+    "awayScore": 3
+  },
+  {
+    "gameWeek": 27,
+    "commenceTime": "2026-02-22T14:00:00Z",
+    "homeTeam": "Sunderland",
+    "awayTeam": "Fulham",
+    "homeScore": 0,
+    "awayScore": 0
+  },
+  {
+    "gameWeek": 27,
+    "commenceTime": "2026-02-22T16:30:00Z",
+    "homeTeam": "Spurs",
+    "awayTeam": "Arsenal",
+    "homeScore": 2,
+    "awayScore": 3
+  },
+  {
+    "gameWeek": 27,
+    "commenceTime": "2026-02-23T20:00:00Z",
+    "homeTeam": "Everton",
+    "awayTeam": "Man Utd",
+    "homeScore": 1,
+    "awayScore": 1
+  }
+]

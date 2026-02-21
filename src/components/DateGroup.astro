@@ -96,12 +96,10 @@ function getPillClass(type: string): string {
   >
     {
       games.map((game) => {
-        const userPred = game.userPrediction;
-        const prediction = showUserInputs
-          ? userPred?.home !== undefined && userPred?.away !== undefined
-            ? { home: userPred.home, away: userPred.away }
-            : undefined
-          : game.prediction?.mostLikelyScore;
+        const prediction = {
+          home: game.prediction?.mostLikelyScore.home,
+          away: game.prediction?.mostLikelyScore.away,
+        };
         const isCompleted = game.finished;
         const finalScore = game.finalScore;
         const { points, type } = isCompleted
@@ -135,11 +133,9 @@ function getPillClass(type: string): string {
                       <input
                         type="number"
                         min="0"
-                        max="20"
+                        max="10"
                         class="w-8 h-8 md:w-12 md:h-10 text-center text-sm md:text-xl border-none focus:ring-0 text-slate-900 dark:text-white font-bold p-0 bg-slate-200 dark:bg-border-dark rounded-md md:rounded-lg flex-shrink-0"
-                        data-game-id={game.prediction?.gameId}
-                        data-side="home"
-                        aria-label={`${game.homeTeam} score`}
+                        value={game.prediction?.mostLikelyScore.home}
                       />
                     )}
                     {!showUserInputs && showAIPredict && (
@@ -171,16 +167,6 @@ function getPillClass(type: string): string {
                     </span>
                   </>
                 )}
-                {!isCompleted && game.prediction?.trapWarning && (
-                  <div
-                    class="mt-1.5 w-5 h-5 md:w-6 md:h-6 flex items-center justify-center rounded bg-yellow-100 dark:bg-yellow-900/30 border border-yellow-300 dark:border-yellow-700"
-                    title="Trap warning: Exercise caution"
-                  >
-                    <span class="material-symbols-outlined text-[12px] md:text-[14px] text-yellow-600 dark:text-yellow-400">
-                      warning
-                    </span>
-                  </div>
-                )}
               </div>
 
               <div class="flex items-center gap-1.5 md:gap-3 flex-1 min-w-0">
@@ -199,11 +185,9 @@ function getPillClass(type: string): string {
                       <input
                         type="number"
                         min="0"
-                        max="20"
+                        max="10"
                         class="w-8 h-8 md:w-12 md:h-10 text-center text-sm md:text-xl border-none focus:ring-0 text-slate-900 dark:text-white font-bold p-0 bg-slate-200 dark:bg-border-dark rounded-md md:rounded-lg flex-shrink-0"
-                        data-game-id={game.prediction?.gameId}
-                        data-side="away"
-                        aria-label={`${game.awayTeam} score`}
+                        value={game.prediction?.mostLikelyScore.away}
                       />
                     )}
                   </>

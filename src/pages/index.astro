@@ -26,6 +26,8 @@ const odds = USE_MOCK_DATA
 const predictions = predictScores(odds as any);
 const scores = mergeFixturesWithPredictions(fixtures, predictions);
 
+console.log(JSON.stringify(scores, null, 2));
+
 // Group games by date
 const gamesByDate = scores.reduce(
   (acc, game) => {
@@ -54,7 +56,7 @@ const sortedDates = Object.keys(gamesByDate).sort(
 <PageWrapper title="Results Bot | Premier League Dashboard">
   <MainLayout
     pageTitle="Results Bot Predictions"
-    pageSubtitle="Gameweek 27 • 21 Feb - 23 Feb"
+    pageSubtitle="The bot has made its predictions for this gameweek"
   >
     <div slot="titleActions" class="flex items-center gap-2">
       <MatchweekSelector matchweek={27} dateRange="Sat 21 Feb - Mon 23 Feb" />

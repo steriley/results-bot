@@ -3,37 +3,41 @@ import '../styles/globals.css';
 import DateGroup from '../components/DateGroup.astro';
 import MainLayout from '../components/MainLayout.astro';
 import PageWrapper from '../components/PageWrapper.astro';
-import { getLatestOdds } from '../helpers/get-latest-odds';
-import { predictScores } from '../helpers/prediction-engine';
-import mockData from '../mocks/premier-league-games.json';
+import mockUserPredictions from '../mocks/gameweek_27_user_1.json';
+import mockGameweekFixtures from '../mocks/gameweek_27.json';
+import { getGameweekFixtures } from '../helpers/gameweek';
 import QuickStats from '../components/QuickStats.astro';
 
 const USE_MOCK_DATA = true;
-const odds = USE_MOCK_DATA
-  ? mockData
-  : await getLatestOdds('2026-02-21T15:00:00Z', '2026-02-23T20:00:00Z');
-const rawScores = predictScores(odds as any);
 
-// Map raw Prediction[] → EnrichedFixture shape expected by DateGroup
-const scores = rawScores.map((p) => ({
-  commenceTime: p.commenceTime,
-  homeTeam: p.homeTeam,
-  awayTeam: p.awayTeam,
-  finished: false,
-  finalScore: null,
-  prediction: {
-    gameId: p.gameId,
-    expectedGoals: p.expectedGoals,
-    mostLikelyScore: p.mostLikelyScore,
-    confidence: p.confidence,
-    trapWarning: p.trapWarning,
-  },
-}));
+const fixtures = USE_MOCK_DATA
+  ? mockGameweekFixtures
+  : await getGameweekFixtures(27);
+
+const userPredictions = mockUserPredictions;
+const scores = fixtures.map((fixture) => {
+  const userPrediction = userPredictions.find(
+    (prediction) =>
+      prediction.homeTeam === fixture.homeTeam &&
+      prediction.awayTeam === fixture.awayTeam,
+  );
+  return {
+    ...fixture,
+    prediction: {
+      mostLikelyScore: {
+        home: userPrediction?.homeScore,
+        away: userPrediction?.awayScore,
+      },
+    },
+  };
+});
+
+console.log(JSON.stringify(scores, null, 2));
 
 // Group games by date
 const gamesByDate = scores.reduce(
   (acc, game) => {
-    const date = new Date(game.commenceTime);
+    const date = new Date(game.commenceTime ?? Date.now());
     const dateKey = date.toLocaleDateString('en-GB', {
       weekday: 'long',
       year: 'numeric',
@@ -50,16 +54,15 @@ const gamesByDate = scores.reduce(
   {} as Record<string, typeof scores>,
 );
 
-// Sort dates chronologically
-const sortedDates = Object.keys(gamesByDate).sort((a, b) => {
-  return new Date(a).getTime() - new Date(b).getTime();
-});
+const sortedDates = Object.keys(gamesByDate).sort(
+  (a, b) => new Date(a).getTime() - new Date(b).getTime(),
+);
 ---
 
 <PageWrapper title="Results Bot | Predictions">
   <MainLayout
     pageTitle="My Predictions"
-    pageSubtitle="Make your score predictions — private to you"
+    pageSubtitle="Gameweek 27 • Make your score predictions to beat the bot"
   >
     <div slot="titleActions" class="flex items-center gap-2">
       <QuickStats accuracy={74.2} trending="up" />
@@ -71,7 +74,6 @@ const sortedDates = Object.keys(gamesByDate).sort((a, b) => {
             date={date}
             games={gamesByDate[date]}
             showUserInputs={true}
-            showAIPredict={false}
           />
         ))
       }
