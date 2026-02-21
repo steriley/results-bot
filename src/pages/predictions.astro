@@ -3,10 +3,10 @@ import '../styles/globals.css';
 import DateGroup from '../components/DateGroup.astro';
 import MainLayout from '../components/MainLayout.astro';
 import PageWrapper from '../components/PageWrapper.astro';
-import type { Game } from '../types/game';
 import { getLatestOdds } from '../helpers/get-latest-odds';
 import { predictScores } from '../helpers/prediction-engine';
 import mockData from '../mocks/premier-league-games.json';
+import QuickStats from '../components/QuickStats.astro';
 
 const USE_MOCK_DATA = true;
 const odds = USE_MOCK_DATA ? mockData : await getLatestOdds();
@@ -44,12 +44,7 @@ const sortedDates = Object.keys(gamesByDate).sort((a, b) => {
     pageSubtitle="Make your score predictions — private to you"
   >
     <div slot="titleActions" class="flex items-center gap-2">
-      <button
-        class="px-4 py-2 rounded-lg bg-white dark:bg-surface-dark border border-slate-200 dark:border-border-dark text-sm font-semibold flex items-center gap-2"
-      >
-        <span class="material-symbols-outlined text-sm">filter_list</span>
-        All Teams
-      </button>
+      <QuickStats accuracy={74.2} trending="up" />
     </div>
     <div class="space-y-6 pb-20">
       {

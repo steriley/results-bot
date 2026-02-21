@@ -3,7 +3,7 @@ import SidebarHeader from './SidebarHeader.astro';
 import SidebarFooter from './SidebarFooter.astro';
 
 const navItems = [
-  { icon: 'calendar_today', label: 'Fixtures', href: '/' },
+  { icon: 'smart_toy', label: 'Results Bot', href: '/' },
   { icon: 'diamond', label: 'My Predictions', href: '/predictions' },
   { icon: 'leaderboard', label: 'Leaderboard', href: '/leaderboard' },
   { icon: 'analytics', label: 'Stats & Insights', href: '/stats' },
@@ -39,7 +39,9 @@ const currentPath = new URL(Astro.request.url).pathname;
           title={item.label}
         >
           <span class="material-symbols-outlined shrink-0">{item.icon}</span>
-          <span class="sidebar-text font-medium opacity-100 transition-opacity duration-300 origin-left">{item.label}</span>
+          <span class="sidebar-text font-medium opacity-100 transition-opacity duration-300 origin-left">
+            {item.label}
+          </span>
         </a>
       ))
     }
@@ -49,7 +51,11 @@ const currentPath = new URL(Astro.request.url).pathname;
 </aside>
 
 <!-- Mobile Backdrop -->
-<div id="sidebar-backdrop" class="fixed inset-0 bg-slate-900/50 z-40 opacity-0 pointer-events-none transition-opacity duration-300 md:hidden"></div>
+<div
+  id="sidebar-backdrop"
+  class="fixed inset-0 bg-slate-900/50 z-40 opacity-0 pointer-events-none transition-opacity duration-300 md:hidden"
+>
+</div>
 
 <script>
   function setupSidebar() {

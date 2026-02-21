@@ -2,7 +2,6 @@
 import Header from './Header.astro';
 import PageTitle from './PageTitle.astro';
 import Sidebar from './Sidebar.astro';
-import FloatingQuickStats from '../components/FloatingQuickStats.astro';
 
 interface Props {
   pageTitle: string;
@@ -28,4 +27,3 @@ const { pageTitle, pageSubtitle } = Astro.props;
     </div>
   </div>
 </main>
-<FloatingQuickStats accuracy={74.2} trending="up" />
