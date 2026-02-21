@@ -145,7 +145,7 @@ function getPillClass(type: string): string {
                 )}
               </div>
 
-              <div class="px-2 md:px-4 shrink-0 flex flex-col items-center justify-center min-w-[60px]">
+              <div class="px-2 md:px-4 shrink-0 flex flex-col items-center justify-center w-[72px] md:w-[88px]">
                 {isCompleted && prediction ? (
                   <>
                     <span class="text-xs md:text-sm font-bold whitespace-nowrap text-muted-dark pb-0.5">
@@ -218,15 +218,17 @@ function getPillClass(type: string): string {
               </div>
             </div>
 
-            {isCompleted && type !== 'none' && (
-              <div class="flex items-center justify-start ml-2 md:ml-4 w-16 md:w-20 shrink-0">
+            <div class="flex items-center justify-start ml-2 md:ml-4 w-16 md:w-20 shrink-0">
+              {isCompleted && type !== 'none' ? (
                 <span
                   class={`px-2 py-1 rounded-full text-[10px] md:text-xs font-bold border ${getPillClass(type)}`}
                 >
                   +{points} pts
                 </span>
-              </div>
-            )}
+              ) : (
+                <span class="w-full" aria-hidden="true" />
+              )}
+            </div>
           </div>
         );
       })
