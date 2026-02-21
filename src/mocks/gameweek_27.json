@@ -100,8 +100,11 @@
     "commenceTime": "2026-02-21T20:00:00Z",
     "homeTeam": "Man City",
     "awayTeam": "Newcastle",
-    "finished": false,
-    "finalScore": null,
+    "finished": true,
+    "finalScore": {
+      "homeTeam": 2,
+      "awayTeam": 1
+    },
     "prediction": {
       "gameId": "cf641a7ccfddaeccd926ca123d72a4b5",
       "expectedGoals": {
