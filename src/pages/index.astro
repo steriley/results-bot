@@ -24,14 +24,7 @@ const odds = USE_MOCK_DATA
   ? mockOdds
   : await getLatestOdds(gameweekDateRange.earliest, gameweekDateRange.latest);
 const predictions = predictScores(odds as any);
-
-console.log('***************************** PREDICTIONS');
-console.log(predictions);
-
 const scores = mergeFixturesWithPredictions(fixtures, predictions);
-
-console.log('***************************** MERGED');
-console.log(scores);
 
 // Group games by date
 const gamesByDate = scores.reduce(

@@ -6,7 +6,7 @@
     "awayTeam": "Leeds",
     "finished": true,
     "finalScore": {
-      "home": 2,
+      "home": 0,
       "away": 1
     }
   },
@@ -15,16 +15,22 @@
     "commenceTime": "2026-02-21T15:00:00Z",
     "homeTeam": "Brentford",
     "awayTeam": "Brighton",
-    "finished": false,
-    "finalScore": null
+    "finished": true,
+    "finalScore": {
+      "home": 0,
+      "away": 2
+    }
   },
   {
     "gameWeek": 27,
     "commenceTime": "2026-02-21T15:00:00Z",
     "homeTeam": "Chelsea",
     "awayTeam": "Burnley",
-    "finished": false,
-    "finalScore": null
+    "finished": true,
+    "finalScore": {
+      "home": 1,
+      "away": 0
+    }
   },
   {
     "gameWeek": 27,
