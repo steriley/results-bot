@@ -29,7 +29,7 @@ const scores = mergeFixturesWithPredictions(fixtures, predictions);
 // Group games by date
 const gamesByDate = scores.reduce(
   (acc, game) => {
-    const date = new Date(game.commenceTime);
+    const date = new Date(game.commenceTime ?? Date.now());
     const dateKey = date.toLocaleDateString('en-GB', {
       weekday: 'long',
       year: 'numeric',
@@ -46,10 +46,9 @@ const gamesByDate = scores.reduce(
   {} as Record<string, typeof scores>,
 );
 
-// Sort dates chronologically
-const sortedDates = Object.keys(gamesByDate).sort((a, b) => {
-  return new Date(a).getTime() - new Date(b).getTime();
-});
+const sortedDates = Object.keys(gamesByDate).sort(
+  (a, b) => new Date(a).getTime() - new Date(b).getTime(),
+);
 ---
 
 <PageWrapper title="Results Bot | Premier League Dashboard">

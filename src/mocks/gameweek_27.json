@@ -6,8 +6,21 @@
     "awayTeam": "Leeds",
     "finished": true,
     "finalScore": {
-      "home": 0,
-      "away": 1
+      "homeTeam": 1,
+      "awayTeam": 1
+    },
+    "prediction": {
+      "gameId": "121455e2f00d446f83bf2939263ff388",
+      "expectedGoals": {
+        "home": 1.68,
+        "away": 1.08
+      },
+      "mostLikelyScore": {
+        "home": 1,
+        "away": 1
+      },
+      "confidence": 0.31,
+      "trapWarning": false
     }
   },
   {
@@ -17,8 +30,21 @@
     "awayTeam": "Brighton",
     "finished": true,
     "finalScore": {
-      "home": 0,
-      "away": 2
+      "homeTeam": 0,
+      "awayTeam": 2
+    },
+    "prediction": {
+      "gameId": "f38e853e6d4accab249a51501f2806ef",
+      "expectedGoals": {
+        "home": 1.7,
+        "away": 1.1
+      },
+      "mostLikelyScore": {
+        "home": 1,
+        "away": 1
+      },
+      "confidence": 0.3,
+      "trapWarning": false
     }
   },
   {
@@ -28,8 +54,21 @@
     "awayTeam": "Burnley",
     "finished": true,
     "finalScore": {
-      "home": 1,
-      "away": 0
+      "homeTeam": 1,
+      "awayTeam": 1
+    },
+    "prediction": {
+      "gameId": "7b0c7dd2f5e825fc904d669a946e3a74",
+      "expectedGoals": {
+        "home": 2.8,
+        "away": 0.4
+      },
+      "mostLikelyScore": {
+        "home": 2,
+        "away": 0
+      },
+      "confidence": 0.85,
+      "trapWarning": false
     }
   },
   {
@@ -37,8 +76,24 @@
     "commenceTime": "2026-02-21T17:30:00Z",
     "homeTeam": "West Ham",
     "awayTeam": "Bournemouth",
-    "finished": false,
-    "finalScore": null
+    "finished": true,
+    "finalScore": {
+      "homeTeam": 0,
+      "awayTeam": 0
+    },
+    "prediction": {
+      "gameId": "13c335daab252110beaa73f1dbf3ae1f",
+      "expectedGoals": {
+        "home": 1.49,
+        "away": 1.37
+      },
+      "mostLikelyScore": {
+        "home": 1,
+        "away": 1
+      },
+      "confidence": 0.16,
+      "trapWarning": false
+    }
   },
   {
     "gameWeek": 27,
@@ -46,7 +101,20 @@
     "homeTeam": "Man City",
     "awayTeam": "Newcastle",
     "finished": false,
-    "finalScore": null
+    "finalScore": null,
+    "prediction": {
+      "gameId": "cf641a7ccfddaeccd926ca123d72a4b5",
+      "expectedGoals": {
+        "home": 2.52,
+        "away": 0.72
+      },
+      "mostLikelyScore": {
+        "home": 2,
+        "away": 0
+      },
+      "confidence": 0.67,
+      "trapWarning": false
+    }
   },
   {
     "gameWeek": 27,
@@ -54,7 +122,20 @@
     "homeTeam": "Crystal Palace",
     "awayTeam": "Wolves",
     "finished": false,
-    "finalScore": null
+    "finalScore": null,
+    "prediction": {
+      "gameId": "0674c077e5225c0795ebb7866e06ac4c",
+      "expectedGoals": {
+        "home": 1.92,
+        "away": 0.82
+      },
+      "mostLikelyScore": {
+        "home": 1,
+        "away": 0
+      },
+      "confidence": 0.45,
+      "trapWarning": false
+    }
   },
   {
     "gameWeek": 27,
@@ -62,7 +143,20 @@
     "homeTeam": "Nott'm Forest",
     "awayTeam": "Liverpool",
     "finished": false,
-    "finalScore": null
+    "finalScore": null,
+    "prediction": {
+      "gameId": "55754da4f841e3997e766dd7ff5eafe2",
+      "expectedGoals": {
+        "home": 0.86,
+        "away": 1.96
+      },
+      "mostLikelyScore": {
+        "home": 0,
+        "away": 1
+      },
+      "confidence": 0.44,
+      "trapWarning": false
+    }
   },
   {
     "gameWeek": 27,
@@ -70,7 +164,20 @@
     "homeTeam": "Sunderland",
     "awayTeam": "Fulham",
     "finished": false,
-    "finalScore": null
+    "finalScore": null,
+    "prediction": {
+      "gameId": "9da0932d1255c3f7d4156ec7730ffa75",
+      "expectedGoals": {
+        "home": 1.35,
+        "away": 1.34
+      },
+      "mostLikelyScore": {
+        "home": 1,
+        "away": 1
+      },
+      "confidence": 0.09,
+      "trapWarning": false
+    }
   },
   {
     "gameWeek": 27,
@@ -78,7 +185,20 @@
     "homeTeam": "Spurs",
     "awayTeam": "Arsenal",
     "finished": false,
-    "finalScore": null
+    "finalScore": null,
+    "prediction": {
+      "gameId": "ea3c0df9b0c96cc6a4c80022bbf85720",
+      "expectedGoals": {
+        "home": 0.86,
+        "away": 1.92
+      },
+      "mostLikelyScore": {
+        "home": 0,
+        "away": 1
+      },
+      "confidence": 0.46,
+      "trapWarning": false
+    }
   },
   {
     "gameWeek": 27,
@@ -86,6 +206,19 @@
     "homeTeam": "Everton",
     "awayTeam": "Man Utd",
     "finished": false,
-    "finalScore": null
+    "finalScore": null,
+    "prediction": {
+      "gameId": "b2dfd255beca9618d6796a7e79a4b398",
+      "expectedGoals": {
+        "home": 1.15,
+        "away": 1.66
+      },
+      "mostLikelyScore": {
+        "home": 1,
+        "away": 1
+      },
+      "confidence": 0.28,
+      "trapWarning": false
+    }
   }
 ]

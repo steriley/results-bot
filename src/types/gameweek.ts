@@ -1,11 +1,12 @@
+// TODO: look to join this type / replace / remove with the same one in src/helpers/gameweek.ts
 export type GameweekFixture = {
-  gameId: string;
-  commenceTime: string;
+  gameWeek: number;
+  commenceTime: string | null;
   homeTeam: string;
   awayTeam: string;
   finished: boolean;
   finalScore: {
-    home: number;
-    away: number;
+    homeTeam: number | null;
+    awayTeam: number | null;
   } | null;
 };

@@ -12,7 +12,7 @@ export interface Game {
   homeTeam: string;
   awayTeam: string;
   finished: boolean;
-  finalScore: { home: number; away: number } | null;
+  finalScore: { homeTeam: number; awayTeam: number } | null;
   prediction: GamePrediction | null;
   userPrediction?: {
     home?: number;

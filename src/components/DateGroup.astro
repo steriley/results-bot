@@ -26,19 +26,22 @@ function formatTime(commenceTime: string): string {
 
 function getPredictionPoints(
   prediction: { home: number; away: number } | undefined,
-  actual: { home: number; away: number } | undefined,
+  actual: { homeTeam: number; awayTeam: number } | undefined,
 ): {
   points: number;
   type: 'exact' | 'result' | 'goal' | 'incorrect' | 'none';
 } {
   if (!prediction || !actual) return { points: 0, type: 'none' };
 
-  if (prediction.home === actual.home && prediction.away === actual.away) {
+  if (
+    prediction.home === actual.homeTeam &&
+    prediction.away === actual.awayTeam
+  ) {
     return { points: 10, type: 'exact' };
   }
 
   const predDiff = prediction.home - prediction.away;
-  const actualDiff = actual.home - actual.away;
+  const actualDiff = actual.homeTeam - actual.awayTeam;
   const isPredHomeWin = predDiff > 0;
   const isPredAwayWin = predDiff < 0;
   const isPredDraw = predDiff === 0;
@@ -55,7 +58,10 @@ function getPredictionPoints(
     return { points: 3, type: 'result' };
   }
 
-  if (prediction.home === actual.home || prediction.away === actual.away) {
+  if (
+    prediction.home === actual.homeTeam ||
+    prediction.away === actual.awayTeam
+  ) {
     return { points: 1, type: 'goal' };
   }
 
@@ -97,9 +103,9 @@ function getPillClass(type: string): string {
             : undefined
           : game.prediction?.mostLikelyScore;
         const isCompleted = game.finished;
-        const actualScore = game.finalScore;
+        const finalScore = game.finalScore;
         const { points, type } = isCompleted
-          ? getPredictionPoints(prediction, actualScore ?? undefined)
+          ? getPredictionPoints(prediction, finalScore ?? undefined)
           : { points: 0, type: 'none' };
 
         return (
@@ -119,9 +125,9 @@ function getPillClass(type: string): string {
                   </span>
                 )}
 
-                {isCompleted && actualScore ? (
-                  <div class="w-8 h-8 md:w-12 md:h-10 flex items-center justify-center text-sm md:text-xl font-bold bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-md md:rounded-lg flex-shrink-0 shadow-sm">
-                    {actualScore.home}
+                {isCompleted && finalScore ? (
+                  <div class="w-8 h-8 md:w-12 md:h-10 flex items-center justify-center text-sm md:text-xl font-bold bg-slate-900 dark:bg-black text-white dark:text-white rounded-md md:rounded-lg flex-shrink-0 shadow-sm">
+                    {finalScore.homeTeam}
                   </div>
                 ) : (
                   <>
@@ -178,9 +184,9 @@ function getPillClass(type: string): string {
               </div>
 
               <div class="flex items-center gap-1.5 md:gap-3 flex-1 min-w-0">
-                {isCompleted && actualScore ? (
-                  <div class="w-8 h-8 md:w-12 md:h-10 flex items-center justify-center text-sm md:text-xl font-bold bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-md md:rounded-lg flex-shrink-0 shadow-sm">
-                    {actualScore.away}
+                {isCompleted && finalScore ? (
+                  <div class="w-8 h-8 md:w-12 md:h-10 flex items-center justify-center text-sm md:text-xl font-bold bg-slate-900 dark:bg-black text-white dark:text-white rounded-md md:rounded-lg flex-shrink-0 shadow-sm">
+                    {finalScore.awayTeam}
                   </div>
                 ) : (
                   <>

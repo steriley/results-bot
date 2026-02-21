@@ -34,6 +34,7 @@ interface FplFixture {
   team_h: number; // home team id
   team_a: number; // away team id
   finished: boolean;
+  finished_provisional: boolean;
   team_h_score: number | null;
   team_a_score: number | null;
 }
@@ -109,9 +110,10 @@ export async function getGameweekFixtures(
 
     // Only include a finalScore when the match is finished and scores exist
     const finalScore =
-      fixture.finished &&
-      fixture.team_h_score !== null &&
-      fixture.team_a_score !== null
+      fixture.finished ||
+      (fixture.finished_provisional &&
+        fixture.team_h_score !== null &&
+        fixture.team_a_score !== null)
         ? { homeTeam: fixture.team_h_score, awayTeam: fixture.team_a_score }
         : null;
 
@@ -120,7 +122,7 @@ export async function getGameweekFixtures(
       commenceTime: fixture.kickoff_time,
       homeTeam,
       awayTeam,
-      finished: fixture.finished,
+      finished: fixture.finished || fixture.finished_provisional,
       finalScore,
     };
   });
