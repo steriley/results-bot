@@ -1,9 +1,13 @@
+import type { GameweekFixture } from '../types/gameweek';
+
 interface GameweekDateRange {
   earliest: string;
   latest: string;
 }
 
-function getGameweekDateRange(fixtures: GameweekFixture[]): GameweekDateRange {
+export function getGameweekDateRange(
+  fixtures: GameweekFixture[],
+): GameweekDateRange {
   // Filter out fixtures with no kickoff time (postponed/unscheduled)
   const kickoffTimes = fixtures
     .map((f) => f.commenceTime)
@@ -15,7 +19,9 @@ function getGameweekDateRange(fixtures: GameweekFixture[]): GameweekDateRange {
   }
 
   return {
-    earliest: new Date(Math.min(...kickoffTimes)).toISOString(),
-    latest: new Date(Math.max(...kickoffTimes)).toISOString(),
+    earliest:
+      new Date(Math.min(...kickoffTimes)).toISOString().split('.')[0] + 'Z',
+    latest:
+      new Date(Math.max(...kickoffTimes)).toISOString().split('.')[0] + 'Z',
   };
 }

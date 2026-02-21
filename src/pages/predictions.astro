@@ -9,8 +9,26 @@ import mockData from '../mocks/premier-league-games.json';
 import QuickStats from '../components/QuickStats.astro';
 
 const USE_MOCK_DATA = true;
-const odds = USE_MOCK_DATA ? mockData : await getLatestOdds();
-const scores = predictScores(odds);
+const odds = USE_MOCK_DATA
+  ? mockData
+  : await getLatestOdds('2026-02-21T15:00:00Z', '2026-02-23T20:00:00Z');
+const rawScores = predictScores(odds as any);
+
+// Map raw Prediction[] → EnrichedFixture shape expected by DateGroup
+const scores = rawScores.map((p) => ({
+  commenceTime: p.commenceTime,
+  homeTeam: p.homeTeam,
+  awayTeam: p.awayTeam,
+  finished: false,
+  finalScore: null,
+  prediction: {
+    gameId: p.gameId,
+    expectedGoals: p.expectedGoals,
+    mostLikelyScore: p.mostLikelyScore,
+    confidence: p.confidence,
+    trapWarning: p.trapWarning,
+  },
+}));
 
 // Group games by date
 const gamesByDate = scores.reduce(

@@ -4,8 +4,11 @@
     "commenceTime": "2026-02-21T15:00:00Z",
     "homeTeam": "Aston Villa",
     "awayTeam": "Leeds",
-    "finished": false,
-    "finalScore": null
+    "finished": true,
+    "finalScore": {
+      "home": 2,
+      "away": 1
+    }
   },
   {
     "gameWeek": 27,

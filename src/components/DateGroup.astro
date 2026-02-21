@@ -23,6 +23,57 @@ function formatTime(commenceTime: string): string {
     minute: '2-digit',
   });
 }
+
+function getPredictionPoints(
+  prediction: { home: number; away: number } | undefined,
+  actual: { home: number; away: number } | undefined,
+): {
+  points: number;
+  type: 'exact' | 'result' | 'goal' | 'incorrect' | 'none';
+} {
+  if (!prediction || !actual) return { points: 0, type: 'none' };
+
+  if (prediction.home === actual.home && prediction.away === actual.away) {
+    return { points: 10, type: 'exact' };
+  }
+
+  const predDiff = prediction.home - prediction.away;
+  const actualDiff = actual.home - actual.away;
+  const isPredHomeWin = predDiff > 0;
+  const isPredAwayWin = predDiff < 0;
+  const isPredDraw = predDiff === 0;
+
+  const isActualHomeWin = actualDiff > 0;
+  const isActualAwayWin = actualDiff < 0;
+  const isActualDraw = actualDiff === 0;
+
+  if (
+    (isPredHomeWin && isActualHomeWin) ||
+    (isPredAwayWin && isActualAwayWin) ||
+    (isPredDraw && isActualDraw)
+  ) {
+    return { points: 3, type: 'result' };
+  }
+
+  if (prediction.home === actual.home || prediction.away === actual.away) {
+    return { points: 1, type: 'goal' };
+  }
+
+  return { points: 0, type: 'incorrect' };
+}
+
+function getPillClass(type: string): string {
+  switch (type) {
+    case 'exact':
+      return 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-400 border-emerald-200 dark:border-emerald-800';
+    case 'result':
+      return 'bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-400 border-blue-200 dark:border-blue-800';
+    case 'goal':
+      return 'bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-400 border-amber-200 dark:border-amber-800';
+    default:
+      return 'bg-slate-100 text-slate-800 dark:bg-slate-800 dark:text-slate-400 border-slate-200 dark:border-slate-700';
+  }
+}
 ---
 
 <section class="space-y-3">
@@ -38,90 +89,147 @@ function formatTime(commenceTime: string): string {
     class="bg-white dark:bg-surface-dark border border-slate-200 dark:border-border-dark rounded-xl shadow-sm overflow-hidden divide-y divide-slate-100 dark:divide-border-dark"
   >
     {
-      games.map((game) => (
-        <div class="flex flex-row items-center p-3 md:p-4 gap-2 md:gap-4 fixture-row transition-colors">
-          <div class="flex-1 flex flex-row items-center justify-between min-w-0">
-            <div class="flex items-center gap-1.5 md:gap-3 flex-1 justify-end text-right min-w-0">
-              <span class="text-xs md:text-base font-bold truncate">
-                {game.homeTeam}
-              </span>
-              {getTeamLogo(game.homeTeam) && (
-                <span class="w-5 md:w-8 flex items-center justify-center">
-                  <img
-                    src={getTeamLogo(game.homeTeam)}
-                    alt={game.homeTeam}
-                    class="h-5 md:h-8 flex-shrink-0"
-                  />
+      games.map((game) => {
+        const userPred = game.userPrediction;
+        const prediction = showUserInputs
+          ? userPred?.home !== undefined && userPred?.away !== undefined
+            ? { home: userPred.home, away: userPred.away }
+            : undefined
+          : game.prediction?.mostLikelyScore;
+        const isCompleted = game.finished;
+        const actualScore = game.finalScore;
+        const { points, type } = isCompleted
+          ? getPredictionPoints(prediction, actualScore ?? undefined)
+          : { points: 0, type: 'none' };
+
+        return (
+          <div class="flex flex-row items-center p-3 md:p-4 gap-2 md:gap-4 fixture-row transition-colors">
+            <div class="flex-1 flex flex-row items-center justify-between min-w-0">
+              <div class="flex items-center gap-1.5 md:gap-3 flex-1 justify-end text-right min-w-0">
+                <span class="text-xs md:text-base font-bold truncate">
+                  {game.homeTeam}
                 </span>
-              )}
-              {showUserInputs && (
-                <input
-                  type="number"
-                  min="0"
-                  max="20"
-                  class="w-8 h-8 md:w-12 md:h-10 text-center text-sm md:text-xl border-none focus:ring-0 text-slate-900 dark:text-white font-bold p-0 bg-slate-200 dark:bg-border-dark rounded-md md:rounded-lg flex-shrink-0"
-                  data-game-id={game.gameId}
-                  data-side="home"
-                  aria-label={`${game.homeTeam} score`}
-                />
-              )}
-              {!showUserInputs && showAIPredict && (
-                <div class="w-8 h-8 md:w-12 md:h-10 flex items-center justify-center text-sm md:text-xl font-bold bg-slate-200 dark:bg-border-dark text-slate-900 dark:text-white rounded-md md:rounded-lg flex-shrink-0">
-                  {game.mostLikelyScore.home}
-                </div>
-              )}
-            </div>
-            <div class="px-2 md:px-4 shrink-0 flex flex-col items-center justify-center">
-              <span class="text-xs md:text-sm font-bold whitespace-nowrap">
-                {formatTime(game.commenceTime)}
-              </span>
-              <span class="text-[9px] md:text-[10px] text-muted-dark font-medium uppercase mt-0.5">
-                GMT
-              </span>
-              {game.trapWarning && (
-                <div
-                  class="mt-1.5 w-5 h-5 md:w-6 md:h-6 flex items-center justify-center rounded bg-yellow-100 dark:bg-yellow-900/30 border border-yellow-300 dark:border-yellow-700"
-                  title="Trap warning: Exercise caution"
-                >
-                  <span class="material-symbols-outlined text-[12px] md:text-[14px] text-yellow-600 dark:text-yellow-400">
-                    warning
+                {getTeamLogo(game.homeTeam) && (
+                  <span class="w-5 md:w-8 flex items-center justify-center">
+                    <img
+                      src={getTeamLogo(game.homeTeam)}
+                      alt={game.homeTeam}
+                      class="h-5 md:h-8 flex-shrink-0"
+                    />
                   </span>
-                </div>
-              )}
-            </div>
-            <div class="flex items-center gap-1.5 md:gap-3 flex-1 min-w-0">
-              {!showUserInputs && showAIPredict && (
-                <div class="w-8 h-8 md:w-12 md:h-10 flex items-center justify-center text-sm md:text-xl font-bold bg-slate-200 dark:bg-border-dark text-slate-900 dark:text-white rounded-md md:rounded-lg flex-shrink-0">
-                  {game.mostLikelyScore.away}
-                </div>
-              )}
-              {showUserInputs && (
-                <input
-                  type="number"
-                  min="0"
-                  max="20"
-                  class="w-8 h-8 md:w-12 md:h-10 text-center text-sm md:text-xl border-none focus:ring-0 text-slate-900 dark:text-white font-bold p-0 bg-slate-200 dark:bg-border-dark rounded-md md:rounded-lg flex-shrink-0"
-                  data-game-id={game.gameId}
-                  data-side="away"
-                  aria-label={`${game.awayTeam} score`}
-                />
-              )}
-              {getTeamLogo(game.awayTeam) && (
-                <span class="w-5 md:w-8 flex items-center justify-center">
-                  <img
-                    src={getTeamLogo(game.awayTeam)}
-                    alt={game.awayTeam}
-                    class="h-5 md:h-8 flex-shrink-0"
-                  />
+                )}
+
+                {isCompleted && actualScore ? (
+                  <div class="w-8 h-8 md:w-12 md:h-10 flex items-center justify-center text-sm md:text-xl font-bold bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-md md:rounded-lg flex-shrink-0 shadow-sm">
+                    {actualScore.home}
+                  </div>
+                ) : (
+                  <>
+                    {showUserInputs && (
+                      <input
+                        type="number"
+                        min="0"
+                        max="20"
+                        class="w-8 h-8 md:w-12 md:h-10 text-center text-sm md:text-xl border-none focus:ring-0 text-slate-900 dark:text-white font-bold p-0 bg-slate-200 dark:bg-border-dark rounded-md md:rounded-lg flex-shrink-0"
+                        data-game-id={game.prediction?.gameId}
+                        data-side="home"
+                        aria-label={`${game.homeTeam} score`}
+                      />
+                    )}
+                    {!showUserInputs && showAIPredict && (
+                      <div class="w-8 h-8 md:w-12 md:h-10 flex items-center justify-center text-sm md:text-xl font-bold bg-slate-200 dark:bg-border-dark text-slate-900 dark:text-white rounded-md md:rounded-lg flex-shrink-0">
+                        {game.prediction?.mostLikelyScore.home}
+                      </div>
+                    )}
+                  </>
+                )}
+              </div>
+
+              <div class="px-2 md:px-4 shrink-0 flex flex-col items-center justify-center min-w-[60px]">
+                {isCompleted && prediction ? (
+                  <>
+                    <span class="text-xs md:text-sm font-bold whitespace-nowrap text-muted-dark pb-0.5">
+                      {prediction.home} - {prediction.away}
+                    </span>
+                    <span class="text-[9px] md:text-[10px] text-muted-dark font-medium uppercase border-t border-slate-200 dark:border-slate-700 pt-0.5 w-full text-center">
+                      PREDICTION
+                    </span>
+                  </>
+                ) : (
+                  <>
+                    <span class="text-xs md:text-sm font-bold whitespace-nowrap">
+                      {formatTime(game.commenceTime)}
+                    </span>
+                    <span class="text-[9px] md:text-[10px] text-muted-dark font-medium uppercase mt-0.5">
+                      GMT
+                    </span>
+                  </>
+                )}
+                {!isCompleted && game.prediction?.trapWarning && (
+                  <div
+                    class="mt-1.5 w-5 h-5 md:w-6 md:h-6 flex items-center justify-center rounded bg-yellow-100 dark:bg-yellow-900/30 border border-yellow-300 dark:border-yellow-700"
+                    title="Trap warning: Exercise caution"
+                  >
+                    <span class="material-symbols-outlined text-[12px] md:text-[14px] text-yellow-600 dark:text-yellow-400">
+                      warning
+                    </span>
+                  </div>
+                )}
+              </div>
+
+              <div class="flex items-center gap-1.5 md:gap-3 flex-1 min-w-0">
+                {isCompleted && actualScore ? (
+                  <div class="w-8 h-8 md:w-12 md:h-10 flex items-center justify-center text-sm md:text-xl font-bold bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-md md:rounded-lg flex-shrink-0 shadow-sm">
+                    {actualScore.away}
+                  </div>
+                ) : (
+                  <>
+                    {!showUserInputs && showAIPredict && (
+                      <div class="w-8 h-8 md:w-12 md:h-10 flex items-center justify-center text-sm md:text-xl font-bold bg-slate-200 dark:bg-border-dark text-slate-900 dark:text-white rounded-md md:rounded-lg flex-shrink-0">
+                        {game.prediction?.mostLikelyScore.away}
+                      </div>
+                    )}
+                    {showUserInputs && (
+                      <input
+                        type="number"
+                        min="0"
+                        max="20"
+                        class="w-8 h-8 md:w-12 md:h-10 text-center text-sm md:text-xl border-none focus:ring-0 text-slate-900 dark:text-white font-bold p-0 bg-slate-200 dark:bg-border-dark rounded-md md:rounded-lg flex-shrink-0"
+                        data-game-id={game.prediction?.gameId}
+                        data-side="away"
+                        aria-label={`${game.awayTeam} score`}
+                      />
+                    )}
+                  </>
+                )}
+
+                {getTeamLogo(game.awayTeam) && (
+                  <span class="w-5 md:w-8 flex items-center justify-center">
+                    <img
+                      src={getTeamLogo(game.awayTeam)}
+                      alt={game.awayTeam}
+                      class="h-5 md:h-8 flex-shrink-0"
+                    />
+                  </span>
+                )}
+                <span class="text-xs md:text-base font-bold truncate">
+                  {game.awayTeam}
                 </span>
-              )}
-              <span class="text-xs md:text-base font-bold truncate">
-                {game.awayTeam}
-              </span>
+              </div>
             </div>
+
+            {isCompleted && type !== 'none' && (
+              <div class="flex items-center justify-start ml-2 md:ml-4 w-16 md:w-20 shrink-0">
+                <span
+                  class={`px-2 py-1 rounded-full text-[10px] md:text-xs font-bold border ${getPillClass(type)}`}
+                >
+                  +{points} pts
+                </span>
+              </div>
+            )}
           </div>
-        </div>
-      ))
+        );
+      })
     }
   </div>
 </section>

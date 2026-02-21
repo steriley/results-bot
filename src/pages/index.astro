@@ -6,16 +6,32 @@ import MainLayout from '../components/MainLayout.astro';
 import PageWrapper from '../components/PageWrapper.astro';
 import { getLatestOdds } from '../helpers/get-latest-odds';
 import { predictScores } from '../helpers/prediction-engine';
-import mockData from '../mocks/premier-league-games.json';
-// import { getGameweekFixtures } from '../helpers/gameweek';
+import mockOdds from '../mocks/premier-league-games.json';
+import mockGameweekFixtures from '../mocks/gameweek_27.json';
+import { getGameweekFixtures } from '../helpers/gameweek';
+import { getGameweekDateRange } from '../helpers/game-week-date-range';
+import { mergeFixturesWithPredictions } from '../helpers/merge-fixtures-predictions';
 
 const USE_MOCK_DATA = true;
-const odds = USE_MOCK_DATA
-  ? mockData
-  : await getLatestOdds('2026-02-21T15:00:00Z', '2026-02-23T20:00:00Z');
-const scores = predictScores(odds as any);
 
-// const fixtures = await getGameweekFixtures(27);
+const fixtures = USE_MOCK_DATA
+  ? mockGameweekFixtures
+  : await getGameweekFixtures(27);
+
+const gameweekDateRange = getGameweekDateRange(fixtures);
+
+const odds = USE_MOCK_DATA
+  ? mockOdds
+  : await getLatestOdds(gameweekDateRange.earliest, gameweekDateRange.latest);
+const predictions = predictScores(odds as any);
+
+console.log('***************************** PREDICTIONS');
+console.log(predictions);
+
+const scores = mergeFixturesWithPredictions(fixtures, predictions);
+
+console.log('***************************** MERGED');
+console.log(scores);
 
 // Group games by date
 const gamesByDate = scores.reduce(

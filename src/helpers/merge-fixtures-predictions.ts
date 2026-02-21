@@ -1,5 +1,8 @@
+import type { GameweekFixture } from '../types/gameweek';
+
 // ─── Team Name Aliases ────────────────────────────────────────────────────────
 // Maps FPL short names → canonical names used in predicted scores.
+
 // Extend this as you encounter new mismatches between data sources.
 const TEAM_NAME_ALIASES: Record<string, string> = {
   Brighton: 'Brighton and Hove Albion',
