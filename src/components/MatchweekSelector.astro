@@ -1,9 +1,20 @@
 ---
 interface Props {
   matchweek: number;
-  dateRange: string;
+  startDate: string;
+  endDate: string;
 }
-const { matchweek, dateRange } = Astro.props;
+
+const { matchweek, startDate, endDate } = Astro.props;
+
+const formatDate = (dateString: string) => {
+  const date = new Date(dateString);
+  return date.toLocaleDateString('en-GB', {
+    weekday: 'short',
+    day: 'numeric',
+    month: 'short',
+  });
+};
 ---
 
 <script>
@@ -45,7 +56,7 @@ const { matchweek, dateRange } = Astro.props;
       Matchweek <span id="gw-display">{matchweek}</span>
     </span>
     <span class="text-[11px] md:text-sm text-slate-500 dark:text-muted-dark">
-      {dateRange}
+      {formatDate(startDate)} - {formatDate(endDate)}
     </span>
   </div>
 

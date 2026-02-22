@@ -1,21 +1,21 @@
 ---
-import '../styles/globals.css';
-import DateGroup from '../components/DateGroup.astro';
-import MainLayout from '../components/MainLayout.astro';
-import PageWrapper from '../components/PageWrapper.astro';
-import mockUserPredictions from '../mocks/gameweek_27_user_1.json';
-import mockGameweekFixtures from '../mocks/gameweek_27.json';
-import { getGameweekFixtures } from '../helpers/gameweek';
-import QuickStats from '../components/QuickStats.astro';
-
-const USE_MOCK_DATA = true;
-
-const fixtures = USE_MOCK_DATA
-  ? mockGameweekFixtures
-  : await getGameweekFixtures(27);
+import '@/styles/globals.css';
+import DateGroup from '@/components/DateGroup.astro';
+import MainLayout from '@/components/MainLayout.astro';
+import PageWrapper from '@/components/PageWrapper.astro';
+import mockUserPredictions from '@/mocks/gameweek_27_user_1.json';
+import QuickStats from '@/components/QuickStats.astro';
+import TableDate from '@/components/TableDate.astro';
+import { fixtureByDates, fixtureDates } from '@/helpers/sort-games-by-date';
+import type { EnrichedFixture } from '@/helpers/merge-fixtures-predictions';
+import { GET as getFixtures } from './api/fixtures';
 
 const userPredictions = mockUserPredictions;
-const scores = fixtures.map((fixture) => {
+
+let response = await getFixtures(Astro);
+const { fixtures } = await response.json();
+
+const fullFixtureData = fixtures.map((fixture: EnrichedFixture) => {
   const userPrediction = userPredictions.find(
     (prediction) =>
       prediction.homeTeam === fixture.homeTeam &&
@@ -32,34 +32,11 @@ const scores = fixtures.map((fixture) => {
   };
 });
 
-console.log(JSON.stringify(scores, null, 2));
-
-// Group games by date
-const gamesByDate = scores.reduce(
-  (acc, game) => {
-    const date = new Date(game.commenceTime ?? Date.now());
-    const dateKey = date.toLocaleDateString('en-GB', {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric',
-    });
-
-    if (!acc[dateKey]) {
-      acc[dateKey] = [];
-    }
-    acc[dateKey].push(game);
-    return acc;
-  },
-  {} as Record<string, typeof scores>,
-);
-
-const sortedDates = Object.keys(gamesByDate).sort(
-  (a, b) => new Date(a).getTime() - new Date(b).getTime(),
-);
+const fixturesByDate = fixtureByDates(fullFixtureData);
+const sortedFixtures = fixtureDates(fixturesByDate);
 ---
 
-<PageWrapper title="Results Bot | Predictions">
+<PageWrapper title="Beat the Bot: Your Predictions">
   <MainLayout
     pageTitle="My Predictions"
     pageSubtitle="Gameweek 27 • Make your score predictions to beat the bot"
@@ -69,12 +46,11 @@ const sortedDates = Object.keys(gamesByDate).sort(
     </div>
     <div class="space-y-6 pb-20">
       {
-        sortedDates.map((date) => (
-          <DateGroup
-            date={date}
-            games={gamesByDate[date]}
-            showUserInputs={true}
-          />
+        sortedFixtures.map((date) => (
+          <section class="space-y-3">
+            <TableDate date={date} />
+            <DateGroup games={fixturesByDate[date]} showUserInputs={true} />
+          </section>
         ))
       }
     </div>

@@ -9,6 +9,8 @@ import { predictScores } from '@/helpers/prediction-engine';
 import mockOdds from '@/mocks/premier-league-games.json';
 import { mergeFixturesWithPredictions } from '@/helpers/merge-fixtures-predictions';
 import { $currentGameweek } from '@/stores/store';
+import TableDate from '@/components/TableDate.astro';
+import { fixtureByDates, fixtureDates } from '@/helpers/sort-games-by-date';
 
 import { GET as getFixtures } from './api/fixtures';
 
@@ -21,42 +23,13 @@ const odds = USE_MOCK_DATA
   ? mockOdds
   : await getLatestOdds(gameweekDateRange.earliest, gameweekDateRange.latest);
 const predictions = predictScores(odds as any);
-const scores = mergeFixturesWithPredictions(fixtures, predictions);
+const fullFixtureData = mergeFixturesWithPredictions(fixtures, predictions);
 
-const shortDate = (dateString: string) => {
-  const date = new Date(dateString);
-  return date.toLocaleDateString('en-GB', {
-    weekday: 'short',
-    day: 'numeric',
-    month: 'short',
-  });
-};
-
-const gamesByDate = scores.reduce(
-  (acc, game) => {
-    const date = new Date(game.commenceTime ?? Date.now());
-    const dateKey = date.toLocaleDateString('en-GB', {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric',
-    });
-
-    if (!acc[dateKey]) {
-      acc[dateKey] = [];
-    }
-    acc[dateKey].push(game);
-    return acc;
-  },
-  {} as Record<string, typeof scores>,
-);
-
-const sortedDates = Object.keys(gamesByDate).sort(
-  (a, b) => new Date(a).getTime() - new Date(b).getTime(),
-);
+const fixturesByDate = fixtureByDates(fullFixtureData);
+const sortedFixtures = fixtureDates(fixturesByDate);
 ---
 
-<PageWrapper title="Results Bot | Premier League Dashboard">
+<PageWrapper title="Beat the Bot: EPL Predictions">
   <MainLayout
     pageTitle="Results Bot Predictions"
     pageSubtitle="The bot has made its predictions for this gameweek"
@@ -64,13 +37,17 @@ const sortedDates = Object.keys(gamesByDate).sort(
     <div slot="titleActions" class="flex items-center gap-2">
       <MatchweekSelector
         matchweek={$currentGameweek.get()}
-        dateRange={`${shortDate(gameweekDateRange.earliest)} - ${shortDate(gameweekDateRange.latest)}`}
+        startDate={gameweekDateRange.earliest}
+        endDate={gameweekDateRange.latest}
       />
     </div>
     <div class="space-y-6 pb-20">
       {
-        sortedDates.map((date) => (
-          <DateGroup date={date} games={gamesByDate[date]} />
+        sortedFixtures.map((date) => (
+          <section class="space-y-3">
+            <TableDate date={date} />
+            <DateGroup games={fixturesByDate[date]} />
+          </section>
         ))
       }
     </div>

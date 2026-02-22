@@ -1,247 +1,115 @@
 ---
-import type { Game } from '../types/game';
-import { getTeamLogo } from '../helpers/team-logos';
+import PointsPill from '@/components/ResultsTable/PointsPill.astro';
+import TeamName from '@/components/ResultsTable/TeamName.astro';
+import UserInput from '@/components/ResultsTable/UserInput.astro';
+import GameTime from '@/components/ResultsTable/GameTime.astro';
+import type { EnrichedFixture } from '@/helpers/merge-fixtures-predictions';
+import { getPredictionPoints } from '@/helpers/get-predicition-points';
 
 interface Props {
-  date: string;
-  games: Game[];
+  games: EnrichedFixture[];
   showAIPredict?: boolean;
   showUserInputs?: boolean;
 }
 
 const {
-  date,
   games,
   showAIPredict = true,
   showUserInputs = false,
 } = Astro.props as Props;
-
-function formatTime(commenceTime: string): string {
-  const time = new Date(commenceTime);
-  return time.toLocaleTimeString('en-GB', {
-    hour: '2-digit',
-    minute: '2-digit',
-  });
-}
-
-function getPredictionPoints(
-  prediction: { home: number; away: number } | undefined,
-  actual: { homeTeam: number; awayTeam: number } | undefined,
-): {
-  points: number;
-  type: 'exact' | 'result' | 'goal' | 'incorrect' | 'none';
-} {
-  if (!prediction || !actual) return { points: 0, type: 'none' };
-
-  if (
-    prediction.home === actual.homeTeam &&
-    prediction.away === actual.awayTeam
-  ) {
-    return { points: 10, type: 'exact' };
-  }
-
-  const predDiff = prediction.home - prediction.away;
-  const actualDiff = actual.homeTeam - actual.awayTeam;
-  const isPredHomeWin = predDiff > 0;
-  const isPredAwayWin = predDiff < 0;
-  const isPredDraw = predDiff === 0;
-
-  const isActualHomeWin = actualDiff > 0;
-  const isActualAwayWin = actualDiff < 0;
-  const isActualDraw = actualDiff === 0;
-
-  if (
-    (isPredHomeWin && isActualHomeWin) ||
-    (isPredAwayWin && isActualAwayWin) ||
-    (isPredDraw && isActualDraw)
-  ) {
-    return { points: 3, type: 'result' };
-  }
-
-  if (
-    prediction.home === actual.homeTeam ||
-    prediction.away === actual.awayTeam
-  ) {
-    return { points: 1, type: 'goal' };
-  }
-
-  return { points: 0, type: 'incorrect' };
-}
-
-function getPillClass(type: string): string {
-  switch (type) {
-    case 'exact':
-      return 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-400 border-emerald-200 dark:border-emerald-800';
-    case 'result':
-      return 'bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-400 border-blue-200 dark:border-blue-800';
-    case 'goal':
-      return 'bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-400 border-amber-200 dark:border-amber-800';
-    default:
-      return 'bg-slate-100 text-slate-800 dark:bg-slate-800 dark:text-slate-400 border-slate-200 dark:border-slate-700';
-  }
-}
 ---
 
-<section class="space-y-3">
-  <div
-    class="sticky top-0 z-10 py-2 bg-slate-50 dark:bg-background-dark flex items-center gap-3"
-  >
-    <h4 class="text-sm font-bold uppercase tracking-widest text-primary">
-      {date}
-    </h4>
-    <div class="flex-1 h-px bg-slate-200 dark:bg-border-dark"></div>
-  </div>
-  <div
-    class="bg-white dark:bg-surface-dark border border-slate-200 dark:border-border-dark rounded-xl shadow-sm overflow-hidden divide-y divide-slate-100 dark:divide-border-dark"
-  >
-    {
-      games.map((game) => {
-        const prediction = {
-          home: game.prediction?.mostLikelyScore.home,
-          away: game.prediction?.mostLikelyScore.away,
-        };
-        const isCompleted = game.finished;
-        const finalScore = game.finalScore;
-        const { points, type } = isCompleted
-          ? getPredictionPoints(prediction, finalScore ?? undefined)
-          : { points: 0, type: 'none' };
+<div
+  class="bg-white dark:bg-surface-dark border border-slate-200 dark:border-border-dark rounded-xl shadow-sm overflow-hidden divide-y divide-slate-100 dark:divide-border-dark"
+>
+  {
+    games.map((game) => {
+      const homePrediction = game.prediction?.mostLikelyScore.home;
+      const awayPrediction = game.prediction?.mostLikelyScore.away;
 
-        return (
-          <div class="flex flex-row items-center p-3 md:p-4 gap-2 md:gap-4 fixture-row transition-colors">
-            <div class="flex-1 flex flex-row items-center justify-between min-w-0">
-              <div class="flex items-center gap-1.5 md:gap-3 flex-1 justify-end text-right min-w-0">
-                <span class="text-xs md:text-base font-bold truncate">
-                  {game.homeTeam}
-                </span>
-                {getTeamLogo(game.homeTeam) && (
-                  <span class="w-5 md:w-8 flex items-center justify-center">
-                    <img
-                      src={getTeamLogo(game.homeTeam)}
-                      alt={game.homeTeam}
-                      class="h-5 md:h-8 flex-shrink-0"
-                    />
-                  </span>
-                )}
+      const prediction =
+        homePrediction !== undefined && awayPrediction !== undefined
+          ? {
+              home: homePrediction,
+              away: awayPrediction,
+            }
+          : undefined;
+      const isCompleted = game.finished;
+      const finalScore = game.finalScore;
+      const { points, type } = isCompleted
+        ? getPredictionPoints(prediction, finalScore)
+        : { points: 0, type: 'none' };
 
-                {isCompleted && finalScore ? (
-                  <div class="w-8 h-8 md:w-12 md:h-10 flex items-center justify-center text-sm md:text-xl font-bold bg-slate-900 dark:bg-black text-white dark:text-white rounded-md md:rounded-lg flex-shrink-0 shadow-sm">
-                    {finalScore.homeTeam}
-                  </div>
-                ) : (
-                  <>
-                    {showUserInputs && (
-                      <input
-                        type="number"
-                        min="0"
-                        max="10"
-                        class="w-8 h-8 md:w-12 md:h-10 text-center text-sm md:text-xl border-none focus:ring-0 text-slate-900 dark:text-white font-bold p-0 bg-slate-200 dark:bg-border-dark rounded-md md:rounded-lg flex-shrink-0"
-                        value={game.prediction?.mostLikelyScore.home}
-                      />
-                    )}
-                    {!showUserInputs && showAIPredict && (
-                      <div class="w-8 h-8 md:w-12 md:h-10 flex items-center justify-center text-sm md:text-xl font-bold bg-slate-200 dark:bg-border-dark text-slate-900 dark:text-white rounded-md md:rounded-lg flex-shrink-0">
-                        {game.prediction?.mostLikelyScore.home}
-                      </div>
-                    )}
-                  </>
-                )}
-              </div>
+      return (
+        <div class="flex flex-row items-center p-3 md:p-4 gap-2 md:gap-4 fixture-row transition-colors">
+          <div class="flex-1 flex flex-row items-center justify-between min-w-0">
+            <div class="flex items-center gap-1.5 md:gap-3 flex-1 justify-end text-right min-w-0">
+              <TeamName teamName={game.homeTeam} />
 
-              <div class="px-2 md:px-4 shrink-0 flex flex-col items-center justify-center w-[72px] md:w-[88px]">
-                {isCompleted && prediction ? (
-                  <>
-                    <span class="text-xs md:text-sm font-bold whitespace-nowrap text-muted-dark pb-0.5">
-                      {prediction.home} - {prediction.away}
-                    </span>
-                    <span class="text-[9px] md:text-[10px] text-muted-dark font-medium uppercase border-t border-slate-200 dark:border-slate-700 pt-0.5 w-full text-center">
-                      PREDICTION
-                    </span>
-                  </>
-                ) : (
-                  <>
-                    <span class="text-xs md:text-sm font-bold whitespace-nowrap">
-                      {formatTime(game.commenceTime)}
-                    </span>
-                    <span class="text-[9px] md:text-[10px] text-muted-dark font-medium uppercase mt-0.5">
-                      GMT
-                    </span>
-                  </>
-                )}
-              </div>
-
-              <div class="flex items-center gap-1.5 md:gap-3 flex-1 min-w-0">
-                {isCompleted && finalScore ? (
-                  <div class="w-8 h-8 md:w-12 md:h-10 flex items-center justify-center text-sm md:text-xl font-bold bg-slate-900 dark:bg-black text-white dark:text-white rounded-md md:rounded-lg flex-shrink-0 shadow-sm">
-                    {finalScore.awayTeam}
-                  </div>
-                ) : (
-                  <>
-                    {!showUserInputs && showAIPredict && (
-                      <div class="w-8 h-8 md:w-12 md:h-10 flex items-center justify-center text-sm md:text-xl font-bold bg-slate-200 dark:bg-border-dark text-slate-900 dark:text-white rounded-md md:rounded-lg flex-shrink-0">
-                        {game.prediction?.mostLikelyScore.away}
-                      </div>
-                    )}
-                    {showUserInputs && (
-                      <input
-                        type="number"
-                        min="0"
-                        max="10"
-                        class="w-8 h-8 md:w-12 md:h-10 text-center text-sm md:text-xl border-none focus:ring-0 text-slate-900 dark:text-white font-bold p-0 bg-slate-200 dark:bg-border-dark rounded-md md:rounded-lg flex-shrink-0"
-                        value={game.prediction?.mostLikelyScore.away}
-                      />
-                    )}
-                  </>
-                )}
-
-                {getTeamLogo(game.awayTeam) && (
-                  <span class="w-5 md:w-8 flex items-center justify-center">
-                    <img
-                      src={getTeamLogo(game.awayTeam)}
-                      alt={game.awayTeam}
-                      class="h-5 md:h-8 flex-shrink-0"
-                    />
-                  </span>
-                )}
-                <span class="text-xs md:text-base font-bold truncate">
-                  {game.awayTeam}
-                </span>
-              </div>
-            </div>
-
-            <div class="flex items-center justify-start ml-2 md:ml-4 w-16 md:w-20 shrink-0">
-              {isCompleted && type !== 'none' ? (
-                <span
-                  class={`px-2 py-1 rounded-full text-[10px] md:text-xs font-bold border ${getPillClass(type)}`}
-                >
-                  +{points} pts
-                </span>
+              {isCompleted && finalScore ? (
+                <div class="w-8 h-8 md:w-12 md:h-10 flex items-center justify-center text-sm md:text-xl font-bold bg-slate-900 dark:bg-black text-white dark:text-white rounded-md md:rounded-lg flex-shrink-0 shadow-sm">
+                  {finalScore.homeTeam}
+                </div>
               ) : (
-                <span class="w-full" aria-hidden="true" />
+                <>
+                  {showUserInputs && (
+                    <UserInput score={game.prediction?.mostLikelyScore.home} />
+                  )}
+                  {!showUserInputs && showAIPredict && (
+                    <div class="w-8 h-8 md:w-12 md:h-10 flex items-center justify-center text-sm md:text-xl font-bold bg-slate-200 dark:bg-border-dark text-slate-900 dark:text-white rounded-md md:rounded-lg flex-shrink-0">
+                      {game.prediction?.mostLikelyScore.home}
+                    </div>
+                  )}
+                </>
               )}
             </div>
-          </div>
-        );
-      })
-    }
-  </div>
-</section>
 
-<style>
-  .material-symbols-outlined {
-    font-variation-settings:
-      'FILL' 0,
-      'wght' 400,
-      'GRAD' 0,
-      'opsz' 24;
+            <div class="px-2 md:px-4 shrink-0 flex flex-col items-center justify-center w-[72px] md:w-[88px]">
+              {isCompleted && prediction ? (
+                <>
+                  <span class="text-xs md:text-sm font-bold whitespace-nowrap text-muted-dark pb-0.5">
+                    {prediction.home} - {prediction.away}
+                  </span>
+                  <span class="text-[9px] md:text-[10px] text-muted-dark font-medium uppercase border-t border-slate-200 dark:border-slate-700 pt-0.5 w-full text-center">
+                    PREDICTION
+                  </span>
+                </>
+              ) : (
+                <GameTime kickoffTime={game.commenceTime} />
+              )}
+            </div>
+
+            <div class="flex items-center gap-1.5 md:gap-3 flex-1 min-w-0">
+              {isCompleted && finalScore ? (
+                <div class="w-8 h-8 md:w-12 md:h-10 flex items-center justify-center text-sm md:text-xl font-bold bg-slate-900 dark:bg-black text-white dark:text-white rounded-md md:rounded-lg flex-shrink-0 shadow-sm">
+                  {finalScore.awayTeam}
+                </div>
+              ) : (
+                <>
+                  {!showUserInputs && showAIPredict && (
+                    <div class="w-8 h-8 md:w-12 md:h-10 flex items-center justify-center text-sm md:text-xl font-bold bg-slate-200 dark:bg-border-dark text-slate-900 dark:text-white rounded-md md:rounded-lg flex-shrink-0">
+                      {game.prediction?.mostLikelyScore.away}
+                    </div>
+                  )}
+                  {showUserInputs && (
+                    <UserInput score={game.prediction?.mostLikelyScore.away} />
+                  )}
+                </>
+              )}
+
+              <TeamName teamName={game.awayTeam} awayTeam={true} />
+            </div>
+          </div>
+
+          <div class="flex items-center justify-start ml-2 md:ml-4 w-16 md:w-20 shrink-0">
+            {isCompleted && type !== 'none' ? (
+              <PointsPill points={points} type={type} />
+            ) : (
+              <span class="w-full" aria-hidden="true" />
+            )}
+          </div>
+        </div>
+      );
+    })
   }
-  .active-tab {
-    background-color: #101622;
-    color: white;
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
-  }
-  input::-webkit-outer-spin-button,
-  input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
-</style>
+</div>
