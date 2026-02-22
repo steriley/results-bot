@@ -5,6 +5,7 @@ import MainLayout from '@/components/MainLayout.astro';
 import MatchweekSelector from '@/components/MatchweekSelector.astro';
 import PageWrapper from '@/components/PageWrapper.astro';
 import TableDate from '@/components/TableDate.astro';
+import TotalPoints from '@/components/ResultsTable/TotalPoints.astro';
 import mockOdds from '@/mocks/premier-league-games.json';
 import { $currentGameweek } from '@/stores/store';
 import { fixtureByDates, fixtureDates } from '@/helpers/sort-games-by-date';
@@ -59,6 +60,7 @@ const sortedFixtures = fixtureDates(fixturesByDate);
           </section>
         ))
       }
+      <TotalPoints games={fixturesByDate} />
     </div>
   </MainLayout>
 </PageWrapper>
