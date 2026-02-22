@@ -1,4 +1,4 @@
-import vercel from '@astrojs/vercel';
+import vercel from '@astrojs/vercel/serverless';
 import { defineConfig } from 'astro/config';
 
 import tailwindcss from '@tailwindcss/vite';
@@ -6,8 +6,10 @@ import tailwindcss from '@tailwindcss/vite';
 // https://astro.build/config
 export default defineConfig({
   integrations: [],
-  // adapter: vercel(),
-  // output: 'server',
+  output: 'static',
+  adapter: vercel({
+    edgeMiddleware: true,
+  }),
 
   vite: {
     plugins: [tailwindcss()],
