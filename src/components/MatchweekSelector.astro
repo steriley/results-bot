@@ -3,12 +3,31 @@ interface Props {
   matchweek: number;
   dateRange: string;
 }
-
 const { matchweek, dateRange } = Astro.props;
 ---
 
+<script>
+  import { $currentGameweek } from '@/stores/store';
+
+  const display = document.getElementById('gw-display');
+
+  $currentGameweek.subscribe((gw) => {
+    if (!display) return;
+    display.textContent = `${gw}`;
+  });
+
+  document.getElementById('prev-gw')?.addEventListener('click', () => {
+    $currentGameweek.set($currentGameweek.get() - 1);
+  });
+
+  document.getElementById('next-gw')?.addEventListener('click', () => {
+    $currentGameweek.set($currentGameweek.get() + 1);
+  });
+</script>
+
 <div class="flex items-center gap-4 md:gap-6 bg-transparent">
   <button
+    id="prev-gw"
     class="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center rounded-full bg-slate-200 dark:bg-surface-dark/50 hover:bg-slate-300 dark:hover:bg-border-dark transition-colors text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/50"
     aria-label="Previous Matchweek"
   >
@@ -23,7 +42,7 @@ const { matchweek, dateRange } = Astro.props;
     <span
       class="text-base md:text-xl font-bold tracking-tight text-slate-900 dark:text-white"
     >
-      Matchweek {matchweek}
+      Matchweek <span id="gw-display">{matchweek}</span>
     </span>
     <span class="text-[11px] md:text-sm text-slate-500 dark:text-muted-dark">
       {dateRange}
@@ -31,6 +50,7 @@ const { matchweek, dateRange } = Astro.props;
   </div>
 
   <button
+    id="next-gw"
     class="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center rounded-full bg-slate-200 dark:bg-surface-dark/50 hover:bg-slate-300 dark:hover:bg-border-dark transition-colors text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/50"
     aria-label="Next Matchweek"
   >

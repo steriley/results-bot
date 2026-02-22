@@ -1,24 +1,21 @@
 ---
-import '../styles/globals.css';
-import DateGroup from '../components/DateGroup.astro';
-import MatchweekSelector from '../components/MatchweekSelector.astro';
-import MainLayout from '../components/MainLayout.astro';
-import PageWrapper from '../components/PageWrapper.astro';
-import { getLatestOdds } from '../helpers/get-latest-odds';
-import { predictScores } from '../helpers/prediction-engine';
-import mockOdds from '../mocks/premier-league-games.json';
-import mockGameweekFixtures from '../mocks/gameweek_27.json';
-import { getGameweekFixtures } from '../helpers/gameweek';
-import { getGameweekDateRange } from '../helpers/game-week-date-range';
-import { mergeFixturesWithPredictions } from '../helpers/merge-fixtures-predictions';
+import '@/styles/globals.css';
+import DateGroup from '@/components/DateGroup.astro';
+import MatchweekSelector from '@/components/MatchweekSelector.astro';
+import MainLayout from '@/components/MainLayout.astro';
+import PageWrapper from '@/components/PageWrapper.astro';
+import { getLatestOdds } from '@/helpers/get-latest-odds';
+import { predictScores } from '@/helpers/prediction-engine';
+import mockOdds from '@/mocks/premier-league-games.json';
+import { mergeFixturesWithPredictions } from '@/helpers/merge-fixtures-predictions';
+import { $currentGameweek } from '@/stores/store';
+
+import { GET as getFixtures } from './api/fixtures';
 
 const USE_MOCK_DATA = true;
 
-const fixtures = USE_MOCK_DATA
-  ? mockGameweekFixtures
-  : await getGameweekFixtures(27);
-
-const gameweekDateRange = getGameweekDateRange(fixtures);
+let response = await getFixtures(Astro);
+const { fixtures, gameweekDateRange } = await response.json();
 
 const odds = USE_MOCK_DATA
   ? mockOdds
@@ -26,9 +23,15 @@ const odds = USE_MOCK_DATA
 const predictions = predictScores(odds as any);
 const scores = mergeFixturesWithPredictions(fixtures, predictions);
 
-console.log(JSON.stringify(scores, null, 2));
+const shortDate = (dateString: string) => {
+  const date = new Date(dateString);
+  return date.toLocaleDateString('en-GB', {
+    weekday: 'short',
+    day: 'numeric',
+    month: 'short',
+  });
+};
 
-// Group games by date
 const gamesByDate = scores.reduce(
   (acc, game) => {
     const date = new Date(game.commenceTime ?? Date.now());
@@ -59,7 +62,10 @@ const sortedDates = Object.keys(gamesByDate).sort(
     pageSubtitle="The bot has made its predictions for this gameweek"
   >
     <div slot="titleActions" class="flex items-center gap-2">
-      <MatchweekSelector matchweek={27} dateRange="Sat 21 Feb - Mon 23 Feb" />
+      <MatchweekSelector
+        matchweek={$currentGameweek.get()}
+        dateRange={`${shortDate(gameweekDateRange.earliest)} - ${shortDate(gameweekDateRange.latest)}`}
+      />
     </div>
     <div class="space-y-6 pb-20">
       {
