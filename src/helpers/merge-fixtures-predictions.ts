@@ -68,11 +68,15 @@ export function mergeFixturesWithPredictions(
 
     return {
       ...fixture,
-      gameId: match?.gameId,
-      confidence: match?.confidence,
-      expectedGoals: match?.expectedGoals,
-      predictedScoreHome: match?.mostLikelyScore.home,
-      predictedScoreAway: match?.mostLikelyScore.away,
+      gameId: match?.gameId ?? '',
+      confidence: match?.confidence ?? 0,
+      expectedGoals: match?.expectedGoals ?? { home: 0, away: 0 },
+      predictedScoreHome: match?.mostLikelyScore.home ?? 0,
+      predictedScoreAway: match?.mostLikelyScore.away ?? 0,
+      points: {
+        score: 0,
+        type: 'none' as const,
+      },
     };
   });
 }
