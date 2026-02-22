@@ -30,7 +30,15 @@ interface PredictedScore {
 }
 
 export interface EnrichedFixture extends GameweekFixture {
-  prediction: PredictedScore | null;
+  gameId: string;
+  confidence: number;
+  expectedGoals: { home: number; away: number };
+  predictedScoreHome: number;
+  predictedScoreAway: number;
+  points: {
+    score: number;
+    type: 'exact' | 'result' | 'goal' | 'incorrect' | 'none';
+  };
 }
 
 // ─── Merge Function ───────────────────────────────────────────────────────────
@@ -60,15 +68,11 @@ export function mergeFixturesWithPredictions(
 
     return {
       ...fixture,
-      prediction: match
-        ? {
-            gameId: match.gameId,
-            expectedGoals: match.expectedGoals,
-            mostLikelyScore: match.mostLikelyScore,
-            confidence: match.confidence,
-            trapWarning: match.trapWarning,
-          }
-        : null,
+      gameId: match?.gameId,
+      confidence: match?.confidence,
+      expectedGoals: match?.expectedGoals,
+      predictedScoreHome: match?.mostLikelyScore.home,
+      predictedScoreAway: match?.mostLikelyScore.away,
     };
   });
 }

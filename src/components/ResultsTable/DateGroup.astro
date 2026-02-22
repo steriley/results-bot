@@ -4,7 +4,6 @@ import TeamName from '@/components/ResultsTable/TeamName.astro';
 import UserInput from '@/components/ResultsTable/UserInput.astro';
 import GameTime from '@/components/ResultsTable/GameTime.astro';
 import type { EnrichedFixture } from '@/helpers/merge-fixtures-predictions';
-import { getPredictionPoints } from '@/helpers/get-predicition-points';
 
 interface Props {
   games: EnrichedFixture[];
@@ -24,21 +23,9 @@ const {
 >
   {
     games.map((game) => {
-      const homePrediction = game.prediction?.mostLikelyScore.home;
-      const awayPrediction = game.prediction?.mostLikelyScore.away;
-
-      const prediction =
-        homePrediction !== undefined && awayPrediction !== undefined
-          ? {
-              home: homePrediction,
-              away: awayPrediction,
-            }
-          : undefined;
       const isCompleted = game.finished;
-      const finalScore = game.finalScore;
-      const { points, type } = isCompleted
-        ? getPredictionPoints(prediction, finalScore)
-        : { points: 0, type: 'none' };
+      const { predictedScoreHome, predictedScoreAway, finalScore, points } =
+        game;
 
       return (
         <div class="flex flex-row items-center p-3 md:p-4 gap-2 md:gap-4 fixture-row transition-colors">
@@ -52,12 +39,10 @@ const {
                 </div>
               ) : (
                 <>
-                  {showUserInputs && (
-                    <UserInput score={game.prediction?.mostLikelyScore.home} />
-                  )}
+                  {showUserInputs && <UserInput score={predictedScoreHome} />}
                   {!showUserInputs && showAIPredict && (
                     <div class="w-8 h-8 md:w-12 md:h-10 flex items-center justify-center text-sm md:text-xl font-bold bg-slate-200 dark:bg-border-dark text-slate-900 dark:text-white rounded-md md:rounded-lg flex-shrink-0">
-                      {game.prediction?.mostLikelyScore.home}
+                      {predictedScoreHome}
                     </div>
                   )}
                 </>
@@ -65,10 +50,12 @@ const {
             </div>
 
             <div class="px-2 md:px-4 shrink-0 flex flex-col items-center justify-center w-[72px] md:w-[88px]">
-              {isCompleted && prediction ? (
+              {isCompleted &&
+              predictedScoreHome !== undefined &&
+              predictedScoreAway !== undefined ? (
                 <>
                   <span class="text-xs md:text-sm font-bold whitespace-nowrap text-muted-dark pb-0.5">
-                    {prediction.home} - {prediction.away}
+                    {predictedScoreHome} - {predictedScoreAway}
                   </span>
                   <span class="text-[9px] md:text-[10px] text-muted-dark font-medium uppercase border-t border-slate-200 dark:border-slate-700 pt-0.5 w-full text-center">
                     PREDICTION
@@ -88,12 +75,10 @@ const {
                 <>
                   {!showUserInputs && showAIPredict && (
                     <div class="w-8 h-8 md:w-12 md:h-10 flex items-center justify-center text-sm md:text-xl font-bold bg-slate-200 dark:bg-border-dark text-slate-900 dark:text-white rounded-md md:rounded-lg flex-shrink-0">
-                      {game.prediction?.mostLikelyScore.away}
+                      {predictedScoreAway}
                     </div>
                   )}
-                  {showUserInputs && (
-                    <UserInput score={game.prediction?.mostLikelyScore.away} />
-                  )}
+                  {showUserInputs && <UserInput score={predictedScoreAway} />}
                 </>
               )}
 
@@ -102,8 +87,8 @@ const {
           </div>
 
           <div class="flex items-center justify-start ml-2 md:ml-4 w-16 md:w-20 shrink-0">
-            {isCompleted && type !== 'none' ? (
-              <PointsPill points={points} type={type} />
+            {isCompleted ? (
+              <PointsPill score={points.score} type={points.type} />
             ) : (
               <span class="w-full" aria-hidden="true" />
             )}

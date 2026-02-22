@@ -6,7 +6,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "types": "tsc --noEmit"
   },
   "dependencies": {
     "@astrojs/vercel": "^9.0.4",

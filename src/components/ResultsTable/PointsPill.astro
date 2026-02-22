@@ -3,10 +3,10 @@ import type { PillType } from '@/helpers/get-predicition-points';
 
 interface Props {
   type: PillType;
-  points: number;
+  score: number;
 }
 
-const { type, points } = Astro.props as Props;
+const { type, score } = Astro.props as Props;
 
 function getPillClass(type: PillType): string {
   switch (type) {
@@ -25,5 +25,5 @@ function getPillClass(type: PillType): string {
 <span
   class={`px-2 py-1 rounded-full text-[10px] md:text-xs font-bold border ${getPillClass(type)}`}
 >
-  +{points} pts
+  +{score} pts
 </span>

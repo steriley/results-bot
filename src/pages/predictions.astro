@@ -1,13 +1,15 @@
 ---
 import '@/styles/globals.css';
-import DateGroup from '@/components/DateGroup.astro';
+import DateGroup from '@/components/ResultsTable/DateGroup.astro';
 import MainLayout from '@/components/MainLayout.astro';
 import PageWrapper from '@/components/PageWrapper.astro';
-import mockUserPredictions from '@/mocks/gameweek_27_user_1.json';
 import QuickStats from '@/components/QuickStats.astro';
 import TableDate from '@/components/TableDate.astro';
-import { fixtureByDates, fixtureDates } from '@/helpers/sort-games-by-date';
+import mockUserPredictions from '@/mocks/gameweek_27_user_1.json';
 import type { EnrichedFixture } from '@/helpers/merge-fixtures-predictions';
+import { fixtureByDates, fixtureDates } from '@/helpers/sort-games-by-date';
+import { getPredictionPoints } from '@/helpers/get-predicition-points';
+
 import { GET as getFixtures } from './api/fixtures';
 
 const userPredictions = mockUserPredictions;
@@ -23,12 +25,15 @@ const fullFixtureData = fixtures.map((fixture: EnrichedFixture) => {
   );
   return {
     ...fixture,
-    prediction: {
-      mostLikelyScore: {
-        home: userPrediction?.homeScore,
-        away: userPrediction?.awayScore,
+    predictedScoreHome: userPrediction?.homeScore,
+    predictedScoreAway: userPrediction?.awayScore,
+    points: getPredictionPoints(
+      { home: userPrediction?.homeScore, away: userPrediction?.awayScore },
+      {
+        home: fixture.finalScore?.homeTeam ?? 0,
+        away: fixture.finalScore?.awayTeam ?? 0,
       },
-    },
+    ),
   };
 });
 
