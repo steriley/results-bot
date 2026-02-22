@@ -38,6 +38,34 @@ const fullFixtureData = fixtures.map((fixture: EnrichedFixture) => {
   };
 });
 
+function totalPoints(games: Record<string, EnrichedFixture[]>): number {
+  return Object.values(games)
+    .flat()
+    .reduce((sum, game) => {
+      return sum + game.points.score;
+    }, 0);
+}
+
+function totalCompleteFixtures(
+  games: Record<string, EnrichedFixture[]>,
+): number {
+  return Object.values(games)
+    .flat()
+    .filter((game) => game.finalScore !== null).length;
+}
+
+const totalPointsThisWeek = totalPoints(fixtureByDates(fullFixtureData));
+const totalCompleteFixturesThisWeek = totalCompleteFixtures(
+  fixtureByDates(fullFixtureData),
+);
+
+const accuracy =
+  totalCompleteFixturesThisWeek > 0
+    ? Math.round(
+        (totalPointsThisWeek / (totalCompleteFixturesThisWeek * 10)) * 100,
+      )
+    : 0;
+
 const fixturesByDate = fixtureByDates(fullFixtureData);
 const sortedFixtures = fixtureDates(fixturesByDate);
 ---
@@ -48,7 +76,7 @@ const sortedFixtures = fixtureDates(fixturesByDate);
     pageSubtitle="Gameweek 27 • Make your score predictions to beat the bot"
   >
     <div slot="titleActions" class="flex items-center gap-2">
-      <QuickStats accuracy={14} trending="up" />
+      <QuickStats accuracy={accuracy} trending="up" />
     </div>
     <div class="space-y-6 pb-20">
       {
