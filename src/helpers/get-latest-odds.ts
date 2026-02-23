@@ -1,6 +1,6 @@
-import type { OddsGame } from '../types/odds';
 import { getSecret } from 'astro:env/server';
 import axios, { type AxiosError } from 'axios';
+import type { OddsGame } from '../types/odds';
 
 export async function getLatestOdds(
   commenceTimeFrom: string,

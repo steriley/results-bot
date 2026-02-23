@@ -1,18 +1,18 @@
 ---
 import '@/styles/globals.css';
-import DateGroup from '@/components/ResultsTable/DateGroup.astro';
 import MainLayout from '@/components/MainLayout.astro';
 import MatchweekSelector from '@/components/MatchweekSelector.astro';
 import PageWrapper from '@/components/PageWrapper.astro';
-import TableDate from '@/components/TableDate.astro';
+import DateGroup from '@/components/ResultsTable/DateGroup.astro';
 import TotalPoints from '@/components/ResultsTable/TotalPoints.astro';
-import mockOdds from '@/mocks/premier-league-games.json';
-import { $currentGameweek } from '@/stores/store';
-import { fixtureByDates, fixtureDates } from '@/helpers/sort-games-by-date';
+import TableDate from '@/components/TableDate.astro';
 import { getLatestOdds } from '@/helpers/get-latest-odds';
 import { getPredictionPoints } from '@/helpers/get-predicition-points';
 import { mergeFixturesWithPredictions } from '@/helpers/merge-fixtures-predictions';
 import { predictScores } from '@/helpers/prediction-engine';
+import { fixtureByDates, fixtureDates } from '@/helpers/sort-games-by-date';
+import mockOdds from '@/mocks/premier-league-games.json';
+import { $currentGameweek } from '@/stores/store';
 
 import { GET as getFixtures } from './api/fixtures';
 
@@ -24,7 +24,7 @@ const { fixtures, gameweekDateRange } = await response.json();
 const odds = USE_MOCK_DATA
   ? mockOdds
   : await getLatestOdds(gameweekDateRange.earliest, gameweekDateRange.latest);
-const predictions = predictScores(odds as any);
+const predictions = predictScores(odds);
 const fullFixtureData = mergeFixturesWithPredictions(fixtures, predictions);
 
 const fixturesWithScores = fullFixtureData.map((f) => ({

@@ -32,13 +32,7 @@ type ScoreProbability = {
   probability: number;
 };
 
-type SimulationResult = {
-  score: string;
-  frequency: number;
-  probability: number;
-};
-
-type Prediction = {
+export type Prediction = {
   gameId: string;
   commenceTime: string;
   homeTeam: string;
@@ -69,7 +63,7 @@ function spreadToExpectedGD(spread: number): number {
 
 // Poisson PMF
 function poissonProbability(lambda: number, k: number): number {
-  return (Math.pow(lambda, k) * Math.exp(-lambda)) / factorial(k);
+  return (lambda ** k * Math.exp(-lambda)) / factorial(k);
 }
 
 // Small factorial helper (0–10 safe)
@@ -117,7 +111,7 @@ export function predictScores(
 
     let homeProb = 0;
     let awayProb = 0;
-    let drawProb = 0;
+    let _drawProb = 0;
     let h2hCount = 0;
 
     let layHome = 0;
@@ -131,8 +125,8 @@ export function predictScores(
           const fav = market.outcomes.find(
             (o) => o.point !== undefined && o.point < 0,
           );
-          if (fav) {
-            expectedGD += spreadToExpectedGD(fav.point!);
+          if (fav && fav.point !== undefined) {
+            expectedGD += spreadToExpectedGD(fav.point);
             favIsHome = fav.name === game.home_team;
             spreadCount++;
           }
@@ -163,7 +157,7 @@ export function predictScores(
           if (home && away) {
             homeProb += impliedProb(home.price);
             awayProb += impliedProb(away.price);
-            if (draw) drawProb += impliedProb(draw.price);
+            if (draw) _drawProb += impliedProb(draw.price);
             h2hCount++;
           }
         }
@@ -193,7 +187,7 @@ export function predictScores(
     if (h2hCount > 0) {
       homeProb /= h2hCount;
       awayProb /= h2hCount;
-      drawProb /= h2hCount;
+      _drawProb /= h2hCount;
     }
     if (layCount > 0) {
       layHome /= layCount;
@@ -274,7 +268,7 @@ export function predictScores(
       simResults[key] = (simResults[key] || 0) + 1;
     }
 
-    const simulationTopResults = Object.entries(simResults)
+    const _simulationTopResults = Object.entries(simResults)
       .map(([score, freq]) => ({
         score,
         frequency: freq,

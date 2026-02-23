@@ -15,7 +15,7 @@ function loadPrediction(gameId) {
     const raw = localStorage.getItem(storageKey(gameId));
     if (!raw) return null;
     return JSON.parse(raw);
-  } catch (e) {
+  } catch {
     return null;
   }
 }
@@ -23,7 +23,11 @@ function loadPrediction(gameId) {
 function savePrediction(gameId, home, away) {
   const payload = { home: Number(home), away: Number(away) };
   localStorage.setItem(storageKey(gameId), JSON.stringify(payload));
-  window.dispatchEvent(new CustomEvent('user:prediction:changed', { detail: { gameId, ...payload } }));
+  window.dispatchEvent(
+    new CustomEvent('user:prediction:changed', {
+      detail: { gameId, ...payload },
+    }),
+  );
 }
 
 function clamp(v, min, max) {
@@ -80,4 +84,4 @@ if (document.readyState === 'loading') {
   init();
 }
 
-export { };
+export {};

@@ -1,15 +1,15 @@
 ---
 import '@/styles/globals.css';
-import DateGroup from '@/components/ResultsTable/DateGroup.astro';
 import MainLayout from '@/components/MainLayout.astro';
 import PageWrapper from '@/components/PageWrapper.astro';
 import QuickStats from '@/components/QuickStats.astro';
-import TableDate from '@/components/TableDate.astro';
+import DateGroup from '@/components/ResultsTable/DateGroup.astro';
 import TotalPoints from '@/components/ResultsTable/TotalPoints.astro';
-import mockUserPredictions from '@/mocks/gameweek_27_user_1.json';
+import TableDate from '@/components/TableDate.astro';
+import { getPredictionPoints } from '@/helpers/get-predicition-points';
 import type { EnrichedFixture } from '@/helpers/merge-fixtures-predictions';
 import { fixtureByDates, fixtureDates } from '@/helpers/sort-games-by-date';
-import { getPredictionPoints } from '@/helpers/get-predicition-points';
+import mockUserPredictions from '@/mocks/gameweek_27_user_1.json';
 
 import { GET as getFixtures } from './api/fixtures';
 

@@ -2,7 +2,6 @@
 import '../styles/globals.css';
 import MainLayout from '../components/MainLayout.astro';
 import PageWrapper from '../components/PageWrapper.astro';
-import PageTitle from '../components/PageTitle.astro';
 ---
 
 <PageWrapper title="Results Bot | Premier League Dashboard">
@@ -11,20 +10,20 @@ import PageTitle from '../components/PageTitle.astro';
     pageSubtitle="Season 2023/24 • Round 28 • Ending in 2 days"
   >
     <!-- Page Header & Stats Summary -->
-    <div  slot="titleActions" class="flex flex-wrap gap-3">
-        <button
-          class="flex items-center gap-2 bg-primary text-white px-5 py-2.5 rounded-lg font-bold text-sm hover:bg-primary/90 transition-all shadow-lg shadow-primary/20"
-        >
-          <span class="material-symbols-outlined text-[20px]">add_circle</span>
-          Make Predictions
-        </button>
-        <button
-          class="flex items-center gap-2 bg-slate-100 dark:bg-border-dark text-slate-700 dark:text-slate-200 px-5 py-2.5 rounded-lg font-bold text-sm hover:bg-slate-200 dark:hover:bg-border-dark transition-all"
-        >
-          <span class="material-symbols-outlined text-[20px]">rule</span>
-          League Rules
-        </button>
-      </div>
+    <div slot="titleActions" class="flex flex-wrap gap-3">
+      <button
+        class="flex items-center gap-2 bg-primary text-white px-5 py-2.5 rounded-lg font-bold text-sm hover:bg-primary/90 transition-all shadow-lg shadow-primary/20"
+      >
+        <span class="material-symbols-outlined text-[20px]">add_circle</span>
+        Make Predictions
+      </button>
+      <button
+        class="flex items-center gap-2 bg-slate-100 dark:bg-border-dark text-slate-700 dark:text-slate-200 px-5 py-2.5 rounded-lg font-bold text-sm hover:bg-slate-200 dark:hover:bg-border-dark transition-all"
+      >
+        <span class="material-symbols-outlined text-[20px]">rule</span>
+        League Rules
+      </button>
+    </div>
 
     <!-- Score Overview Cards -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">

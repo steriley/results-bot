@@ -7,7 +7,9 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "types": "tsc --noEmit"
+    "format": "biome format --write",
+    "lint": "biome lint --write",
+    "check": "biome check --write"
   },
   "dependencies": {
     "@astrojs/vercel": "^9.0.4",
@@ -21,11 +23,9 @@
     "tailwindcss": "^4.2.0"
   },
   "devDependencies": {
-    "@trivago/prettier-plugin-sort-imports": "github:trivago/prettier-plugin-sort-imports",
+    "@biomejs/biome": "2.4.4",
     "@vue/test-utils": "^2.4.6",
     "jsdom": "^28.1.0",
-    "prettier": "^3.8.1",
-    "prettier-plugin-astro": "^0.14.1",
     "vitest": "^4.0.18"
   }
 }

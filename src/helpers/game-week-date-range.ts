@@ -18,10 +18,11 @@ export function getGameweekDateRange(
     throw new Error('No scheduled fixtures found');
   }
 
+  const earliest = `${new Date(Math.min(...kickoffTimes)).toISOString().split('.')[0]}Z`;
+  const latest = `${new Date(Math.max(...kickoffTimes)).toISOString().split('.')[0]}Z`;
+
   return {
-    earliest:
-      new Date(Math.min(...kickoffTimes)).toISOString().split('.')[0] + 'Z',
-    latest:
-      new Date(Math.max(...kickoffTimes)).toISOString().split('.')[0] + 'Z',
+    earliest,
+    latest,
   };
 }

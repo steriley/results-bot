@@ -21,7 +21,9 @@ export const fixtureByDates = (fixture: EnrichedFixture[]) => {
   );
 };
 
-export const fixtureDates = (gamesByDate: Record<string, any>) => {
+export const fixtureDates = (
+  gamesByDate: Record<string, EnrichedFixture[]>,
+) => {
   return Object.keys(gamesByDate).sort(
     (a, b) => new Date(a).getTime() - new Date(b).getTime(),
   );
