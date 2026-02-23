@@ -5,7 +5,7 @@ import { defineConfig } from 'astro/config';
 // https://astro.build/config
 export default defineConfig({
   integrations: [],
-  output: 'static',
+  output: 'server',
   adapter: vercel({
     edgeMiddleware: true,
   }),

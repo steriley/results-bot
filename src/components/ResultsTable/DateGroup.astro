@@ -4,6 +4,7 @@ import PointsPill from '@/components/ResultsTable/PointsPill.astro';
 import TeamName from '@/components/ResultsTable/TeamName.astro';
 import UserInput from '@/components/ResultsTable/UserInput.astro';
 import type { EnrichedFixture } from '@/helpers/merge-fixtures-predictions';
+import { $gameweekData } from '@/stores/gameweekData';
 
 interface Props {
   games: EnrichedFixture[];

@@ -18,21 +18,26 @@ const formatDate = (dateString: string) => {
 ---
 
 <script>
-  import { $currentGameweek } from '@/stores/store';
+  import { $gameweek } from '@/stores/gameweek';
+  import { $gameweekData } from '@/stores/gameweekData';
 
   const display = document.getElementById('gw-display');
 
-  $currentGameweek.subscribe((gw) => {
+  $gameweek.subscribe((gw) => {
     if (!display) return;
     display.textContent = `${gw}`;
   });
 
+  $gameweekData.subscribe((gw) => {
+    console.log('Gameweek data updated:', gw);
+  });
+
   document.getElementById('prev-gw')?.addEventListener('click', () => {
-    $currentGameweek.set($currentGameweek.get() - 1);
+    $gameweek.set($gameweek.get() - 1);
   });
 
   document.getElementById('next-gw')?.addEventListener('click', () => {
-    $currentGameweek.set($currentGameweek.get() + 1);
+    $gameweek.set($gameweek.get() + 1);
   });
 </script>
 

@@ -12,7 +12,7 @@ import { mergeFixturesWithPredictions } from '@/helpers/merge-fixtures-predictio
 import { predictScores } from '@/helpers/prediction-engine';
 import { fixtureByDates, fixtureDates } from '@/helpers/sort-games-by-date';
 import mockOdds from '@/mocks/premier-league-games.json';
-import { $currentGameweek } from '@/stores/store';
+import { $gameweek } from '@/stores/gameweek';
 
 import { GET as getFixtures } from './api/fixtures';
 
@@ -46,7 +46,7 @@ const sortedFixtures = fixtureDates(fixturesByDate);
   >
     <div slot="titleActions" class="flex items-center gap-2">
       <MatchweekSelector
-        matchweek={$currentGameweek.get()}
+        matchweek={$gameweek.get()}
         startDate={gameweekDateRange.earliest}
         endDate={gameweekDateRange.latest}
       />
