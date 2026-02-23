@@ -3,9 +3,7 @@ import '@/styles/globals.css';
 import MainLayout from '@/components/MainLayout.astro';
 import PageWrapper from '@/components/PageWrapper.astro';
 import QuickStats from '@/components/QuickStats.astro';
-import DateGroup from '@/components/ResultsTable/DateGroup.astro';
-import TotalPoints from '@/components/ResultsTable/TotalPoints.astro';
-import TableDate from '@/components/TableDate.astro';
+import ResultsTable from '@/components/ResultsTable/ResultsTable.astro';
 import { getPredictionPoints } from '@/helpers/get-predicition-points';
 import type { EnrichedFixture } from '@/helpers/merge-fixtures-predictions';
 import { fixtureByDates, fixtureDates } from '@/helpers/sort-games-by-date';
@@ -65,9 +63,6 @@ const accuracy =
         (totalPointsThisWeek / (totalCompleteFixturesThisWeek * 10)) * 100,
       )
     : 0;
-
-const fixturesByDate = fixtureByDates(fullFixtureData);
-const sortedFixtures = fixtureDates(fixturesByDate);
 ---
 
 <PageWrapper title="Beat the Bot: Your Predictions">
@@ -78,16 +73,6 @@ const sortedFixtures = fixtureDates(fixturesByDate);
     <div slot="titleActions" class="flex items-center gap-2">
       <QuickStats accuracy={accuracy} trending="up" />
     </div>
-    <div class="space-y-6 pb-20">
-      {
-        sortedFixtures.map((date) => (
-          <section class="space-y-3">
-            <TableDate date={date} />
-            <DateGroup games={fixturesByDate[date]} showUserInputs={true} />
-          </section>
-        ))
-      }
-      <TotalPoints games={fixturesByDate} />
-    </div>
+    <ResultsTable fixtures={fullFixtureData} />
   </MainLayout>
 </PageWrapper>

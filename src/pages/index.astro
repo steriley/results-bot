@@ -3,14 +3,11 @@ import '@/styles/globals.css';
 import MainLayout from '@/components/MainLayout.astro';
 import MatchweekSelector from '@/components/MatchweekSelector.astro';
 import PageWrapper from '@/components/PageWrapper.astro';
-import DateGroup from '@/components/ResultsTable/DateGroup.astro';
-import TotalPoints from '@/components/ResultsTable/TotalPoints.astro';
-import TableDate from '@/components/TableDate.astro';
+import ResultsTable from '@/components/ResultsTable/ResultsTable.astro';
 import { getLatestOdds } from '@/helpers/get-latest-odds';
 import { getPredictionPoints } from '@/helpers/get-predicition-points';
 import { mergeFixturesWithPredictions } from '@/helpers/merge-fixtures-predictions';
 import { predictScores } from '@/helpers/prediction-engine';
-import { fixtureByDates, fixtureDates } from '@/helpers/sort-games-by-date';
 import mockOdds from '@/mocks/premier-league-games.json';
 import { $gameweek } from '@/stores/gameweek';
 
@@ -34,9 +31,6 @@ const fixturesWithScores = fullFixtureData.map((f) => ({
     { home: f.finalScore?.homeTeam ?? 0, away: f.finalScore?.awayTeam ?? 0 },
   ),
 }));
-
-const fixturesByDate = fixtureByDates(fixturesWithScores);
-const sortedFixtures = fixtureDates(fixturesByDate);
 ---
 
 <PageWrapper title="Beat the Bot: EPL Predictions">
@@ -51,16 +45,6 @@ const sortedFixtures = fixtureDates(fixturesByDate);
         endDate={gameweekDateRange.latest}
       />
     </div>
-    <div class="space-y-6 pb-20">
-      {
-        sortedFixtures.map((date) => (
-          <section class="space-y-3">
-            <TableDate date={date} />
-            <DateGroup games={fixturesByDate[date]} />
-          </section>
-        ))
-      }
-      <TotalPoints games={fixturesByDate} />
-    </div>
+    <ResultsTable fixtures={fixturesWithScores} />
   </MainLayout>
 </PageWrapper>

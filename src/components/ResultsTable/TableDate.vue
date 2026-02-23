@@ -1,0 +1,16 @@
+<script setup lang="ts">
+const props = defineProps<{
+  date: string;
+}>();
+</script>
+
+<template>
+  <div
+    class="sticky top-0 z-10 py-2 bg-slate-50 dark:bg-background-dark flex items-center gap-3"
+  >
+    <h4 class="text-sm font-bold uppercase tracking-widest text-primary">
+      {{ date }}
+    </h4>
+    <div class="flex-1 h-px bg-slate-200 dark:bg-border-dark"></div>
+  </div>
+</template>
