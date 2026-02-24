@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useStore } from '@nanostores/vue';
-import { computed } from 'vue';
+import { computed, onBeforeMount } from 'vue';
 import { $gameweek, $lastGameweek, $setGameweek } from '@/stores/gameweek';
 import { $gameweekData } from '@/stores/gameweekData';
 
@@ -9,11 +9,16 @@ const lastGameweek = useStore($lastGameweek);
 const gameweekData = useStore($gameweekData);
 
 interface Props {
+  gameWeek: number;
   startDate: string;
   endDate: string;
 }
 
 const props = defineProps<Props>();
+
+onBeforeMount(() => {
+  $gameweek.set(props.gameWeek);
+});
 
 const formatDate = (date: string) =>
   new Date(date).toLocaleDateString('en-GB', {

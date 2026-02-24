@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, onBeforeMount, ref } from 'vue';
 import DateGroup from '@/components/ResultsTable/DateGroup.vue';
 import TableDate from '@/components/ResultsTable/TableDate.vue';
 import TotalPoints from '@/components/ResultsTable/TotalPoints.vue';
@@ -10,16 +10,20 @@ import { $gameweekData } from '@/stores/gameweekData';
 import type { GameweekFixture } from '@/types/gameweek';
 
 interface Props {
+  gameWeek: number;
   fixtures: EnrichedFixture[];
   isInteractive?: boolean;
 }
 
 const props = defineProps<Props>();
 
+onBeforeMount(() => {
+  $gameweek.set(props.gameWeek);
+});
+
 const latestFixtures = ref<GameweekFixture[]>([]);
 const hasFixtures = computed(
-  // TODO: remove the hardcoded gameweek
-  () => latestFixtures.value.length > 0 && $gameweek.value !== 27,
+  () => latestFixtures.value.length > 0 && $gameweek.value !== props.gameWeek,
 );
 
 const fixturesByDate = computed(() =>

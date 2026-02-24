@@ -1,6 +1,6 @@
 import { atom } from 'nanostores';
 
-export const $gameweek = atom<number>(27);
+export const $gameweek = atom<number>(1);
 export const $lastGameweek = atom<number>(38);
 
 export function $setGameweek(gameweek: number) {

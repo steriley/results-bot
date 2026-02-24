@@ -16,7 +16,7 @@ const userPredictions = mockUserPredictions;
 const pageSubtitle = `Gameweek ${$gameweek.value} • Your predictions vs the bot's predictions`;
 
 let response = await getFixtures(Astro);
-const { fixtures } = await response.json();
+const { fixtures, gameWeek } = await response.json();
 
 const fullFixtureData = fixtures.map((fixture: EnrichedFixture) => {
   const userPrediction = userPredictions.find(
@@ -65,6 +65,6 @@ const accuracy =
     <div slot="titleActions" class="flex items-center gap-2">
       <QuickStats accuracy={accuracy} trending="up" />
     </div>
-    <ResultsTable fixtures={fullFixtureData} isInteractive client:load />
+    <ResultsTable gameWeek={gameWeek} fixtures={fullFixtureData} isInteractive client:load />
   </MainLayout>
 </PageWrapper>

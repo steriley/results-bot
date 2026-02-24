@@ -26,7 +26,17 @@ interface FplTeam {
   short_name: string;
 }
 
+interface FplEvent {
+  deadline_time: string;
+  finished: boolean;
+  id: number;
+  is_current: boolean;
+  is_next: boolean;
+  is_previous: boolean;
+}
+
 interface FplBootstrapStatic {
+  events: FplEvent[];
   teams: FplTeam[];
 }
 
@@ -41,6 +51,22 @@ interface FplFixture {
   team_a_score: number | null;
 }
 
+function fetchTeamMap(bootstrap: FplBootstrapStatic): Map<number, string> {
+  return new Map(bootstrap.teams.map((team) => [team.id, team.name]));
+}
+
+function getCurrentGameWeek(bootstrap: FplBootstrapStatic): number {
+  const currentGW = bootstrap.events.find((event) => event.is_current === true);
+
+  // Fallback: If no GW is 'current' (e.g., mid-summer), find the next 'is_next'
+  if (!currentGW) {
+    const nextGW = bootstrap.events.find((event) => event.is_next === true);
+    return nextGW ? nextGW.id : 1;
+  }
+
+  return currentGW.id;
+}
+
 // ─── API Fetchers ─────────────────────────────────────────────────────────────
 
 /**
@@ -50,16 +76,14 @@ interface FplFixture {
  * long-lived cache (e.g. Redis with a 24-hour TTL). It only changes
  * when FPL updates team information, which is rare mid-season.
  */
-async function fetchTeamMap(): Promise<Map<number, string>> {
+export async function fetchBootstrap(): Promise<FplBootstrapStatic> {
   const response = await fetch(`${FPL_BASE_URL}/bootstrap-static/`);
 
   if (!response.ok) {
     throw new Error(`Failed to fetch bootstrap-static: ${response.status}`);
   }
 
-  const data: FplBootstrapStatic = await response.json();
-
-  return new Map(data.teams.map((team) => [team.id, team.name]));
+  return (await response.json()) as FplBootstrapStatic;
 }
 
 /**
@@ -87,8 +111,19 @@ async function fetchGameweekFixtures(gameWeek: number): Promise<FplFixture[]> {
  * @param gameWeek - The FPL gameweek number (1–38)
  * @returns An array of GameweekFixture objects with team names and scores
  */
-export async function getGameweekFixtures(gameWeek: number): Promise<GameweekFixture[]> {
-  const [teamMap, fixtures] = await Promise.all([fetchTeamMap(), fetchGameweekFixtures(gameWeek)]);
+export async function getGameweekFixtures(gameWeek?: string | null): Promise<GameweekFixture[]> {
+  const boostrap = await fetchBootstrap();
+  const currentGameweek =
+    typeof gameWeek === 'number'
+      ? gameWeek
+      : gameWeek
+        ? parseInt(gameWeek, 10)
+        : getCurrentGameWeek(boostrap);
+
+  const [teamMap, fixtures] = await Promise.all([
+    fetchTeamMap(boostrap),
+    fetchGameweekFixtures(currentGameweek),
+  ]);
 
   return fixtures.map((fixture) => {
     const homeTeam = teamMap.get(fixture.team_h) ?? `Team ${fixture.team_h}`;

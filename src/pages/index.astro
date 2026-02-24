@@ -9,14 +9,13 @@ import { getPredictionPoints } from '@/helpers/get-predicition-points';
 import { mergeFixturesWithPredictions } from '@/helpers/merge-fixtures-predictions';
 import { predictScores } from '@/helpers/prediction-engine';
 import mockOdds from '@/mocks/premier-league-games.json';
-import { $gameweek } from '@/stores/gameweek';
 
 import { GET as getFixtures } from './api/fixtures';
 
 const USE_MOCK_DATA = true;
 
 let response = await getFixtures(Astro);
-const { fixtures, dateRange } = await response.json();
+const { fixtures, dateRange, gameWeek } = await response.json();
 const { start, end } = dateRange;
 
 const odds = USE_MOCK_DATA ? mockOdds : await getLatestOdds(start, end);
@@ -38,8 +37,8 @@ const fixturesWithScores = fullFixtureData.map((f) => ({
     pageSubtitle="The bot has made its predictions for this gameweek"
   >
     <div slot="titleActions" class="flex items-center gap-2">
-      <GameWeekSelector startDate={start} endDate={end} client:load />
+      <GameWeekSelector gameWeek={gameWeek} startDate={start} endDate={end} client:load />
     </div>
-    <ResultsTable fixtures={fixturesWithScores} client:load />
+    <ResultsTable gameWeek={gameWeek} fixtures={fixturesWithScores} client:load />
   </MainLayout>
 </PageWrapper>
