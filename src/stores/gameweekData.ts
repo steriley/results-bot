@@ -1,11 +1,12 @@
 import { atom } from 'nanostores';
+import type { GameweekDateRange } from '@/helpers/game-week-date-range';
 import type { GameweekFixture } from '@/helpers/gameweek';
 import { $gameweek } from './gameweek';
 
 // You can refine this type if you have more specific types for fixtures/stats
 type GameweekData = {
   fixtures: GameweekFixture[];
-  gameweekDateRange: { earliest: string; latest: string };
+  dateRange: GameweekDateRange;
 };
 
 export const $gameweekData = atom<GameweekData | null>(null);
@@ -13,7 +14,7 @@ export const $loading = atom(false);
 export const $error = atom<string | null>(null);
 
 // --- Session-persistent cache ---
-const CACHE_KEY = 'gameweekDataCache';
+const CACHE_KEY = 'gameweekCache_v1';
 let cache: Map<number, GameweekData> = new Map();
 
 // Load cache from sessionStorage on init

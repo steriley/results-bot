@@ -19,12 +19,35 @@ const formatDate = (dateString: string) => {
 
 <script>
 import { $gameweek } from '@/stores/gameweek';
+import { $gameweekData } from '@/stores/gameweekData';
 
 const display = document.getElementById('gw-display');
+
+const formatDate = (dateString: string) => {
+  const date = new Date(dateString);
+  return date.toLocaleDateString('en-GB', {
+    weekday: 'short',
+    day: 'numeric',
+    month: 'short',
+  });
+};
 
 $gameweek.subscribe((gw) => {
   if (!display) return;
   display.textContent = `${gw}`;
+});
+
+$gameweekData.listen((data) => {
+  if (!data) return;
+
+  const startDateEl = document.getElementById('start-date');
+  const endDateEl = document.getElementById('end-date');
+  const { start, end } = data.dateRange;
+
+  if (startDateEl && endDateEl) {
+    startDateEl.textContent = formatDate(start);
+    endDateEl.textContent = formatDate(end);
+  }
 });
 
 document.getElementById('prev-gw')?.addEventListener('click', () => {
@@ -57,8 +80,8 @@ document.getElementById('next-gw')?.addEventListener('click', () => {
       Matchweek <span id="gw-display">{matchweek}</span>
     </span>
     <span class="text-[11px] md:text-sm text-slate-500 dark:text-muted-dark">
-      {formatDate(startDate)}
-      - {formatDate(endDate)}
+      <span id="start-date">{formatDate(startDate)}</span>
+      - <span id="end-date">{formatDate(endDate)}</span>
     </span>
   </div>
 

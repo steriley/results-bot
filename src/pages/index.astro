@@ -16,11 +16,10 @@ import { GET as getFixtures } from './api/fixtures';
 const USE_MOCK_DATA = true;
 
 let response = await getFixtures(Astro);
-const { fixtures, gameweekDateRange } = await response.json();
+const { fixtures, dateRange } = await response.json();
+const { start, end } = dateRange;
 
-const odds = USE_MOCK_DATA
-  ? mockOdds
-  : await getLatestOdds(gameweekDateRange.earliest, gameweekDateRange.latest);
+const odds = USE_MOCK_DATA ? mockOdds : await getLatestOdds(start, end);
 const predictions = predictScores(odds);
 const fullFixtureData = mergeFixturesWithPredictions(fixtures, predictions);
 
@@ -41,8 +40,8 @@ const fixturesWithScores = fullFixtureData.map((f) => ({
     <div slot="titleActions" class="flex items-center gap-2">
       <MatchweekSelector
         matchweek={$gameweek.get()}
-        startDate={gameweekDateRange.earliest}
-        endDate={gameweekDateRange.latest}
+        startDate={start}
+        endDate={end}
       />
     </div>
     <ResultsTable fixtures={fixturesWithScores} client:load />

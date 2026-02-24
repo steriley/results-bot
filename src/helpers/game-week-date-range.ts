@@ -1,8 +1,8 @@
 import type { GameweekFixture } from '../types/gameweek';
 
-interface GameweekDateRange {
-  earliest: string;
-  latest: string;
+export interface GameweekDateRange {
+  start: string;
+  end: string;
 }
 
 export function getGameweekDateRange(
@@ -18,11 +18,11 @@ export function getGameweekDateRange(
     throw new Error('No scheduled fixtures found');
   }
 
-  const earliest = `${new Date(Math.min(...kickoffTimes)).toISOString().split('.')[0]}Z`;
-  const latest = `${new Date(Math.max(...kickoffTimes)).toISOString().split('.')[0]}Z`;
+  const start = `${new Date(Math.min(...kickoffTimes)).toISOString().split('.')[0]}Z`;
+  const end = `${new Date(Math.max(...kickoffTimes)).toISOString().split('.')[0]}Z`;
 
   return {
-    earliest,
-    latest,
+    start,
+    end,
   };
 }

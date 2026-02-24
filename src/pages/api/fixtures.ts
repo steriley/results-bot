@@ -12,7 +12,7 @@ export const GET: APIRoute = async ({ request }) => {
     url.searchParams.get('gameweek') ?? $gameweek.get().toString();
 
   const fixtures = await getGameweekFixtures(parseInt(gameweek, 10));
-  const gameweekDateRange = getGameweekDateRange(fixtures);
+  const dateRange = getGameweekDateRange(fixtures);
 
-  return json({ fixtures, gameweekDateRange });
+  return json({ fixtures, dateRange });
 };
