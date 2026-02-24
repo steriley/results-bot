@@ -3,7 +3,7 @@ import '@/styles/globals.css';
 import MainLayout from '@/components/MainLayout.astro';
 import MatchweekSelector from '@/components/MatchweekSelector.astro';
 import PageWrapper from '@/components/PageWrapper.astro';
-import ResultsTable from '@/components/ResultsTable/ResultsTable.astro';
+import ResultsTable from '@/components/ResultsTable/ResultsTable.vue';
 import { getLatestOdds } from '@/helpers/get-latest-odds';
 import { getPredictionPoints } from '@/helpers/get-predicition-points';
 import { mergeFixturesWithPredictions } from '@/helpers/merge-fixtures-predictions';
@@ -45,6 +45,6 @@ const fixturesWithScores = fullFixtureData.map((f) => ({
         endDate={gameweekDateRange.latest}
       />
     </div>
-    <ResultsTable fixtures={fixturesWithScores} />
+    <ResultsTable fixtures={fixturesWithScores} client:load />
   </MainLayout>
 </PageWrapper>

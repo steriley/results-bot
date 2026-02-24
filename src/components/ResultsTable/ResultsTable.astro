@@ -1,7 +1,7 @@
 ---
-import DateGroup from '@/components/ResultsTable/DateGroup.astro';
+import DateGroup from '@/components/ResultsTable/DateGroup.vue';
 import TableDate from '@/components/ResultsTable/TableDate.vue';
-import TotalPoints from '@/components/ResultsTable/TotalPoints.astro';
+import TotalPoints from '@/components/ResultsTable/TotalPoints.vue';
 import type { EnrichedFixture } from '@/helpers/merge-fixtures-predictions';
 import { fixtureByDates, fixtureDates } from '@/helpers/sort-games-by-date';
 
@@ -22,5 +22,5 @@ const sortedFixtures = fixtureDates(fixturesByDate);
         <DateGroup games={fixturesByDate[date]} />
       </section>
     ))}
-  <TotalPoints games={fixturesByDate} />
+  <TotalPoints games={fixturesByDate} client:load />
 </div>

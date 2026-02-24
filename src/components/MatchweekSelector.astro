@@ -18,27 +18,22 @@ const formatDate = (dateString: string) => {
 ---
 
 <script>
-  import { $gameweek } from '@/stores/gameweek';
-  import { $gameweekData } from '@/stores/gameweekData';
+import { $gameweek } from '@/stores/gameweek';
 
-  const display = document.getElementById('gw-display');
+const display = document.getElementById('gw-display');
 
-  $gameweek.subscribe((gw) => {
-    if (!display) return;
-    display.textContent = `${gw}`;
-  });
+$gameweek.subscribe((gw) => {
+  if (!display) return;
+  display.textContent = `${gw}`;
+});
 
-  $gameweekData.subscribe((gw) => {
-    console.log('Gameweek data updated:', gw);
-  });
+document.getElementById('prev-gw')?.addEventListener('click', () => {
+  $gameweek.set($gameweek.get() - 1);
+});
 
-  document.getElementById('prev-gw')?.addEventListener('click', () => {
-    $gameweek.set($gameweek.get() - 1);
-  });
-
-  document.getElementById('next-gw')?.addEventListener('click', () => {
-    $gameweek.set($gameweek.get() + 1);
-  });
+document.getElementById('next-gw')?.addEventListener('click', () => {
+  $gameweek.set($gameweek.get() + 1);
+});
 </script>
 
 <div class="flex items-center gap-4 md:gap-6 bg-transparent">
@@ -62,7 +57,8 @@ const formatDate = (dateString: string) => {
       Matchweek <span id="gw-display">{matchweek}</span>
     </span>
     <span class="text-[11px] md:text-sm text-slate-500 dark:text-muted-dark">
-      {formatDate(startDate)} - {formatDate(endDate)}
+      {formatDate(startDate)}
+      - {formatDate(endDate)}
     </span>
   </div>
 

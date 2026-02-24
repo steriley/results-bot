@@ -1,0 +1,25 @@
+<script setup lang="ts">
+interface Props {
+  score: number | undefined;
+}
+
+defineProps<Props>();
+</script>
+
+<template>
+  <input
+    type="number"
+    min="0"
+    max="10"
+    class="w-8 h-8 md:w-12 md:h-10 text-center text-sm md:text-xl border-none focus:ring-0 text-slate-900 dark:text-white font-bold p-0 bg-slate-200 dark:bg-border-dark rounded-md md:rounded-lg flex-shrink-0"
+    :value="score"
+  >
+</template>
+
+<style scoped>
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+</style>

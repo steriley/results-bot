@@ -1,10 +1,9 @@
 ---
-import GameTime from '@/components/ResultsTable/GameTime.astro';
-import PointsPill from '@/components/ResultsTable/PointsPill.astro';
-import TeamName from '@/components/ResultsTable/TeamName.astro';
-import UserInput from '@/components/ResultsTable/UserInput.astro';
+import GameTime from '@/components/ResultsTable/GameTime.vue';
+import PointsPill from '@/components/ResultsTable/PointsPill.vue';
+import TeamName from '@/components/ResultsTable/TeamName.vue';
+import UserInput from '@/components/ResultsTable/UserInput.vue';
 import type { EnrichedFixture } from '@/helpers/merge-fixtures-predictions';
-import { $gameweekData } from '@/stores/gameweekData';
 
 interface Props {
   games: EnrichedFixture[];
@@ -22,8 +21,7 @@ const {
 <div
   class="bg-white dark:bg-surface-dark border border-slate-200 dark:border-border-dark rounded-xl shadow-sm overflow-hidden divide-y divide-slate-100 dark:divide-border-dark"
 >
-  {
-    games.map((game) => {
+  {games.map((game) => {
       const isCompleted = game.finished;
       const { predictedScoreHome, predictedScoreAway, finalScore, points } =
         game;
@@ -96,6 +94,5 @@ const {
           </div>
         </div>
       );
-    })
-  }
+    })}
 </div>

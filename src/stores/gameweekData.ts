@@ -1,10 +1,11 @@
 import { atom } from 'nanostores';
+import type { GameweekFixture } from '@/helpers/gameweek';
 import { $gameweek } from './gameweek';
 
 // You can refine this type if you have more specific types for fixtures/stats
 type GameweekData = {
-  fixtures: unknown[];
-  stats: unknown[];
+  fixtures: GameweekFixture[];
+  gameweekDateRange: { earliest: string; latest: string };
 };
 
 export const $gameweekData = atom<GameweekData | null>(null);
@@ -37,11 +38,7 @@ function persistCache() {
 }
 
 async function fetchGameweekData(gw: number): Promise<GameweekData> {
-  const res = await fetch(`/api/fixtures`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ gameweek: gw }),
-  });
+  const res = await fetch(`/api/fixtures?gameweek=${gw}`);
   if (!res.ok) throw new Error('Failed to fetch');
   return res.json();
 }
