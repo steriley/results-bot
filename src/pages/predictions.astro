@@ -13,7 +13,7 @@ import { $gameweek } from '@/stores/gameweek';
 import { GET as getFixtures } from './api/fixtures';
 
 const userPredictions = mockUserPredictions;
-const pageSubtitle = `Gameweek ${$gameweek.get()} • Your predictions vs the bot's predictions`;
+const pageSubtitle = `Gameweek ${$gameweek.value} • Your predictions vs the bot's predictions`;
 
 let response = await getFixtures(Astro);
 const { fixtures } = await response.json();

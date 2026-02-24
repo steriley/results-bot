@@ -1,7 +1,7 @@
 ---
 import '@/styles/globals.css';
+import GameWeekSelector from '@/components/GameWeekSelector.vue';
 import MainLayout from '@/components/MainLayout.astro';
-import MatchweekSelector from '@/components/MatchweekSelector.astro';
 import PageWrapper from '@/components/PageWrapper.astro';
 import ResultsTable from '@/components/ResultsTable/ResultsTable.vue';
 import { getLatestOdds } from '@/helpers/get-latest-odds';
@@ -38,11 +38,7 @@ const fixturesWithScores = fullFixtureData.map((f) => ({
     pageSubtitle="The bot has made its predictions for this gameweek"
   >
     <div slot="titleActions" class="flex items-center gap-2">
-      <MatchweekSelector
-        matchweek={$gameweek.get()}
-        startDate={start}
-        endDate={end}
-      />
+      <GameWeekSelector startDate={start} endDate={end} client:load />
     </div>
     <ResultsTable fixtures={fixturesWithScores} client:load />
   </MainLayout>

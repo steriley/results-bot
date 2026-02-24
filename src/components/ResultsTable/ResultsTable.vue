@@ -1,16 +1,13 @@
 <script setup lang="ts">
+import { computed, ref } from 'vue';
 import DateGroup from '@/components/ResultsTable/DateGroup.vue';
 import TableDate from '@/components/ResultsTable/TableDate.vue';
 import TotalPoints from '@/components/ResultsTable/TotalPoints.vue';
-
-import type { EnrichedFixture } from '@/helpers/merge-fixtures-predictions';
 import type { GameweekFixture } from '@/helpers/gameweek';
-
-import { $gameweekData } from '@/stores/gameweekData';
-import { $gameweek } from '@/stores/gameweek';
+import type { EnrichedFixture } from '@/helpers/merge-fixtures-predictions';
 import { fixtureByDates, fixtureDates } from '@/helpers/sort-games-by-date';
-
-import { ref, computed } from 'vue';
+import { $gameweek } from '@/stores/gameweek';
+import { $gameweekData } from '@/stores/gameweekData';
 
 interface Props {
   fixtures: EnrichedFixture[];
@@ -21,7 +18,8 @@ const props = defineProps<Props>();
 
 const latestFixtures = ref<GameweekFixture[]>([]);
 const hasFixtures = computed(
-  () => latestFixtures.value.length > 0 && $gameweek.get() !== 27,
+  // TODO: remove the hardcoded gameweek
+  () => latestFixtures.value.length > 0 && $gameweek.value !== 27,
 );
 
 const fixturesByDate = computed(() =>
