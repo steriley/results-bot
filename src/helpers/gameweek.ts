@@ -80,9 +80,7 @@ async function fetchGameweekFixtures(gameWeek: number): Promise<FplFixture[]> {
   const response = await fetch(`${FPL_BASE_URL}/fixtures/?event=${gameWeek}`);
 
   if (!response.ok) {
-    throw new Error(
-      `Failed to fetch fixtures for gameweek ${gameWeek}: ${response.status}`,
-    );
+    throw new Error(`Failed to fetch fixtures for gameweek ${gameWeek}: ${response.status}`);
   }
 
   return response.json();
@@ -96,13 +94,8 @@ async function fetchGameweekFixtures(gameWeek: number): Promise<FplFixture[]> {
  * @param gameWeek - The FPL gameweek number (1–38)
  * @returns An array of GameweekFixture objects with team names and scores
  */
-export async function getGameweekFixtures(
-  gameWeek: number,
-): Promise<GameweekFixture[]> {
-  const [teamMap, fixtures] = await Promise.all([
-    fetchTeamMap(),
-    fetchGameweekFixtures(gameWeek),
-  ]);
+export async function getGameweekFixtures(gameWeek: number): Promise<GameweekFixture[]> {
+  const [teamMap, fixtures] = await Promise.all([fetchTeamMap(), fetchGameweekFixtures(gameWeek)]);
 
   return fixtures.map((fixture) => {
     const homeTeam = teamMap.get(fixture.team_h) ?? `Team ${fixture.team_h}`;

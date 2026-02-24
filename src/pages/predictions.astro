@@ -21,8 +21,7 @@ const { fixtures } = await response.json();
 const fullFixtureData = fixtures.map((fixture: EnrichedFixture) => {
   const userPrediction = userPredictions.find(
     (prediction) =>
-      prediction.homeTeam === fixture.homeTeam &&
-      prediction.awayTeam === fixture.awayTeam,
+      prediction.homeTeam === fixture.homeTeam && prediction.awayTeam === fixture.awayTeam,
   );
   return {
     ...fixture,
@@ -46,24 +45,18 @@ function totalPoints(games: Record<string, EnrichedFixture[]>): number {
     }, 0);
 }
 
-function totalCompleteFixtures(
-  games: Record<string, EnrichedFixture[]>,
-): number {
+function totalCompleteFixtures(games: Record<string, EnrichedFixture[]>): number {
   return Object.values(games)
     .flat()
     .filter((game) => game.finalScore !== null).length;
 }
 
 const totalPointsThisWeek = totalPoints(fixtureByDates(fullFixtureData));
-const totalCompleteFixturesThisWeek = totalCompleteFixtures(
-  fixtureByDates(fullFixtureData),
-);
+const totalCompleteFixturesThisWeek = totalCompleteFixtures(fixtureByDates(fullFixtureData));
 
 const accuracy =
   totalCompleteFixturesThisWeek > 0
-    ? Math.round(
-        (totalPointsThisWeek / (totalCompleteFixturesThisWeek * 10)) * 100,
-      )
+    ? Math.round((totalPointsThisWeek / (totalCompleteFixturesThisWeek * 10)) * 100)
     : 0;
 ---
 

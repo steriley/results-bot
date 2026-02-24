@@ -19,9 +19,5 @@ defineProps<Props>();
   <span class="text-xs md:text-sm font-bold whitespace-nowrap">
     {{ formatTime(kickoffTime) }}
   </span>
-  <span
-    class="text-[9px] md:text-[10px] text-muted-dark font-medium uppercase mt-0.5"
-  >
-    GMT
-  </span>
+  <span class="text-[9px] md:text-[10px] text-muted-dark font-medium uppercase mt-0.5"> GMT </span>
 </template>

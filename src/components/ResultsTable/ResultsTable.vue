@@ -23,11 +23,7 @@ const hasFixtures = computed(
 );
 
 const fixturesByDate = computed(() =>
-  fixtureByDates(
-    (hasFixtures.value
-      ? latestFixtures.value
-      : props.fixtures) as EnrichedFixture[],
-  ),
+  fixtureByDates((hasFixtures.value ? latestFixtures.value : props.fixtures) as EnrichedFixture[]),
 );
 const sortedFixtures = computed(() => fixtureDates(fixturesByDate.value));
 

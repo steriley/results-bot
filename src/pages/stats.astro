@@ -5,31 +5,20 @@ import PageWrapper from '../components/PageWrapper.astro';
 ---
 
 <PageWrapper title="Results Bot | Premier League Dashboard">
-  <MainLayout
-    pageTitle="Stats & Insights"
-    pageSubtitle="Human vs Machine: Gameweek 24 Performance"
-  >
+  <MainLayout pageTitle="Stats & Insights" pageSubtitle="Human vs Machine: Gameweek 24 Performance">
     <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
       <div
         class="bg-white dark:bg-surface-dark p-6 rounded-xl border border-slate-200 dark:border-border-dark"
       >
         <div class="flex justify-between items-start mb-4">
-          <span class="text-slate-500 dark:text-slate-400 text-sm font-medium"
-            >AI Beat Rate</span
-          >
-          <span class="material-symbols-outlined text-emerald-500"
-            >trending_up</span
-          >
+          <span class="text-slate-500 dark:text-slate-400 text-sm font-medium">AI Beat Rate</span>
+          <span class="material-symbols-outlined text-emerald-500">trending_up</span>
         </div>
         <div class="flex items-baseline gap-2">
-          <h3 class="text-4xl font-black text-slate-900 dark:text-white">
-            64%
-          </h3>
+          <h3 class="text-4xl font-black text-slate-900 dark:text-white">64%</h3>
           <span class="text-emerald-500 text-sm font-bold">+12%</span>
         </div>
-        <p class="text-slate-500 text-xs mt-2 italic">
-          Beating the model in 16/25 rounds
-        </p>
+        <p class="text-slate-500 text-xs mt-2 italic">Beating the model in 16/25 rounds</p>
       </div>
       <div
         class="bg-white dark:bg-surface-dark p-6 rounded-xl border border-slate-200 dark:border-border-dark"
@@ -41,14 +30,10 @@ import PageWrapper from '../components/PageWrapper.astro';
           <span class="material-symbols-outlined text-primary">target</span>
         </div>
         <div class="flex items-baseline gap-2">
-          <h3 class="text-4xl font-black text-slate-900 dark:text-white">
-            2.1
-          </h3>
+          <h3 class="text-4xl font-black text-slate-900 dark:text-white">2.1</h3>
           <span class="text-slate-400 text-sm">pts</span>
         </div>
-        <p class="text-slate-500 text-xs mt-2 italic">
-          0.4 closer than AI average
-        </p>
+        <p class="text-slate-500 text-xs mt-2 italic">0.4 closer than AI average</p>
       </div>
       <div
         class="bg-white dark:bg-surface-dark p-6 rounded-xl border border-slate-200 dark:border-border-dark bg-emerald-500/5 border-emerald-500/20"
@@ -57,13 +42,9 @@ import PageWrapper from '../components/PageWrapper.astro';
           <span class="text-emerald-600 dark:text-emerald-400 text-sm font-bold"
             >AI Upset Alert</span
           >
-          <span class="material-symbols-outlined text-emerald-500"
-            >verified</span
-          >
+          <span class="material-symbols-outlined text-emerald-500">verified</span>
         </div>
-        <p class="text-slate-900 dark:text-white text-sm font-bold">
-          Wolves 2-1 Spurs
-        </p>
+        <p class="text-slate-900 dark:text-white text-sm font-bold">Wolves 2-1 Spurs</p>
         <p class="text-slate-500 text-xs mt-1">
           You predicted a home win. AI predicted a 0-2 Spurs rout.
         </p>
@@ -78,23 +59,17 @@ import PageWrapper from '../components/PageWrapper.astro';
         class="bg-white dark:bg-surface-dark p-6 rounded-xl border border-slate-200 dark:border-border-dark"
       >
         <div class="flex justify-between items-start mb-4">
-          <span class="text-slate-500 dark:text-slate-400 text-sm font-medium"
-            >Optimist Score</span
-          >
+          <span class="text-slate-500 dark:text-slate-400 text-sm font-medium">Optimist Score</span>
           <span class="material-symbols-outlined text-primary">speed</span>
         </div>
-        <div
-          class="w-full bg-slate-200 dark:bg-border-dark h-2 rounded-full overflow-hidden mt-4"
-        >
+        <div class="w-full bg-slate-200 dark:bg-border-dark h-2 rounded-full overflow-hidden mt-4">
           <div class="bg-primary h-full rounded-full" style="width: 72%;"></div>
         </div>
         <div class="flex justify-between mt-2">
           <span class="text-[10px] font-bold text-slate-500">CONSERVATIVE</span>
           <span class="text-[10px] font-bold text-primary">BULLISH</span>
         </div>
-        <p class="text-slate-500 text-xs mt-2">
-          72% bias towards high-scoring games.
-        </p>
+        <p class="text-slate-500 text-xs mt-2">72% bias towards high-scoring games.</p>
       </div>
     </section>
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -187,25 +162,18 @@ import PageWrapper from '../components/PageWrapper.astro';
         >
           <div class="flex justify-between items-center mb-6">
             <div>
-              <h4 class="font-bold text-lg leading-tight text-primary">
-                Match Research Hub
-              </h4>
-              <p
-                class="text-xs text-slate-500 mt-1 uppercase tracking-widest font-bold"
-              >
+              <h4 class="font-bold text-lg leading-tight text-primary">Match Research Hub</h4>
+              <p class="text-xs text-slate-500 mt-1 uppercase tracking-widest font-bold">
                 Featured: Arsenal vs Liverpool
               </p>
             </div>
-            <span
-              class="bg-primary/20 text-primary text-[10px] font-black px-2 py-1 rounded"
+            <span class="bg-primary/20 text-primary text-[10px] font-black px-2 py-1 rounded"
               >DATA SYNCED</span
             >
           </div>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
             <div class="space-y-4">
-              <p
-                class="text-xs font-bold text-slate-400 uppercase tracking-tighter"
-              >
+              <p class="text-xs font-bold text-slate-400 uppercase tracking-tighter">
                 H2H Historical Scores (Last 5)
               </p>
               <div class="flex flex-wrap gap-2">
@@ -238,15 +206,11 @@ import PageWrapper from '../components/PageWrapper.astro';
             </div>
             <div class="grid grid-cols-2 gap-4">
               <div class="text-center p-3 dark:bg-surface-dark rounded-lg">
-                <p class="text-[10px] font-bold text-slate-500 uppercase">
-                  Clean Sheet %
-                </p>
+                <p class="text-[10px] font-bold text-slate-500 uppercase">Clean Sheet %</p>
                 <p class="text-xl font-black mt-1">32%</p>
               </div>
               <div class="text-center p-3 dark:bg-surface-dark rounded-lg">
-                <p class="text-[10px] font-bold text-slate-500 uppercase">
-                  Goal Supremacy
-                </p>
+                <p class="text-[10px] font-bold text-slate-500 uppercase">Goal Supremacy</p>
                 <p class="text-xl font-black mt-1 text-emerald-500">+0.85</p>
               </div>
             </div>
@@ -272,16 +236,13 @@ import PageWrapper from '../components/PageWrapper.astro';
             </div>
             <div
               class="w-full bg-primary/20 rounded-t-sm relative group h-20 hover:bg-primary/40 transition-all"
-            >
-            </div>
+            ></div>
             <div
               class="w-full bg-primary/40 rounded-t-sm relative group h-16 hover:bg-primary/60 transition-all"
-            >
-            </div>
+            ></div>
             <div
               class="w-full bg-primary/60 rounded-t-sm relative group h-24 hover:bg-primary/80 transition-all"
-            >
-            </div>
+            ></div>
             <div
               class="w-full bg-primary rounded-t-sm relative group h-32 hover:bg-primary transition-all"
             >
@@ -292,18 +253,14 @@ import PageWrapper from '../components/PageWrapper.astro';
               </div>
             </div>
           </div>
-          <div
-            class="flex justify-between text-[10px] font-bold text-slate-500 uppercase"
-          >
+          <div class="flex justify-between text-[10px] font-bold text-slate-500 uppercase">
             <span>GW20</span>
             <span>GW21</span>
             <span>GW22</span>
             <span>GW23</span>
             <span>GW24</span>
           </div>
-          <div
-            class="mt-4 pt-4 border-t border-slate-800 flex items-center justify-between"
-          >
+          <div class="mt-4 pt-4 border-t border-slate-800 flex items-center justify-between">
             <p class="text-xs text-slate-400">Season Trend</p>
             <p class="text-xs font-black text-emerald-500">TOP 1% GLOBAL</p>
           </div>
@@ -330,9 +287,7 @@ import PageWrapper from '../components/PageWrapper.astro';
               <div
                 class="aspect-square rounded-full bg-amber-500/10 border-2 border-amber-500/50 flex items-center justify-center text-amber-500"
               >
-                <span class="material-symbols-outlined font-bold"
-                  >local_fire_department</span
-                >
+                <span class="material-symbols-outlined font-bold">local_fire_department</span>
               </div>
               <p
                 class="text-[9px] text-center mt-2 font-bold uppercase leading-tight text-slate-400"
@@ -367,10 +322,8 @@ import PageWrapper from '../components/PageWrapper.astro';
                 class="size-6 rounded-full"
                 data-alt="User avatar"
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuDV3vCZ9ohI7_dhSs_o0YF-2nD_qTNWSUquSKuXvLAtW0nlF2KqhbpH9Yn_p5lgERx_WKhnmYR26DU6mGiM9UP1OxyJXlvY09CcZRZLXHHkx0g2-9CB8C7OKxtDMEtttaeG0EDQ9XPZ2xJRAE2zR1CEkaPIoOdiToLENuyzjMzHEojl2iLTmcE4N2n2PvP0ZNpzatEmWecKdrpfoZO-CGXd1E9MRAL8LvyuGuJ8AzABN4Eb1XMtVTBrb6gN7Has0U6GlVQwtFrmMpTr"
-              />
-              <span class="text-xs font-bold flex-1 truncate"
-                >QuantPredictions</span
               >
+              <span class="text-xs font-bold flex-1 truncate">QuantPredictions</span>
               <span class="text-xs font-bold text-slate-400">2,410</span>
             </div>
             <div
@@ -382,10 +335,8 @@ import PageWrapper from '../components/PageWrapper.astro';
                 class="size-6 rounded-full"
                 data-alt="User avatar"
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuCi1U8jUgD9uIeGrRHJkUwXZ2sUaRyChGddX0B07JzOGTeQL0U6hbbkJWJNwhAFawcxT8U-f8PYMaK-KAnS0aBLQSKJKK2kmuGcOP8iVZ7bv0AgKuEmFx5Gk7_xO4adbFKLfxHkLZlo4HjbjbSl4Tcs7TnsuGnT06SMJ0wUJ77tuQSx9dyH1bv6TbxffrIfpFeiyBRQEZkwAm8181yXSOL66YRlYTJtR3FB-ZuTA0VYsbpDVc0H1XfV5J9vwFmWf0t6SdEpZQAgfJgO"
-              />
-              <span class="text-xs font-black text-white flex-1 truncate"
-                >You (Alex J.)</span
               >
+              <span class="text-xs font-black text-white flex-1 truncate">You (Alex J.)</span>
               <span class="text-xs font-black text-primary">1,894</span>
             </div>
             <div class="flex items-center gap-3">
@@ -395,18 +346,17 @@ import PageWrapper from '../components/PageWrapper.astro';
                 class="size-6 rounded-full"
                 data-alt="User avatar"
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuD7bpsH6nVRRYoVcVBZF634_k8fjy05nJlBdKZb7L2HMQmLxf6ZYtXIdkm8VP7GNgu3JAm4OEETSuETajlHNB7Da4Uz0wjuYF_unpd2swNmPoCzSoEnUAWymXbD1ABawKjS5NoTY8UwioOhpecGRI34rimUDf3Zik-Q8GREQmZZsy1WbkvXMhYbXp51240VtYCmWyO0_dD_0vfV2MSW52i5AA-X9Lxly7TB2p7sLHbhgT-U9shyAqCJrmO7v84zc0YdijaJGUkLVSav"
-              />
-              <span class="text-xs font-bold flex-1 truncate"
-                >TacticalBot_99</span
               >
+              <span class="text-xs font-bold flex-1 truncate">TacticalBot_99</span>
               <span class="text-xs font-bold text-slate-400">1,892</span>
             </div>
           </div>
           <button
             type="button"
             class="w-full mt-4 text-[10px] font-black text-slate-500 hover:text-white transition-colors uppercase tracking-widest"
-            >View Full Standings</button
           >
+            View Full Standings
+          </button>
         </div>
       </aside>
     </div>
@@ -414,27 +364,19 @@ import PageWrapper from '../components/PageWrapper.astro';
     <section
       class="bg-white dark:bg-surface-dark rounded-xl p-8 border border-slate-200 dark:border-border-dark"
     >
-      <div
-        class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6"
-      >
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
         <div>
           <h4 class="font-bold text-xl">Hit Rate Analysis</h4>
-          <p class="text-sm text-slate-400">
-            Comparing exact scores vs. outcome only
-          </p>
+          <p class="text-sm text-slate-400">Comparing exact scores vs. outcome only</p>
         </div>
         <div class="flex gap-8">
           <div class="text-center">
-            <p class="text-[10px] font-bold text-slate-500 uppercase">
-              Exact Score
-            </p>
+            <p class="text-[10px] font-bold text-slate-500 uppercase">Exact Score</p>
             <p class="text-3xl font-black text-primary">18%</p>
             <p class="text-[10px] text-emerald-500 font-bold mt-1">AI: 12%</p>
           </div>
           <div class="text-center">
-            <p class="text-[10px] font-bold text-slate-500 uppercase">
-              Result Only
-            </p>
+            <p class="text-[10px] font-bold text-slate-500 uppercase">Result Only</p>
             <p class="text-3xl font-black text-white">52%</p>
             <p class="text-[10px] text-slate-500 font-bold mt-1">AI: 58%</p>
           </div>

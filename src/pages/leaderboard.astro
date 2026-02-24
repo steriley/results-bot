@@ -33,15 +33,14 @@ import PageWrapper from '../components/PageWrapper.astro';
         class="flex flex-col gap-2 rounded-xl p-6 bg-white dark:bg-surface-dark border border-slate-200 dark:border-border-dark shadow-sm"
       >
         <div class="flex justify-between items-center">
-          <p class="text-slate-500 dark:text-slate-400 text-sm font-medium">
-            Total Participants
-          </p>
+          <p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Total Participants</p>
           <span class="material-symbols-outlined text-slate-400">groups</span>
         </div>
         <div class="flex items-baseline gap-2">
           <p class="text-slate-900 dark:text-white text-3xl font-bold">1,240</p>
           <span class="text-emerald-500 text-sm font-bold flex items-center">
-            <span class="material-symbols-outlined text-sm">trending_up</span> 12%
+            <span class="material-symbols-outlined text-sm">trending_up</span>
+            12%
           </span>
         </div>
       </div>
@@ -50,8 +49,7 @@ import PageWrapper from '../components/PageWrapper.astro';
       >
         <div
           class="absolute top-0 right-0 w-16 h-16 bg-primary/5 rounded-bl-full -mr-4 -mt-4"
-        >
-        </div>
+        ></div>
         <div class="flex justify-between items-center">
           <p class="text-primary text-sm font-semibold">Results Bot Rank</p>
           <span class="material-symbols-outlined text-primary">smart_toy</span>
@@ -59,7 +57,8 @@ import PageWrapper from '../components/PageWrapper.astro';
         <div class="flex items-baseline gap-2">
           <p class="text-slate-900 dark:text-white text-3xl font-bold">#3</p>
           <span class="text-emerald-500 text-sm font-bold flex items-center">
-            <span class="material-symbols-outlined text-sm">expand_less</span> 2
+            <span class="material-symbols-outlined text-sm">expand_less</span>
+            2
           </span>
         </div>
       </div>
@@ -67,15 +66,14 @@ import PageWrapper from '../components/PageWrapper.astro';
         class="flex flex-col gap-2 rounded-xl p-6 bg-white dark:bg-surface-dark border border-slate-200 dark:border-border-dark shadow-sm"
       >
         <div class="flex justify-between items-center">
-          <p class="text-slate-500 dark:text-slate-400 text-sm font-medium">
-            Your Global Rank
-          </p>
+          <p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Your Global Rank</p>
           <span class="material-symbols-outlined text-slate-400">person</span>
         </div>
         <div class="flex items-baseline gap-2">
           <p class="text-slate-900 dark:text-white text-3xl font-bold">#12</p>
           <span class="text-rose-500 text-sm font-bold flex items-center">
-            <span class="material-symbols-outlined text-sm">expand_more</span> 1
+            <span class="material-symbols-outlined text-sm">expand_more</span>
+            1
           </span>
         </div>
       </div>
@@ -88,28 +86,30 @@ import PageWrapper from '../components/PageWrapper.astro';
         <button
           type="button"
           class="border-b-2 border-primary text-primary font-bold text-sm pb-4 px-2 whitespace-nowrap"
-          >Weekly</button
         >
+          Weekly
+        </button>
         <button
           type="button"
           class="border-b-2 border-transparent text-slate-500 dark:text-slate-400 font-bold text-sm pb-4 px-2 hover:text-slate-700 dark:hover:text-slate-200 transition-colors whitespace-nowrap"
-          >Monthly</button
         >
+          Monthly
+        </button>
         <button
           type="button"
           class="border-b-2 border-transparent text-slate-500 dark:text-slate-400 font-bold text-sm pb-4 px-2 hover:text-slate-700 dark:hover:text-slate-200 transition-colors whitespace-nowrap"
-          >All-Time</button
         >
+          All-Time
+        </button>
         <button
           type="button"
           class="border-b-2 border-transparent text-slate-500 dark:text-slate-400 font-bold text-sm pb-4 px-2 hover:text-slate-700 dark:hover:text-slate-200 transition-colors whitespace-nowrap"
-          >Friends League</button
         >
+          Friends League
+        </button>
       </div>
       <div class="flex items-center gap-2 pb-2">
-        <span class="text-slate-500 text-xs font-bold uppercase tracking-widest"
-          >Sort By:</span
-        >
+        <span class="text-slate-500 text-xs font-bold uppercase tracking-widest">Sort By:</span>
         <select
           class="bg-transparent border-none text-slate-900 dark:text-white text-sm font-bold focus:ring-0 cursor-pointer py-0"
         >
@@ -131,36 +131,40 @@ import PageWrapper from '../components/PageWrapper.astro';
             >
               <th
                 class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400"
-                >Rank</th
               >
+                Rank
+              </th>
               <th
                 class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400"
-                >Player</th
               >
+                Player
+              </th>
               <th
                 class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 text-center"
-                >Played</th
               >
+                Played
+              </th>
               <th
                 class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 text-center"
-                >Correct Result</th
               >
+                Correct Result
+              </th>
               <th
                 class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 text-center"
-                >Correct Score</th
               >
+                Correct Score
+              </th>
               <th
                 class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 text-right"
-                >Total Points</th
               >
+                Total Points
+              </th>
               <th class="px-6 py-4"></th>
             </tr>
           </thead>
           <tbody class="divide-y divide-slate-100 dark:divide-border-dark">
             <!-- Rank 1 -->
-            <tr
-              class="hover:bg-slate-50 dark:hover:bg-border-dark transition-colors"
-            >
+            <tr class="hover:bg-slate-50 dark:hover:bg-border-dark transition-colors">
               <td class="px-6 py-5">
                 <div
                   class="flex items-center justify-center size-8 bg-amber-400 text-amber-950 font-black rounded-lg text-sm italic"
@@ -176,33 +180,25 @@ import PageWrapper from '../components/PageWrapper.astro';
                       class="w-full h-full object-cover"
                       data-alt="User avatar for Alex"
                       src="https://lh3.googleusercontent.com/aida-public/AB6AXuBnYz3N_eLZMTXfCO87GTEDcqX9Gq23hOPWTMmUfDXKQ9Lxh5inYmRPvdDsrvWywStDIs3CFF6wHBh3135BPe0j7COecyujv1M_bv2iTACK_XePDlsCLWR-jQnpnTIp2JHoSoH6LUjWob79d-LSPtrOBgF9K-VOTqzuz07yoGDAEewjS-QLG_skbWqpKQsgNTGqYmXa9ru_B-YxbxOwBETTRSJvyhyUVj60_nPqMDDhSRNbUQ62yFdp0g4yWNGCosjtExulKbVV_M0v"
-                    />
+                    >
                   </div>
-                  <span class="font-bold text-slate-900 dark:text-white"
-                    >Alex Morgan</span
-                  >
+                  <span class="font-bold text-slate-900 dark:text-white">Alex Morgan</span>
                 </div>
               </td>
               <td class="px-6 py-5 text-center font-medium">280</td>
               <td class="px-6 py-5 text-center font-medium">145</td>
               <td class="px-6 py-5 text-center font-medium">42</td>
-              <td
-                class="px-6 py-5 text-right font-black text-lg text-slate-900 dark:text-white"
-                >271</td
-              >
+              <td class="px-6 py-5 text-right font-black text-lg text-slate-900 dark:text-white">
+                271
+              </td>
               <td class="px-6 py-5 text-right">
-                <button
-                  type="button"
-                  class="text-slate-400 hover:text-primary transition-colors"
-                >
+                <button type="button" class="text-slate-400 hover:text-primary transition-colors">
                   <span class="material-symbols-outlined">chevron_right</span>
                 </button>
               </td>
             </tr>
             <!-- Rank 2 -->
-            <tr
-              class="hover:bg-slate-50 dark:hover:bg-border-dark transition-colors"
-            >
+            <tr class="hover:bg-slate-50 dark:hover:bg-border-dark transition-colors">
               <td class="px-6 py-5">
                 <div
                   class="flex items-center justify-center size-8 bg-slate-300 text-slate-800 font-black rounded-lg text-sm italic"
@@ -218,33 +214,25 @@ import PageWrapper from '../components/PageWrapper.astro';
                       class="w-full h-full object-cover"
                       data-alt="User avatar for Sarah"
                       src="https://lh3.googleusercontent.com/aida-public/AB6AXuDytXRr78D0h5ZrogEZUup1v4L-F_U4q32zvXnWCmC9jrfu9B-MQ-dql64_-CFp-eZwtw3Sxgn5co4y_JFMbbNezQMkp29VVu7e7zeKl5VYJl_BegNLcwmY_CXd4YTNchMqu1PwSTfHgjcjBb150bpT-dDknSvYoWE4QDTNBNLNdes494izBoBcRkPJezsjq49RkTx8WZ0ED3KYlCEv-KveQk_OctWC4f3Fj7QuF-DeW7vkV3mpDQ7VifTky3yVm-C-YM3phWMmNmwA"
-                    />
+                    >
                   </div>
-                  <span class="font-bold text-slate-900 dark:text-white"
-                    >Sarah Jenkins</span
-                  >
+                  <span class="font-bold text-slate-900 dark:text-white">Sarah Jenkins</span>
                 </div>
               </td>
               <td class="px-6 py-5 text-center font-medium">280</td>
               <td class="px-6 py-5 text-center font-medium">140</td>
               <td class="px-6 py-5 text-center font-medium">38</td>
-              <td
-                class="px-6 py-5 text-right font-black text-lg text-slate-900 dark:text-white"
-                >254</td
-              >
+              <td class="px-6 py-5 text-right font-black text-lg text-slate-900 dark:text-white">
+                254
+              </td>
               <td class="px-6 py-5 text-right">
-                <button
-                  type="button"
-                  class="text-slate-400 hover:text-primary transition-colors"
-                >
+                <button type="button" class="text-slate-400 hover:text-primary transition-colors">
                   <span class="material-symbols-outlined">chevron_right</span>
                 </button>
               </td>
             </tr>
             <!-- Rank 3: Results Bot (Highlighted) -->
-            <tr
-              class="bg-primary/5 dark:bg-primary/10 border-l-4 border-primary relative"
-            >
+            <tr class="bg-primary/5 dark:bg-primary/10 border-l-4 border-primary relative">
               <td class="px-6 py-5">
                 <div
                   class="flex items-center justify-center size-8 bg-orange-400 text-orange-950 font-black rounded-lg text-sm italic"
@@ -259,7 +247,8 @@ import PageWrapper from '../components/PageWrapper.astro';
                   >
                     <span
                       class="material-symbols-outlined text-xl"
-                      style="font-variation-settings: 'FILL' 1">smart_toy</span
+                      style="font-variation-settings: 'FILL' 1"
+                      >smart_toy</span
                     >
                   </div>
                   <div class="flex flex-col">
@@ -272,28 +261,20 @@ import PageWrapper from '../components/PageWrapper.astro';
                         >AI</span
                       >
                     </span>
-                    <span class="text-xs text-slate-500 dark:text-slate-400"
-                      >System Predictor</span
-                    >
+                    <span class="text-xs text-slate-500 dark:text-slate-400">System Predictor</span>
                   </div>
                 </div>
               </td>
               <td class="px-6 py-5 text-center font-bold">280</td>
               <td class="px-6 py-5 text-center font-bold">138</td>
               <td class="px-6 py-5 text-center font-bold">35</td>
-              <td class="px-6 py-5 text-right font-black text-xl text-primary"
-                >243</td
-              >
+              <td class="px-6 py-5 text-right font-black text-xl text-primary">243</td>
               <td class="px-6 py-5 text-right">
-                <span class="material-symbols-outlined text-primary/50"
-                  >auto_awesome</span
-                >
+                <span class="material-symbols-outlined text-primary/50">auto_awesome</span>
               </td>
             </tr>
             <!-- Rank 4 -->
-            <tr
-              class="hover:bg-slate-50 dark:hover:bg-border-dark transition-colors"
-            >
+            <tr class="hover:bg-slate-50 dark:hover:bg-border-dark transition-colors">
               <td class="px-6 py-5">
                 <div
                   class="flex items-center justify-center size-8 text-slate-500 dark:text-slate-400 font-bold text-sm"
@@ -309,25 +290,19 @@ import PageWrapper from '../components/PageWrapper.astro';
                       class="w-full h-full object-cover"
                       data-alt="User avatar for James"
                       src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZztQprAl8pY8RW_GM-EwBby62k4cCed4nZWOO6uHuSEMCXYBuomjXuQ-TOv4EI2h9JC__HwHbmviF_wwnteQHNCMVyx8MkFFUQXLHKuLdRlW-DtR69tT50CISjgOlwUCLVCXupaj2AedLfayGK5tkoTTLfkXrYFUA9AbLSqa3RNvaHtUUzSd5U-R658I0fmR3LsQBu_Il7zo4NkhmFjRiqFBBETQzOM3Id0m1wf1vDCL8ADAM-FvxW2GZKhwBpufYvibzdlL47mHO"
-                    />
+                    >
                   </div>
-                  <span class="font-bold text-slate-900 dark:text-white"
-                    >James Wilson</span
-                  >
+                  <span class="font-bold text-slate-900 dark:text-white">James Wilson</span>
                 </div>
               </td>
               <td class="px-6 py-5 text-center font-medium">275</td>
               <td class="px-6 py-5 text-center font-medium">130</td>
               <td class="px-6 py-5 text-center font-medium">32</td>
-              <td
-                class="px-6 py-5 text-right font-black text-lg text-slate-900 dark:text-white"
-                >226</td
-              >
+              <td class="px-6 py-5 text-right font-black text-lg text-slate-900 dark:text-white">
+                226
+              </td>
               <td class="px-6 py-5 text-right">
-                <button
-                  class="text-slate-400 hover:text-primary transition-colors"
-                  type="button"
-                >
+                <button class="text-slate-400 hover:text-primary transition-colors" type="button">
                   <span class="material-symbols-outlined">chevron_right</span>
                 </button>
               </td>
@@ -337,9 +312,7 @@ import PageWrapper from '../components/PageWrapper.astro';
               <td colspan="7"></td>
             </tr>
             <!-- Rank 12: You (Highlighted) -->
-            <tr
-              class="bg-slate-50 dark:bg-surface-dark border-y border-primary/20"
-            >
+            <tr class="bg-slate-50 dark:bg-surface-dark border-y border-primary/20">
               <td class="px-6 py-5">
                 <div
                   class="flex items-center justify-center size-8 bg-slate-200 dark:bg-border-dark text-slate-900 dark:text-white font-bold rounded-lg text-sm"
@@ -349,20 +322,16 @@ import PageWrapper from '../components/PageWrapper.astro';
               </td>
               <td class="px-6 py-5">
                 <div class="flex items-center gap-3">
-                  <div
-                    class="size-9 rounded-full overflow-hidden ring-2 ring-primary"
-                  >
+                  <div class="size-9 rounded-full overflow-hidden ring-2 ring-primary">
                     <img
                       alt=""
                       class="w-full h-full object-cover"
                       data-alt="Your profile avatar"
                       src="https://lh3.googleusercontent.com/aida-public/AB6AXuDhfUrwtP_WR5fGFhDPT4KCoX1mS-XfCXkPbMmRHLdbjins8gmhEBULege9yrauxTQYLrh-IrsrHchdhvuHUuN9RtXrcL63iEunYUWrucdllwhh-pwX7kGm5U-bLOs72JGXwhukdjgQ9XL21ReN8mfh6juQLUtjHOKGnm8o2S2OK7ftXQFj2tJvhVC4Q8WU7w9h0FB8-wHCWxRrUNyIvECxKo0uhXIwsRgWmaInTQfqDM4SnY7KN4N47sBfp35OrqsZroY1-LJGEIX4"
-                    />
+                    >
                   </div>
                   <div class="flex items-center gap-2">
-                    <span class="font-black text-slate-900 dark:text-white"
-                      >You</span
-                    >
+                    <span class="font-black text-slate-900 dark:text-white">You</span>
                     <span
                       class="text-[10px] bg-slate-200 dark:bg-border-dark text-slate-600 dark:text-slate-300 px-1.5 py-0.5 rounded uppercase"
                       >Self</span
@@ -370,28 +339,25 @@ import PageWrapper from '../components/PageWrapper.astro';
                   </div>
                 </div>
               </td>
-              <td
-                class="px-6 py-5 text-center font-medium text-slate-600 dark:text-slate-300"
-                >260</td
-              >
-              <td
-                class="px-6 py-5 text-center font-medium text-slate-600 dark:text-slate-300"
-                >120</td
-              >
-              <td
-                class="px-6 py-5 text-center font-medium text-slate-600 dark:text-slate-300"
-                >28</td
-              >
-              <td
-                class="px-6 py-5 text-right font-black text-lg text-slate-900 dark:text-white"
-                >204</td
-              >
+              <td class="px-6 py-5 text-center font-medium text-slate-600 dark:text-slate-300">
+                260
+              </td>
+              <td class="px-6 py-5 text-center font-medium text-slate-600 dark:text-slate-300">
+                120
+              </td>
+              <td class="px-6 py-5 text-center font-medium text-slate-600 dark:text-slate-300">
+                28
+              </td>
+              <td class="px-6 py-5 text-right font-black text-lg text-slate-900 dark:text-white">
+                204
+              </td>
               <td class="px-6 py-5 text-right">
                 <button
                   type="button"
                   class="bg-primary text-white text-xs px-3 py-1.5 rounded font-bold hover:bg-primary/90"
-                  >View My Stats</button
                 >
+                  View My Stats
+                </button>
               </td>
             </tr>
           </tbody>
@@ -399,12 +365,8 @@ import PageWrapper from '../components/PageWrapper.astro';
       </div>
     </div>
     <!-- Pagination & Bottom Controls -->
-    <div
-      class="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4"
-    >
-      <p class="text-slate-500 text-sm font-medium">
-        Showing top 50 of 1,240 participants
-      </p>
+    <div class="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p class="text-slate-500 text-sm font-medium">Showing top 50 of 1,240 participants</p>
       <div class="flex items-center gap-2">
         <button
           type="button"
@@ -415,18 +377,21 @@ import PageWrapper from '../components/PageWrapper.astro';
         <button
           type="button"
           class="size-10 flex items-center justify-center rounded-lg bg-primary text-white font-bold text-sm"
-          >1</button
         >
+          1
+        </button>
         <button
           type="button"
           class="size-10 flex items-center justify-center rounded-lg border border-slate-200 dark:border-border-dark text-slate-500 hover:bg-slate-50 dark:hover:bg-border-dark transition-colors font-bold text-sm"
-          >2</button
         >
+          2
+        </button>
         <button
           type="button"
           class="size-10 flex items-center justify-center rounded-lg border border-slate-200 dark:border-border-dark text-slate-500 hover:bg-slate-50 dark:hover:bg-border-dark transition-colors font-bold text-sm"
-          >3</button
         >
+          3
+        </button>
         <span class="px-2 text-slate-400">...</span>
         <button
           type="button"
@@ -441,20 +406,14 @@ import PageWrapper from '../components/PageWrapper.astro';
       class="mt-16 p-8 rounded-2xl bg-gradient-to-br from-primary/10 to-transparent border border-primary/10 flex flex-col md:flex-row items-center justify-between gap-6"
     >
       <div class="flex items-center gap-5">
-        <div
-          class="size-14 bg-primary/20 rounded-full flex items-center justify-center shrink-0"
-        >
-          <span class="material-symbols-outlined text-primary text-3xl"
-            >insights</span
-          >
+        <div class="size-14 bg-primary/20 rounded-full flex items-center justify-center shrink-0">
+          <span class="material-symbols-outlined text-primary text-3xl">insights</span>
         </div>
         <div>
-          <h4 class="text-slate-900 dark:text-white font-bold text-lg">
-            Bot Analysis Available
-          </h4>
+          <h4 class="text-slate-900 dark:text-white font-bold text-lg">Bot Analysis Available</h4>
           <p class="text-slate-500 dark:text-slate-400 text-sm">
-            The Results Bot has shared its predictions for the upcoming
-            Champions League fixtures. Compare your scores now.
+            The Results Bot has shared its predictions for the upcoming Champions League fixtures.
+            Compare your scores now.
           </p>
         </div>
       </div>

@@ -40,17 +40,11 @@ const gameWeekRange = computed(() => {
       class="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center rounded-full bg-slate-200 dark:bg-surface-dark/50 hover:bg-slate-300 dark:hover:bg-border-dark transition-colors text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/50"
       aria-label="Previous Matchweek"
     >
-      <span class="material-symbols-outlined text-lg md:text-xl"
-        >chevron_left</span
-      >
+      <span class="material-symbols-outlined text-lg md:text-xl">chevron_left</span>
     </button>
 
-    <div
-      class="flex flex-col items-center justify-center min-w-[120px] md:min-w-[160px]"
-    >
-      <span
-        class="text-base md:text-xl font-bold tracking-tight text-slate-900 dark:text-white"
-      >
+    <div class="flex flex-col items-center justify-center min-w-[120px] md:min-w-[160px]">
+      <span class="text-base md:text-xl font-bold tracking-tight text-slate-900 dark:text-white">
         Matchweek {{ gameweek }}
       </span>
       <span class="text-[11px] md:text-sm text-slate-500 dark:text-muted-dark">
@@ -65,9 +59,7 @@ const gameWeekRange = computed(() => {
       class="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center rounded-full bg-slate-200 dark:bg-surface-dark/50 hover:bg-slate-300 dark:hover:bg-border-dark transition-colors text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/50"
       aria-label="Next Matchweek"
     >
-      <span class="material-symbols-outlined text-lg md:text-xl"
-        >chevron_right</span
-      >
+      <span class="material-symbols-outlined text-lg md:text-xl">chevron_right</span>
     </button>
   </div>
 </template>

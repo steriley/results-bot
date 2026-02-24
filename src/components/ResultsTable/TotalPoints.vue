@@ -21,9 +21,7 @@ defineProps<Props>();
     <div
       class="bg-primary text-white p-4 rounded-xl shadow-2xl shadow-primary/20 flex items-center gap-4 pointer-events-auto"
     >
-      <div
-        class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center"
-      >
+      <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
         <span class="material-symbols-outlined font-bold">score</span>
       </div>
       <div class="flex flex-col text-right">

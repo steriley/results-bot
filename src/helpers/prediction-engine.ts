@@ -92,10 +92,7 @@ function samplePoisson(lambda: number): number {
 // MAIN PREDICTION FUNCTION
 // -------------------------------
 
-export function predictScores(
-  games: Game[],
-  simulationRuns = 10000,
-): Prediction[] {
+export function predictScores(games: Game[], simulationRuns = 10000): Prediction[] {
   return games.map((game) => {
     // -------------------------------
     // 1️⃣ Extract Market Signals
@@ -122,9 +119,7 @@ export function predictScores(
       for (const market of bm.markets) {
         // ----- SPREADS -----
         if (market.key === 'spreads') {
-          const fav = market.outcomes.find(
-            (o) => o.point !== undefined && o.point < 0,
-          );
+          const fav = market.outcomes.find((o) => o.point !== undefined && o.point < 0);
           if (fav && fav.point !== undefined) {
             expectedGD += spreadToExpectedGD(fav.point);
             favIsHome = fav.name === game.home_team;
@@ -134,12 +129,8 @@ export function predictScores(
 
         // ----- TOTALS -----
         if (market.key === 'totals') {
-          const over = market.outcomes.find(
-            (o) => o.name === 'Over' && o.point === 2.5,
-          );
-          const under = market.outcomes.find(
-            (o) => o.name === 'Under' && o.point === 2.5,
-          );
+          const over = market.outcomes.find((o) => o.name === 'Over' && o.point === 2.5);
+          const under = market.outcomes.find((o) => o.name === 'Under' && o.point === 2.5);
 
           if (over && under) {
             overProb += impliedProb(over.price);
@@ -198,8 +189,7 @@ export function predictScores(
     // 3️⃣ Estimate Total Goals
     // -------------------------------
 
-    const overBias =
-      overProb + underProb > 0 ? overProb / (overProb + underProb) : 0.5;
+    const overBias = overProb + underProb > 0 ? overProb / (overProb + underProb) : 0.5;
 
     let totalGoals = 2.2 + overBias * 1.1;
 
@@ -243,8 +233,7 @@ export function predictScores(
 
     for (let h = 0; h <= 6; h++) {
       for (let a = 0; a <= 6; a++) {
-        const prob =
-          poissonProbability(lambdaHome, h) * poissonProbability(lambdaAway, a);
+        const prob = poissonProbability(lambdaHome, h) * poissonProbability(lambdaAway, a);
 
         matrix.push({ home: h, away: a, probability: prob });
 
@@ -284,17 +273,13 @@ export function predictScores(
     const h2hEdge = Math.abs(homeProb - awayProb);
     const layEdge = Math.abs(layHome - layAway);
 
-    const trapWarning =
-      expectedGD >= 1.5 && overBias < 0.52 && h2hEdge < 0.15 && layEdge < 0.15;
+    const trapWarning = expectedGD >= 1.5 && overBias < 0.52 && h2hEdge < 0.15 && layEdge < 0.15;
 
     // -------------------------------
     // 8️⃣ Confidence Score
     // -------------------------------
 
-    const confidence = Math.min(
-      1,
-      (expectedGD / 2.5) * 0.6 + overBias * 0.2 + h2hEdge * 0.2,
-    );
+    const confidence = Math.min(1, (expectedGD / 2.5) * 0.6 + overBias * 0.2 + h2hEdge * 0.2);
 
     // -------------------------------
     // RETURN RESULT

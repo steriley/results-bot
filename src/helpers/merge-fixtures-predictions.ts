@@ -57,9 +57,7 @@ export function mergeFixturesWithPredictions(
   predictions: (PredictedScore & { commenceTime: string; homeTeam: string })[],
 ): EnrichedFixture[] {
   // Build a lookup map keyed by "commenceTime|normalisedHomeTeam"
-  const predictionMap = new Map(
-    predictions.map((p) => [`${p.commenceTime}|${p.homeTeam}`, p]),
-  );
+  const predictionMap = new Map(predictions.map((p) => [`${p.commenceTime}|${p.homeTeam}`, p]));
 
   return fixtures.map((fixture) => {
     const normalisedHome = normaliseTeamName(fixture.homeTeam);

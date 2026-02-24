@@ -5,9 +5,7 @@ export interface GameweekDateRange {
   end: string;
 }
 
-export function getGameweekDateRange(
-  fixtures: GameweekFixture[],
-): GameweekDateRange {
+export function getGameweekDateRange(fixtures: GameweekFixture[]): GameweekDateRange {
   // Filter out fixtures with no kickoff time (postponed/unscheduled)
   const kickoffTimes = fixtures
     .map((f) => f.commenceTime)

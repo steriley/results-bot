@@ -23,9 +23,7 @@ defineProps<Props>();
       class="flex flex-row items-center p-3 md:p-4 gap-2 md:gap-4 fixture-row transition-colors relative"
     >
       <div class="flex-1 flex flex-row items-center justify-between min-w-0">
-        <div
-          class="flex items-center gap-1.5 md:gap-3 flex-1 justify-end text-right min-w-0"
-        >
+        <div class="flex items-center gap-1.5 md:gap-3 flex-1 justify-end text-right min-w-0">
           <TeamName :teamName="homeTeam" />
 
           <div
@@ -34,10 +32,7 @@ defineProps<Props>();
           >
             {{ finalScore.homeTeam }}
           </div>
-          <UserInput
-            v-if="isInteractive && !isCompleted"
-            :score="predictedScoreHome"
-          />
+          <UserInput v-if="isInteractive && !isCompleted" :score="predictedScoreHome" />
           <div
             v-if="!isInteractive && !isCompleted"
             class="w-8 h-8 md:w-12 md:h-10 flex items-center justify-center text-sm md:text-xl font-bold bg-slate-200 dark:bg-border-dark text-slate-900 dark:text-white rounded-md md:rounded-lg flex-shrink-0"
@@ -52,9 +47,7 @@ defineProps<Props>();
           <template
             v-if="isCompleted && Number.isInteger(predictedScoreHome) && Number.isInteger(predictedScoreAway)"
           >
-            <span
-              class="text-xs md:text-sm font-bold whitespace-nowrap text-muted-dark pb-0.5"
-            >
+            <span class="text-xs md:text-sm font-bold whitespace-nowrap text-muted-dark pb-0.5">
               {{ predictedScoreHome }}
               - {{ predictedScoreAway }}
             </span>
@@ -82,10 +75,7 @@ defineProps<Props>();
             {{ predictedScoreAway }}
           </div>
 
-          <UserInput
-            v-if="isInteractive && !isCompleted"
-            :score="predictedScoreAway"
-          />
+          <UserInput v-if="isInteractive && !isCompleted" :score="predictedScoreAway" />
 
           <TeamName :teamName="awayTeam" :awayTeam="true" />
         </div>

@@ -45,8 +45,7 @@ const getGameWeekData = async (gw: number) => {
 };
 
 // Load cache from sessionStorage on init
-const raw =
-  typeof window !== 'undefined' ? sessionStorage.getItem(CACHE_KEY) : null;
+const raw = typeof window !== 'undefined' ? sessionStorage.getItem(CACHE_KEY) : null;
 if (raw) {
   try {
     const obj = JSON.parse(raw) as Record<string, GameweekData>;
