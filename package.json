@@ -9,7 +9,8 @@
     "astro": "astro",
     "format": "biome format --write",
     "lint": "biome lint --write",
-    "check": "biome check --write"
+    "check": "biome check --write",
+    "types": "tsc --noEmit"
   },
   "dependencies": {
     "@astrojs/vercel": "^9.0.4",

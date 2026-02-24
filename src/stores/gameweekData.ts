@@ -1,6 +1,6 @@
 import { atom } from 'nanostores';
 import type { GameweekDateRange } from '@/helpers/game-week-date-range';
-import type { GameweekFixture } from '@/helpers/gameweek';
+import type { GameweekFixture } from '@/types/gameweek';
 import { $gameweek } from './gameweek';
 
 type GameweekData = {

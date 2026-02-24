@@ -14,6 +14,8 @@
  * - Fixtures for *future/live* gameweeks should always be fetched fresh.
  */
 
+import type { GameweekFixture } from '@/types/gameweek';
+
 const FPL_BASE_URL = 'https://fantasy.premierleague.com/api';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -37,15 +39,6 @@ interface FplFixture {
   finished_provisional: boolean;
   team_h_score: number | null;
   team_a_score: number | null;
-}
-
-export interface GameweekFixture {
-  gameWeek: number;
-  commenceTime: string | null;
-  homeTeam: string;
-  awayTeam: string;
-  finished: boolean;
-  finalScore: { homeTeam: number | null; awayTeam: number | null } | null;
 }
 
 // ─── API Fetchers ─────────────────────────────────────────────────────────────

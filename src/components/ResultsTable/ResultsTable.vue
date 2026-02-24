@@ -3,11 +3,11 @@ import { computed, ref } from 'vue';
 import DateGroup from '@/components/ResultsTable/DateGroup.vue';
 import TableDate from '@/components/ResultsTable/TableDate.vue';
 import TotalPoints from '@/components/ResultsTable/TotalPoints.vue';
-import type { GameweekFixture } from '@/helpers/gameweek';
 import type { EnrichedFixture } from '@/helpers/merge-fixtures-predictions';
 import { fixtureByDates, fixtureDates } from '@/helpers/sort-games-by-date';
 import { $gameweek } from '@/stores/gameweek';
 import { $gameweekData } from '@/stores/gameweekData';
+import type { GameweekFixture } from '@/types/gameweek';
 
 interface Props {
   fixtures: EnrichedFixture[];

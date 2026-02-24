@@ -1,4 +1,3 @@
-// TODO: look to join this type / replace / remove with the same one in src/helpers/gameweek.ts
 export type GameweekFixture = {
   gameWeek: number;
   commenceTime: string | null;
