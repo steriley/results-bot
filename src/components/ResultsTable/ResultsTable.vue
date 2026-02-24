@@ -14,6 +14,7 @@ import { ref, computed } from 'vue';
 
 interface Props {
   fixtures: EnrichedFixture[];
+  isInteractive?: boolean;
 }
 
 const props = defineProps<Props>();
@@ -24,7 +25,11 @@ const hasFixtures = computed(
 );
 
 const fixturesByDate = computed(() =>
-  fixtureByDates(hasFixtures.value ? latestFixtures.value : props.fixtures),
+  fixtureByDates(
+    (hasFixtures.value
+      ? latestFixtures.value
+      : props.fixtures) as EnrichedFixture[],
+  ),
 );
 const sortedFixtures = computed(() => fixtureDates(fixturesByDate.value));
 
@@ -38,7 +43,7 @@ $gameweekData.subscribe((state) => {
   <div class="space-y-6 pb-20">
     <section v-for="date in sortedFixtures" class="space-y-3">
       <TableDate :date="date" />
-      <DateGroup :games="fixturesByDate[date]" />
+      <DateGroup :games="fixturesByDate[date]" :isInteractive />
     </section>
     <TotalPoints :games="fixturesByDate" />
   </div>

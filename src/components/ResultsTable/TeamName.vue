@@ -14,7 +14,7 @@ const teamLogo = computed(() => getTeamLogo(props.teamName));
 
 <template>
   <div
-    :class="['flex gap-1.5 md:gap-3 items-center', {'flex-row-reverse' : awayTeam }]"
+    :class="['flex gap-1.5 md:gap-3 items-center overflow-hidden', {'flex-row-reverse' : awayTeam }]"
   >
     <span class="text-xs md:text-base font-bold truncate">{{ teamName }}</span>
     <span class="w-5 md:w-8 flex items-center justify-center">

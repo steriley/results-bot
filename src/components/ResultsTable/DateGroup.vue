@@ -7,8 +7,7 @@ import type { EnrichedFixture } from '@/helpers/merge-fixtures-predictions';
 
 interface Props {
   games: EnrichedFixture[];
-  showAIPredict?: boolean;
-  showUserInputs?: boolean;
+  isInteractive?: boolean;
 }
 
 defineProps<Props>();
@@ -35,9 +34,12 @@ defineProps<Props>();
           >
             {{ finalScore.homeTeam }}
           </div>
-          <UserInput v-if="showUserInputs" :score="predictedScoreHome" />
+          <UserInput
+            v-if="isInteractive && !isCompleted"
+            :score="predictedScoreHome"
+          />
           <div
-            v-if="!showUserInputs && showAIPredict"
+            v-if="!isInteractive && !isCompleted"
             class="w-8 h-8 md:w-12 md:h-10 flex items-center justify-center text-sm md:text-xl font-bold bg-slate-200 dark:bg-border-dark text-slate-900 dark:text-white rounded-md md:rounded-lg flex-shrink-0"
           >
             {{ predictedScoreHome }}
@@ -48,7 +50,7 @@ defineProps<Props>();
           class="px-2 md:px-4 shrink-0 flex flex-col items-center justify-center w-[72px] md:w-[88px]"
         >
           <template
-            v-if="isCompleted && predictedScoreHome !== undefined && predictedScoreAway !== undefined"
+            v-if="isCompleted && Number.isInteger(predictedScoreHome) && Number.isInteger(predictedScoreAway)"
           >
             <span
               class="text-xs md:text-sm font-bold whitespace-nowrap text-muted-dark pb-0.5"
@@ -74,13 +76,16 @@ defineProps<Props>();
           </div>
 
           <div
-            v-if="!showUserInputs && showAIPredict"
+            v-if="!isInteractive && !isCompleted"
             class="w-8 h-8 md:w-12 md:h-10 flex items-center justify-center text-sm md:text-xl font-bold bg-slate-200 dark:bg-border-dark text-slate-900 dark:text-white rounded-md md:rounded-lg flex-shrink-0"
           >
             {{ predictedScoreAway }}
           </div>
 
-          <UserInput v-if="showUserInputs" :score="predictedScoreAway" />
+          <UserInput
+            v-if="isInteractive && !isCompleted"
+            :score="predictedScoreAway"
+          />
 
           <TeamName :teamName="awayTeam" :awayTeam="true" />
         </div>
@@ -88,7 +93,7 @@ defineProps<Props>();
 
       <PointsPill
         v-if="isCompleted && points"
-        class="absolute bottom-1 right-1"
+        class="absolute right-3 -bottom-3 md:bottom-auto"
         :score="points?.score"
         :type="points?.type"
       />
