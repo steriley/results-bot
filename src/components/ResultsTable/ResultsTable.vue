@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useStore } from '@nanostores/vue';
 import { computed, onBeforeMount, ref } from 'vue';
 import DateGroup from '@/components/ResultsTable/DateGroup.vue';
 import TableDate from '@/components/ResultsTable/TableDate.vue';
@@ -7,7 +8,6 @@ import type { EnrichedFixture } from '@/helpers/merge-fixtures-predictions';
 import { fixtureByDates, fixtureDates } from '@/helpers/sort-games-by-date';
 import { $gameweek } from '@/stores/gameweek';
 import { $gameweekData } from '@/stores/gameweekData';
-import type { GameweekFixture } from '@/types/gameweek';
 
 interface Props {
   gameWeek: number;
@@ -16,25 +16,16 @@ interface Props {
 }
 
 const props = defineProps<Props>();
+const gameweekData = useStore($gameweekData);
 
 onBeforeMount(() => {
   $gameweek.set(props.gameWeek);
 });
 
-const latestFixtures = ref<GameweekFixture[]>([]);
-const hasFixtures = computed(
-  () => latestFixtures.value.length > 0 && $gameweek.value !== props.gameWeek,
-);
-
 const fixturesByDate = computed(() =>
-  fixtureByDates((hasFixtures.value ? latestFixtures.value : props.fixtures) as EnrichedFixture[]),
+  fixtureByDates((gameweekData.value.fixtures ?? props.fixtures) as EnrichedFixture[]),
 );
 const sortedFixtures = computed(() => fixtureDates(fixturesByDate.value));
-
-$gameweekData.subscribe((state) => {
-  if (!state) return;
-  latestFixtures.value = state.fixtures;
-});
 </script>
 
 <template>
