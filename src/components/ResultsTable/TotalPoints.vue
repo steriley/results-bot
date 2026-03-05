@@ -1,19 +1,19 @@
 <script setup lang="ts">
-import type { EnrichedFixture } from '@/helpers/merge-fixtures-predictions';
+import { computed } from 'vue';
+import type { GameweekFixture } from '@/types/gameweek';
 
 interface Props {
-  games: Record<string, EnrichedFixture[]>;
+  fixtures: GameweekFixture[];
+  amount?: number | null;
 }
 
-function totalPoints(games: Record<string, EnrichedFixture[]>): number {
-  return Object.values(games)
-    .flat()
-    .reduce((sum, game) => {
-      return sum + (game.points?.score ?? 0);
-    }, 0);
-}
+const props = defineProps<Props>();
 
-defineProps<Props>();
+const calculatedPoints = computed(() =>
+  props.fixtures.reduce((total, fixture) => total + fixture.score, 0),
+);
+
+const displayPoints = computed(() => props.amount ?? calculatedPoints.value);
 </script>
 
 <template>
@@ -28,7 +28,7 @@ defineProps<Props>();
         <span class="text-[10px] font-bold uppercase opacity-80 leading-none"
           >Total Points this Week</span
         >
-        <span class="text-2xl font-black">{{ totalPoints(games) }}</span>
+        <span class="text-2xl font-black">{{ displayPoints }}</span>
       </div>
     </div>
   </div>
