@@ -6,11 +6,15 @@ import { $gameweek } from './gameweek';
 type GameweekData = {
   fixtures: GameweekFixture[];
   dateRange: GameweekDateRange;
+  totalPoints: number | null;
+  groupedFixtures: Record<string, GameweekFixture[]>;
 };
 
 export const $gameweekData = atom<GameweekData>({
   fixtures: [],
   dateRange: { start: '', end: '' },
+  totalPoints: null,
+  groupedFixtures: {},
 });
 export const $loading = atom(false);
 export const $error = atom<string | null>(null);
@@ -50,7 +54,6 @@ if (raw) {
   try {
     const obj = JSON.parse(raw) as Record<string, GameweekData>;
     cache = new Map(Object.entries(obj).map(([k, v]) => [Number(k), v]));
-    getGameWeekData($gameweek.value);
   } catch (_e) {
     // Ignore parse errors, start with empty cache
     cache = new Map();

@@ -14,7 +14,14 @@
  * - Fixtures for *future/live* gameweeks should always be fetched fresh.
  */
 
-import type { GameweekFixture } from '@/types/gameweek';
+type FPLGameweekFixture = {
+  gameWeek: number;
+  commenceTime: string | null;
+  homeTeam: string;
+  awayTeam: string;
+  finished: boolean;
+  finalScore: { homeTeam: number | null; awayTeam: number | null } | null;
+};
 
 const FPL_BASE_URL = 'https://fantasy.premierleague.com/api';
 
@@ -111,7 +118,7 @@ async function fetchGameweekFixtures(gameWeek: number): Promise<FplFixture[]> {
  * @param gameWeek - The FPL gameweek number (1–38)
  * @returns An array of GameweekFixture objects with team names and scores
  */
-export async function getGameweekFixtures(gameWeek?: string | null): Promise<GameweekFixture[]> {
+export async function getGameweekFixtures(gameWeek?: string | null): Promise<FPLGameweekFixture[]> {
   const boostrap = await fetchBootstrap();
   const currentGameweek =
     typeof gameWeek === 'number'

@@ -1,11 +1,13 @@
 export type GameweekFixture = {
-  gameWeek: number;
-  commenceTime: string | null;
-  homeTeam: string;
+  _id: string;
+  awayScore: number;
+  awayScoreBot: number;
   awayTeam: string;
-  finished: boolean;
-  finalScore: {
-    homeTeam: number | null;
-    awayTeam: number | null;
-  } | null;
+  commenceTime: string;
+  gameWeek: number;
+  homeScore: number;
+  homeScoreBot: number;
+  homeTeam: string;
+  isComplete: boolean;
+  score: number;
 };
