@@ -1,81 +1,61 @@
 [
   {
+    "matchId": "69a086fa6cb647225cbabe46",
     "gameWeek": 27,
-    "commenceTime": "2026-02-21T15:00:00Z",
-    "homeTeam": "Aston Villa",
-    "awayTeam": "Leeds",
     "homeScore": 2,
     "awayScore": 1
   },
   {
+    "matchId": "69a086fa6cb647225cbabe49",
     "gameWeek": 27,
-    "commenceTime": "2026-02-21T15:00:00Z",
-    "homeTeam": "Brentford",
-    "awayTeam": "Brighton",
     "homeScore": 0,
     "awayScore": 0
   },
   {
+    "matchId": "69a086fa6cb647225cbabe4c",
     "gameWeek": 27,
-    "commenceTime": "2026-02-21T15:00:00Z",
-    "homeTeam": "Chelsea",
-    "awayTeam": "Burnley",
     "homeScore": 2,
     "awayScore": 1
   },
   {
+    "matchId": "69a086fa6cb647225cbabe4f",
     "gameWeek": 27,
-    "commenceTime": "2026-02-21T17:30:00Z",
-    "homeTeam": "West Ham",
-    "awayTeam": "Bournemouth",
     "homeScore": 1,
     "awayScore": 0
   },
   {
+    "matchId": "69a086fa6cb647225cbabe52",
     "gameWeek": 27,
-    "commenceTime": "2026-02-21T20:00:00Z",
-    "homeTeam": "Man City",
-    "awayTeam": "Newcastle",
     "homeScore": 3,
     "awayScore": 1
   },
   {
+    "matchId": "69a086fa6cb647225cbabe55",
     "gameWeek": 27,
-    "commenceTime": "2026-02-22T14:00:00Z",
-    "homeTeam": "Crystal Palace",
-    "awayTeam": "Wolves",
     "homeScore": 1,
     "awayScore": 2
   },
   {
+    "matchId": "69a086fa6cb647225cbabe58",
     "gameWeek": 27,
-    "commenceTime": "2026-02-22T14:00:00Z",
-    "homeTeam": "Nott'm Forest",
-    "awayTeam": "Liverpool",
     "homeScore": 0,
     "awayScore": 3
   },
   {
+    "matchId": "69a086fa6cb647225cbabe5b",
     "gameWeek": 27,
-    "commenceTime": "2026-02-22T14:00:00Z",
-    "homeTeam": "Sunderland",
-    "awayTeam": "Fulham",
     "homeScore": 0,
     "awayScore": 0
   },
   {
+    "matchId": "69a086fa6cb647225cbabe5e",
     "gameWeek": 27,
-    "commenceTime": "2026-02-22T16:30:00Z",
-    "homeTeam": "Spurs",
-    "awayTeam": "Arsenal",
     "homeScore": 2,
     "awayScore": 3
   },
   {
+    "matchId": "69a086fa6cb647225cbabe61",
     "gameWeek": 27,
-    "commenceTime": "2026-02-23T20:00:00Z",
-    "homeTeam": "Everton",
-    "awayTeam": "Man Utd",
     "homeScore": 1,
     "awayScore": 1
   }
