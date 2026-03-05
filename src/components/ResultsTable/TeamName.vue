@@ -18,7 +18,7 @@ const teamLogo = computed(() => getTeamLogo(props.teamName));
   >
     <span class="text-xs md:text-base font-bold truncate">{{ teamName }}</span>
     <span class="w-5 md:w-8 flex items-center justify-center">
-      <img :src="teamLogo" :alt="teamName" class="h-5 md:h-8 flex-shrink-0">
+      <img :src="teamLogo" alt="" class="h-5 md:h-8 flex-shrink-0">
     </span>
   </div>
 </template>

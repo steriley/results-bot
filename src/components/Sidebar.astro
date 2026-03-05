@@ -17,7 +17,7 @@ const currentPath = new URL(Astro.request.url).pathname;
 <!-- Sidebar Navigation -->
 <aside
   id="app-sidebar"
-  class="fixed md:relative inset-y-0 left-0 z-50 w-64 md:w-20 lg:w-64 border-r border-slate-200 dark:border-border-dark bg-white dark:bg-background-dark flex flex-col h-screen transition-all duration-300 transform -translate-x-full md:translate-x-0 shrink-0"
+  class="fixed md:relative inset-y-0 left-0 z-50 w-64 md:w-64 lg:w-64 border-r border-slate-200 dark:border-border-dark bg-white dark:bg-background-dark flex flex-col h-screen transform -translate-x-full md:translate-x-0 shrink-0"
 >
   <button
     type="button"
@@ -41,7 +41,7 @@ const currentPath = new URL(Astro.request.url).pathname;
           title={item.label}
         >
           <span class="material-symbols-outlined shrink-0">{item.icon}</span>
-          <span class="sidebar-text font-medium opacity-100 transition-opacity duration-300 origin-left">
+          <span class="sidebar-text font-medium opacity-100 origin-left">
             {item.label}
           </span>
         </a>
@@ -51,6 +51,29 @@ const currentPath = new URL(Astro.request.url).pathname;
   <SidebarFooter />
 </aside>
 
+<!-- Inline script runs exactly here to immediately synchronize state natively prior to DOM render paint -->
+<script is:inline>
+(() => {
+  const sidebar = document.getElementById('app-sidebar');
+  const toggle = document.getElementById('desktop-sidebar-toggle');
+  const icon = toggle?.querySelector('span');
+  if (!sidebar) return;
+
+  const storedState = localStorage.getItem('sidebar-collapsed');
+  const isTablet = window.innerWidth >= 768 && window.innerWidth < 1024;
+
+  if (storedState === 'true' || (isTablet && storedState !== 'false')) {
+    sidebar.classList.remove('md:w-64', 'lg:w-64');
+    sidebar.classList.add('md:w-20', 'lg:w-20', 'collapsed');
+    if (icon) icon.textContent = 'chevron_right';
+  } else {
+    sidebar.classList.remove('md:w-20', 'lg:w-20', 'collapsed');
+    sidebar.classList.add('md:w-64', 'lg:w-64');
+    if (icon) icon.textContent = 'chevron_left';
+  }
+})();
+</script>
+
 <!-- Mobile Backdrop -->
 <div
   id="sidebar-backdrop"
@@ -58,67 +81,52 @@ const currentPath = new URL(Astro.request.url).pathname;
 ></div>
 
 <script>
-function setupSidebar() {
+// Global click delegation for sidebar toggles
+document.addEventListener('click', (e) => {
+  if (!(e.target instanceof Element)) return;
+  const btn = e.target.closest(
+    '#desktop-sidebar-toggle, #mobile-sidebar-toggle, #sidebar-backdrop',
+  );
+  if (!btn) return;
+
   const sidebar = document.getElementById('app-sidebar');
-  const mobileBtn = document.getElementById('mobile-sidebar-toggle');
   const backdrop = document.getElementById('sidebar-backdrop');
-  const desktopBtn = document.getElementById('desktop-sidebar-toggle');
-  const toggleIcon = desktopBtn?.querySelector('span');
+  if (!sidebar) return;
 
-  function openMobile() {
-    sidebar?.classList.remove('-translate-x-full');
+  if (btn.id === 'desktop-sidebar-toggle') {
+    const isCollapsed = !sidebar.classList.contains('collapsed');
+    localStorage.setItem('sidebar-collapsed', isCollapsed);
+
+    // Toggle width classes
+    sidebar.classList.toggle('md:w-64', !isCollapsed);
+    sidebar.classList.toggle('lg:w-64', !isCollapsed);
+    sidebar.classList.toggle('md:w-20', isCollapsed);
+    sidebar.classList.toggle('lg:w-20', isCollapsed);
+    sidebar.classList.toggle('collapsed', isCollapsed);
+
+    // Toggle icon
+    const icon = btn.querySelector('span');
+    if (icon) icon.textContent = isCollapsed ? 'chevron_right' : 'chevron_left';
+  } else if (btn.id === 'mobile-sidebar-toggle') {
+    sidebar.classList.remove('-translate-x-full');
     backdrop?.classList.remove('opacity-0', 'pointer-events-none');
-  }
-
-  function closeMobile() {
-    sidebar?.classList.add('-translate-x-full');
+  } else if (btn.id === 'sidebar-backdrop') {
+    sidebar.classList.add('-translate-x-full');
     backdrop?.classList.add('opacity-0', 'pointer-events-none');
   }
+});
 
-  mobileBtn?.addEventListener('click', openMobile);
-  backdrop?.addEventListener('click', closeMobile);
-
-  function toggleDesktop() {
-    const isCollapsed = sidebar?.classList.contains('collapsed');
-    if (isCollapsed) {
-      // Expand
-      sidebar?.classList.remove('md:w-20', 'lg:w-20', 'collapsed');
-      sidebar?.classList.add('md:w-64', 'lg:w-64');
-      if (toggleIcon) toggleIcon.textContent = 'chevron_left';
-      localStorage.setItem('sidebar-collapsed', 'false');
-    } else {
-      // Collapse
-      sidebar?.classList.remove('md:w-64', 'lg:w-64');
-      sidebar?.classList.add('md:w-20', 'lg:w-20', 'collapsed');
-      if (toggleIcon) toggleIcon.textContent = 'chevron_right';
-      localStorage.setItem('sidebar-collapsed', 'true');
-    }
-  }
-
-  desktopBtn?.addEventListener('click', toggleDesktop);
-
-  // Initial load state from localStorage (run once)
-  const storedState = localStorage.getItem('sidebar-collapsed');
-
-  // Check screen width for tablet default (if lg then >1024px)
-  const isTablet = window.innerWidth >= 768 && window.innerWidth < 1024;
-
-  if (storedState === 'true' || (isTablet && storedState !== 'false')) {
-    sidebar?.classList.remove('md:w-64', 'lg:w-64');
-    sidebar?.classList.add('md:w-20', 'lg:w-20', 'collapsed');
-    if (toggleIcon) toggleIcon.textContent = 'chevron_right';
-  } else {
-    sidebar?.classList.remove('md:w-20', 'lg:w-20', 'collapsed');
-    sidebar?.classList.add('md:w-64', 'lg:w-64');
-    if (toggleIcon) toggleIcon.textContent = 'chevron_left';
-  }
-}
-
-// Run setup once script loads
-setupSidebar();
-
-// Re-run on View Transitions if enabled
-document.addEventListener('astro:page-load', setupSidebar);
+// Re-enable CSS transitions safely after first paint and on page-loads
+document.addEventListener('astro:page-load', () => {
+  const sidebar = document.getElementById('app-sidebar');
+  if (!sidebar) return;
+  setTimeout(() => {
+    sidebar.classList.add('transition-all', 'duration-300');
+    sidebar.querySelectorAll('.sidebar-text').forEach((t) => {
+      t.classList.add('transition-opacity', 'duration-300');
+    });
+  }, 50);
+});
 </script>
 
 <style is:global>
