@@ -1,0 +1,33 @@
+export { DEFAULT_CONFIG, runPredictionEngine } from './engine';
+export { StatisticalModelEngine } from './statistical-models';
+
+export type {
+  BayesianModelResult,
+  BookmakerSnapshot,
+  DixonColesParameters,
+  DixonColesResult,
+  EloRatingResult,
+  EngineConfig,
+  EngineOutput,
+  HistoricalMatch,
+  MarketConsensus,
+  OddsMovement,
+  OddsMovementSignal,
+  Outcome,
+  PredictedScore,
+  Prediction,
+  PredictionBreakdown,
+  PredictionFactorWeights,
+  Probabilities,
+  ProcessedFixture,
+  RawBookmaker,
+  RawFixture,
+  RawMarket,
+  RawOutcome,
+  ScoreMatrix,
+  SharpMarketSignal,
+  ThreeWayOdds,
+  TotalsMarketSignal,
+  TotalsOdds,
+  ValueBet,
+} from './types';

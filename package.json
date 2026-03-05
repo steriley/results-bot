@@ -15,11 +15,15 @@
   "dependencies": {
     "@astrojs/vercel": "^9.0.4",
     "@astrojs/vue": "^5.1.4",
+    "@better-auth/mongo-adapter": "^1.5.3",
     "@nanostores/vue": "^1.0.1",
     "@tailwindcss/vite": "^4.2.0",
     "@vercel/analytics": "^1.6.1",
     "astro": "^5.17.3",
     "axios": "^1.13.5",
+    "better-auth": "^1.5.3",
+    "mongodb": "^7.1.0",
+    "mongoose": "^9.2.2",
     "nanostores": "^1.1.0",
     "sass": "^1.97.3",
     "tailwindcss": "^4.2.0",
@@ -27,6 +31,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "2.4.4",
+    "@types/node": "^25.3.3",
     "@vue/test-utils": "^2.4.6",
     "jsdom": "^28.1.0",
     "vitest": "^4.0.18"

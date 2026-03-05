@@ -1,11 +1,11 @@
 import { getSecret } from 'astro:env/server';
 import axios, { type AxiosError } from 'axios';
-import type { OddsGame } from '../types/odds';
+import type { OddsMarket } from './process-odds';
 
 export async function getLatestOdds(
   commenceTimeFrom: string,
   commenceTimeTo: string,
-): Promise<OddsGame[]> {
+): Promise<OddsMarket[]> {
   const apiKey = getSecret('ODDS_API_KEY');
   const regions = 'uk';
   const markets = 'h2h,totals';
