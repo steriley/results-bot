@@ -8,7 +8,7 @@ export default defineConfig({
   integrations: [vue()],
   output: 'server',
   adapter: vercel({
-    edgeMiddleware: true,
+    edgeMiddleware: false,
   }),
 
   vite: {
