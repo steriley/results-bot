@@ -4,60 +4,16 @@ import MainLayout from '@/components/MainLayout.astro';
 import PageWrapper from '@/components/PageWrapper.astro';
 import QuickStats from '@/components/QuickStats.astro';
 import ResultsTable from '@/components/ResultsTable/ResultsTable.vue';
-import { getPredictionPoints } from '@/helpers/get-predicition-points';
-import type { EnrichedFixture } from '@/helpers/merge-fixtures-predictions';
-import { fixtureByDates, fixtureDates } from '@/helpers/sort-games-by-date';
-import mockUserPredictions from '@/mocks/gameweek_27_user_1.json';
 import { $gameweek } from '@/stores/gameweek';
 
 import { GET as getFixtures } from './api/fixtures';
 
-const userPredictions = mockUserPredictions;
 const pageSubtitle = `Gameweek ${$gameweek.value} • Your predictions vs the bot's predictions`;
 
 let response = await getFixtures(Astro);
-const { fixtures, gameWeek } = await response.json();
+const { gameWeek, groupedFixtures, totalPoints } = await response.json();
 
-const fullFixtureData = fixtures.map((fixture: EnrichedFixture) => {
-  const userPrediction = userPredictions.find(
-    (prediction) =>
-      prediction.homeTeam === fixture.homeTeam && prediction.awayTeam === fixture.awayTeam,
-  );
-  return {
-    ...fixture,
-    predictedScoreHome: userPrediction?.homeScore,
-    predictedScoreAway: userPrediction?.awayScore,
-    points: getPredictionPoints(
-      { home: userPrediction?.homeScore, away: userPrediction?.awayScore },
-      {
-        home: fixture.finalScore?.homeTeam ?? 0,
-        away: fixture.finalScore?.awayTeam ?? 0,
-      },
-    ),
-  };
-});
-
-function totalPoints(games: Record<string, EnrichedFixture[]>): number {
-  return Object.values(games)
-    .flat()
-    .reduce((sum, game) => {
-      return sum + game.points.score;
-    }, 0);
-}
-
-function totalCompleteFixtures(games: Record<string, EnrichedFixture[]>): number {
-  return Object.values(games)
-    .flat()
-    .filter((game) => game.finalScore !== null).length;
-}
-
-const totalPointsThisWeek = totalPoints(fixtureByDates(fullFixtureData));
-const totalCompleteFixturesThisWeek = totalCompleteFixtures(fixtureByDates(fullFixtureData));
-
-const accuracy =
-  totalCompleteFixturesThisWeek > 0
-    ? Math.round((totalPointsThisWeek / (totalCompleteFixturesThisWeek * 10)) * 100)
-    : 0;
+const accuracy = 0;
 ---
 
 <PageWrapper title="Beat the Bot: Your Predictions">
@@ -65,6 +21,12 @@ const accuracy =
     <div slot="titleActions" class="flex items-center gap-2">
       <QuickStats accuracy={accuracy} trending="up" />
     </div>
-    <ResultsTable gameWeek={gameWeek} fixtures={fullFixtureData} isInteractive client:load />
+    <ResultsTable
+      gameWeek={gameWeek}
+      groupedFixtures={groupedFixtures}
+      totalPoints={totalPoints}
+      isInteractive
+      client:load
+    />
   </MainLayout>
 </PageWrapper>

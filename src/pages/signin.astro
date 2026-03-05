@@ -1,0 +1,17 @@
+---
+import PageWrapper from '@/components/PageWrapper.astro';
+import SignInForm from '@/components/SignInForm.vue';
+---
+
+<PageWrapper title="Sign In | Results Bot">
+  <div class="min-h-screen bg-slate-950 flex flex-col justify-center items-center py-12 sm:px-6 lg:px-8">
+    <div class="sm:mx-auto sm:w-full sm:max-w-md text-center mb-8">
+      <h1 class="text-3xl font-extrabold text-white">Results Bot</h1>
+      <p class="mt-2 text-sm text-slate-400">
+        Please sign in to access your account
+      </p>
+    </div>
+
+    <SignInForm client:load />
+  </div>
+</PageWrapper>
