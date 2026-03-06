@@ -1,20 +1,23 @@
 ---
+const { user } = Astro.locals;
+const { name, email } = user ?? {};
 ---
 
 <div class="p-4 border-t border-slate-200 dark:border-border-dark space-y-2 overflow-hidden">
-  <div class="flex items-center gap-3 px-2 py-2">
-    <div class="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center shrink-0">
+  <a
+    href={user ? "/profile" : "/signin"}
+    class="flex items-center gap-3 px-2 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-surface-dark transition-colors cursor-pointer group"
+  >
+    <div class="w-8 h-8 rounded-full bg-primary/10 group-hover:bg-primary/20 transition-colors flex items-center justify-center shrink-0">
       <span class="material-symbols-outlined text-primary text-sm">person</span>
     </div>
     <div class="sidebar-text origin-left transition-opacity duration-300">
-      <p class="text-sm font-semibold whitespace-nowrap">Guest User</p>
-      <p
-        class="text-[10px] text-muted-dark whitespace-nowrap uppercase tracking-wider font-semibold"
-      >
-        Basic Plan
+      <p class="text-sm font-semibold whitespace-nowrap text-slate-900 dark:text-white">{name || 'Guest'}</p>
+      <p class="text-[10px] text-slate-500 dark:text-muted-dark whitespace-nowrap uppercase tracking-wider font-semibold">
+        {email || 'Sign in to access data'}
       </p>
     </div>
-  </div>
+  </a>
   <button
     type="button"
     class="w-full flex items-center gap-3 px-2 py-2 rounded-lg text-slate-600 dark:text-muted-dark hover:bg-slate-100 dark:hover:bg-surface-dark transition-colors overflow-hidden"

@@ -32,34 +32,34 @@ async function handleSignIn() {
 </script>
 
 <template>
-  <div class="max-w-md w-full mx-auto p-6 bg-slate-900 border border-slate-800 rounded-xl shadow-xl">
-    <h2 class="text-2xl font-bold text-white mb-6 text-center">Sign In</h2>
+  <div class="max-w-md w-full mx-auto p-8 bg-white dark:bg-surface-dark border border-slate-200 dark:border-border-dark rounded-2xl shadow-xl">
+    <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-6 text-center">Welcome Back</h2>
 
-    <div v-if="errorMsg" class="mb-4 p-3 bg-red-500/10 border border-red-500/50 rounded-lg text-red-500 text-sm">
+    <div v-if="errorMsg" class="mb-6 p-4 bg-red-50 dark:bg-red-500/10 border border-red-200 dark:border-red-500/50 rounded-xl text-red-600 dark:text-red-500 text-sm font-medium">
       {{ errorMsg }}
     </div>
 
-    <form @submit.prevent="handleSignIn" class="space-y-4">
+    <form @submit.prevent="handleSignIn" class="space-y-5">
       <div>
-        <label for="email" class="block text-sm font-medium text-slate-300 mb-1">Email Address</label>
+        <label for="email" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Email Address</label>
         <input
           id="email"
           v-model="email"
           type="email"
           required
-          class="w-full px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+          class="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
           placeholder="you@example.com"
         />
       </div>
 
       <div>
-        <label for="password" class="block text-sm font-medium text-slate-300 mb-1">Password</label>
+        <label for="password" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Password</label>
         <input
           id="password"
           v-model="password"
           type="password"
           required
-          class="w-full px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+          class="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
           placeholder="••••••••"
         />
       </div>
@@ -67,9 +67,9 @@ async function handleSignIn() {
       <button
         type="submit"
         :disabled="loading"
-        class="w-full mt-6 px-4 py-2 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed text-white font-medium rounded-lg transition-colors flex justify-center items-center"
+        class="w-full mt-8 px-4 py-3 bg-primary hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold rounded-xl transition-colors flex justify-center items-center shadow-lg shadow-primary/20"
       >
-        <span v-if="loading" class="mr-2 inline-block h-4 w-4 rounded-full border-2 border-slate-200 border-t-white animate-spin"></span>
+        <span v-if="loading" class="mr-2 inline-block h-4 w-4 rounded-full border-2 border-white/20 border-t-white animate-spin"></span>
         {{ loading ? 'Signing In...' : 'Sign In' }}
       </button>
     </form>
