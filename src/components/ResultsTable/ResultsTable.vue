@@ -28,7 +28,7 @@ onBeforeMount(() => {
 
 const gameweekData = useStore($gameweekData);
 const cachedPoints = computed(() =>
-  Number.isInteger(gameweekData.value.totalPoints)
+  Number.isInteger(gameweekData.value.totalPoints) && !props.isInteractive
     ? gameweekData.value.totalPoints
     : props.totalPoints,
 );

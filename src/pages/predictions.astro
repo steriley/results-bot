@@ -10,9 +10,7 @@ import { GET as getFixtures } from './api/fixtures';
 const pageSubtitle = `Gameweek ${$gameweek.value} • Your predictions vs the bot's predictions`;
 
 let response = await getFixtures(Astro);
-const { gameWeek, groupedFixtures, totalPoints } = await response.json();
-
-const accuracy = 0;
+const { gameWeek, groupedFixtures, totalPoints, accuracy } = await response.json();
 ---
 
 <PageWrapper title="Beat the Bot: Your Predictions">

@@ -10,6 +10,14 @@ type GameweekData = {
   groupedFixtures: Record<string, GameweekFixture[]>;
 };
 
+type CacheEntry = {
+  data: GameweekData;
+  expiresAt: number;
+};
+
+const CACHE_KEY = 'gameweekCache_v1';
+const CACHE_TTL_MS = 10 * 60 * 1000;
+
 export const $gameweekData = atom<GameweekData>({
   fixtures: [],
   dateRange: { start: '', end: '' },
@@ -19,17 +27,55 @@ export const $gameweekData = atom<GameweekData>({
 export const $loading = atom(false);
 export const $error = atom<string | null>(null);
 
-// --- Session-persistent cache ---
-const CACHE_KEY = 'gameweekCache_v1';
-let cache: Map<number, GameweekData> = new Map();
+let cache: Map<number, CacheEntry> = new Map();
 
-const getGameWeekData = async (gw: number) => {
+function isHomepage(): boolean {
+  return typeof window !== 'undefined' && window.location.pathname === '/';
+}
+
+function loadCacheFromStorage(): Map<number, CacheEntry> {
+  if (typeof window === 'undefined' || !isHomepage()) return new Map();
+
+  const raw = sessionStorage.getItem(CACHE_KEY);
+  if (!raw) return new Map();
+
+  try {
+    const parsed = JSON.parse(raw) as Record<string, CacheEntry>;
+    return new Map(Object.entries(parsed).map(([k, v]) => [Number(k), v]));
+  } catch {
+    return new Map();
+  }
+}
+
+function persistCache(): void {
+  if (typeof window === 'undefined') return;
+  const obj: Record<string, CacheEntry> = Object.fromEntries(cache.entries());
+  sessionStorage.setItem(CACHE_KEY, JSON.stringify(obj));
+}
+
+function getValidCacheEntry(gw: number): GameweekData | null {
+  const entry = cache.get(gw);
+  if (!entry || Date.now() > entry.expiresAt) return null;
+  return entry.data;
+}
+
+function setCacheEntry(gw: number, data: GameweekData): void {
+  cache.set(gw, { data, expiresAt: Date.now() + CACHE_TTL_MS });
+  persistCache();
+}
+
+async function fetchGameweekData(gw: number): Promise<GameweekData> {
+  const res = await fetch(`/api/fixtures?gameweek=${gw}`);
+  if (!res.ok) throw new Error('Failed to fetch');
+  return res.json();
+}
+
+const getGameWeekData = async (gw: number): Promise<void> => {
   if (!gw) return;
 
-  // Check cache (in-memory/session)
-  if (cache.has(gw)) {
-    const cached = cache.get(gw);
-    if (cached) $gameweekData.set(cached);
+  const cached = getValidCacheEntry(gw);
+  if (cached) {
+    $gameweekData.set(cached);
     return;
   }
 
@@ -38,8 +84,7 @@ const getGameWeekData = async (gw: number) => {
     $error.set(null);
 
     const data = await fetchGameweekData(gw);
-    cache.set(gw, data);
-    persistCache();
+    setCacheEntry(gw, data);
     $gameweekData.set(data);
   } catch (err) {
     $error.set((err as Error).message);
@@ -48,30 +93,6 @@ const getGameWeekData = async (gw: number) => {
   }
 };
 
-// Load cache from sessionStorage on init
-const raw = typeof window !== 'undefined' ? sessionStorage.getItem(CACHE_KEY) : null;
-if (raw) {
-  try {
-    const obj = JSON.parse(raw) as Record<string, GameweekData>;
-    cache = new Map(Object.entries(obj).map(([k, v]) => [Number(k), v]));
-  } catch (_e) {
-    // Ignore parse errors, start with empty cache
-    cache = new Map();
-  }
-}
-
-function persistCache() {
-  if (typeof window === 'undefined') return;
-  // Convert Map to object for storage
-  const obj: Record<string, GameweekData> = {};
-  for (const [k, v] of cache.entries()) obj[k] = v;
-  sessionStorage.setItem(CACHE_KEY, JSON.stringify(obj));
-}
-
-async function fetchGameweekData(gw: number): Promise<GameweekData> {
-  const res = await fetch(`/api/fixtures?gameweek=${gw}`);
-  if (!res.ok) throw new Error('Failed to fetch');
-  return res.json();
-}
+cache = loadCacheFromStorage();
 
 $gameweek.listen(getGameWeekData);

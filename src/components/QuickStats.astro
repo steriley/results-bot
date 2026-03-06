@@ -15,7 +15,7 @@ const { accuracy, trending } = Astro.props;
       <span class="text-[10px] font-bold uppercase opacity-80 leading-none"
         >Your Prediction Accuracy</span
       >
-      <span class="text-2xl font-black">{accuracy.toFixed(1)}%</span>
+      <span class="text-2xl font-black">{accuracy}%</span>
     </div>
     <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
       <span class="material-symbols-outlined font-bold">trending_{trending}</span>
