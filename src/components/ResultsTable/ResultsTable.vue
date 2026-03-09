@@ -43,7 +43,7 @@ const flatFixtures = computed(() => Object.values(cachedFixtures.value).flat());
 
 const predictions = ref({});
 
-const predictedScores = computed(() => Object.values(predictions.value).flat());
+const predictedScores = computed(() => Object.values(predictions.value).flat().filter(Boolean));
 const predictionsComplete = computed(
   () =>
     predictedScores.value.length === flatFixtures.value.length * 2 &&
@@ -52,7 +52,7 @@ const predictionsComplete = computed(
 
 function savePrediction() {
   if (predictionsComplete.value) {
-    fetch('/api/user-prediction', {
+    fetch('/api/admin/user-prediction', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

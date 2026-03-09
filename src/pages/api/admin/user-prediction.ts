@@ -5,43 +5,49 @@ import { Match, type TMatch } from '@/db/model/Match.model';
 import { type TUserPrediction, UserPrediction } from '@/db/model/UserPrediction.model';
 import { getPredictionPoints } from '@/helpers/get-predicition-points';
 
-interface MatchResult {
-  matchId: string;
-  gameWeek: number;
-  homeScore: number;
-  awayScore: number;
-}
-
 type MatchScores = Record<string, [number, number]>;
 
 const json = (obj: unknown) => new Response(JSON.stringify(obj));
 
-function parseMatchResults(scores: MatchScores, gameWeek: number): MatchResult[] {
-  return Object.entries(scores).map(([matchId, [homeScore, awayScore]]) => ({
-    userId: new mongoose.Types.ObjectId('69a765f78e8b852ae5d5be1f'),
-    matchId,
-    gameWeek,
-    homeScore,
-    awayScore,
+function parseMatchResults(params: { scores: MatchScores; gameWeek: number; userId: string }) {
+  return Object.entries(params.scores).map(([matchId, [homeScore, awayScore]]) => ({
+    updateOne: {
+      filter: { userId: params.userId, matchId },
+      update: {
+        $set: {
+          gameWeek: params.gameWeek,
+          homeScore,
+          awayScore,
+        },
+      },
+      upert: true,
+    },
   }));
 }
 
-export const POST: APIRoute = async ({ request }) => {
+export const POST: APIRoute = async ({ request, locals }) => {
   const body = await request.json();
   const { gameWeek, scores } = body;
+  const user = locals.user;
 
-  const results = parseMatchResults(scores, gameWeek);
+  if (!user) {
+    return new Response(JSON.stringify({ success: false }), {
+      status: 401,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
+  const results = parseMatchResults({ scores, gameWeek, userId: user.id });
 
   const connectionUri = getSecret('MONGO_DB_URI') ?? '';
   await mongoose.connect(connectionUri);
 
-  // TODO: change this to update with upsert
-  await UserPrediction.create(results);
-
-  return new Response(JSON.stringify({ success: true }), {
-    status: 200,
-    headers: { 'Content-Type': 'application/json' },
-  });
+  try {
+    const result = await UserPrediction.bulkWrite(results);
+    return json(result);
+  } catch (error) {
+    return json({ error });
+  }
 };
 
 export const PATCH: APIRoute = async ({ request }) => {

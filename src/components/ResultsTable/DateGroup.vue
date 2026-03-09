@@ -8,12 +8,12 @@ import UserInput from '@/components/ResultsTable/UserInput.vue';
 interface Props {
   _id: string;
   awayScore: number;
-  awayScoreBot: number;
+  awayScoreBot: number | null;
   awayTeam: string;
   commenceTime: string;
   gameWeek: number;
   homeScore: number;
-  homeScoreBot: number;
+  homeScoreBot: number | null;
   homeTeam: string;
   isComplete: boolean;
   score: number;

@@ -40,8 +40,8 @@ export const GET: APIRoute = async ({ request, locals }) => {
       );
       return {
         ...fixture,
-        homeScoreBot: prediction?.homeScore ?? 0,
-        awayScoreBot: prediction?.awayScore ?? 0,
+        homeScoreBot: prediction?.homeScore ?? null,
+        awayScoreBot: prediction?.awayScore ?? null,
         score: prediction?.score ?? 0,
       };
     });
