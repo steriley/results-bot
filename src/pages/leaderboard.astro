@@ -5,11 +5,16 @@ import LeaderTable from '@/components/Leaderboard/LeaderTable.astro';
 import MainLayout from '@/components/MainLayout.astro';
 import PageWrapper from '@/components/PageWrapper.astro';
 import { getActiveEvent } from '@/db/model/Bootstrap.model';
+import { getLeagueTable } from '@/db/services/LeagueTable.service';
 import { getTimeRemaining } from '@/helpers/date-countdown';
 
+const { user } = Astro.locals;
 const activeEvent = await getActiveEvent();
 const ending = getTimeRemaining(new Date(activeEvent.nextDeadline));
 const pageSubtitle = `Season ${activeEvent.season} • Round ${activeEvent.gameWeek} • ${ending}`;
+const leagueTable = await getLeagueTable({ timeFilter: 'all-time', sortBy: 'totalPoints' });
+const botRank = leagueTable.findIndex((entry) => entry.userName === 'Results Bot') + 1;
+const userRank = leagueTable.findIndex((entry) => entry.userId === user?.id) + 1;
 ---
 
 <PageWrapper title="Results Bot | Premier League Dashboard">
@@ -35,20 +40,26 @@ const pageSubtitle = `Season ${activeEvent.season} • Round ${activeEvent.gameW
       <DashboardWidget
         title="Total Participants"
         icon="groups"
-        value="1,240"
+        value={leagueTable.length}
         trend="up"
         trendValue="12%"
       />
-      <DashboardWidget title="Results Bot Rank" icon="smart_toy" value="#3" trendValue="2" />
+      <DashboardWidget
+        title="Results Bot Rank"
+        icon="smart_toy"
+        value={`#${botRank}`}
+        trendValue="2"
+      />
       <DashboardWidget
         title="Your Global Rank"
         icon="person"
-        value="#12"
+        value={`#${userRank}`}
+        `}
         trend="down"
         trendValue="1"
       />
     </div>
-    <LeaderTable />
+    <LeaderTable league={leagueTable} />
     <AnalysisAvailable />
   </MainLayout>
 </PageWrapper>

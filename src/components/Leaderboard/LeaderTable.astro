@@ -1,10 +1,13 @@
 ---
 import LeaderRow from '@/components/Leaderboard/LeaderRow.astro';
-import { getLeagueTable } from '@/db/services/LeagueTable.service';
+import type { LeagueTableEntry } from '@/db/services/LeagueTable.service';
+
+interface Props {
+  league: LeagueTableEntry[];
+}
 
 const { user } = Astro.locals;
-const table = await getLeagueTable({ timeFilter: 'all-time', sortBy: 'totalPoints' });
-
+const { league } = Astro.props;
 const currentUserId = user?.id ?? null;
 ---
 
@@ -86,7 +89,7 @@ const currentUserId = user?.id ?? null;
         </tr>
       </thead>
       <tbody class="divide-y divide-slate-100 dark:divide-border-dark">
-        {table.map(({ userId, userName, played, correctResults, correctScores, totalPoints }, rank) => {
+        {league.map(({ userId, userName, played, correctResults, correctScores, totalPoints }, rank) => {
           const isBot = userId === '666';
           const isUser = userId === currentUserId;
           return <LeaderRow rank={rank + 1} isBot={isBot} isUser={isUser} userName={userName} played={played} correctResults={correctResults} correctScores={correctScores} totalPoints={totalPoints} />
