@@ -1,9 +1,7 @@
 ---
 import AnalysisAvailable from '@/components/Leaderboard/AnalysisAvailable.astro';
-import GlobalRank from '@/components/Leaderboard/GlobalRank.astro';
+import DashboardWidget from '@/components/Leaderboard/DashboardWidget.astro';
 import LeaderTable from '@/components/Leaderboard/LeaderTable.astro';
-import RobotRank from '@/components/Leaderboard/RobotRank.astro';
-import TotalParticipants from '@/components/Leaderboard/TotalParticipants.astro';
 import MainLayout from '@/components/MainLayout.astro';
 import PageWrapper from '@/components/PageWrapper.astro';
 import { getActiveEvent } from '@/db/model/Bootstrap.model';
@@ -33,11 +31,22 @@ const pageSubtitle = `Season ${activeEvent.season} • Round ${activeEvent.gameW
       </a>
     </div>
 
-    <!-- Score Overview Cards -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-      <TotalParticipants />
-      <RobotRank />
-      <GlobalRank />
+      <DashboardWidget
+        title="Total Participants"
+        icon="groups"
+        value="1,240"
+        trend="up"
+        trendValue="12%"
+      />
+      <DashboardWidget title="Results Bot Rank" icon="smart_toy" value="#3" trendValue="2" />
+      <DashboardWidget
+        title="Your Global Rank"
+        icon="person"
+        value="#12"
+        trend="down"
+        trendValue="1"
+      />
     </div>
     <LeaderTable />
     <AnalysisAvailable />
