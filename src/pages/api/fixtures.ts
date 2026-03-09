@@ -53,17 +53,27 @@ export const GET: APIRoute = async ({ request, locals }) => {
 
   const totalPoints = fixtures.reduce((total, fixture) => total + fixture.score, 0);
 
-  const groupedFixtures = fixtures.reduce<Record<string, GameweekFixture[]>>((groups, fixture) => {
-    const date = new Date(fixture.commenceTime).toLocaleDateString('en-GB', {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric',
-    });
-    if (!groups[date]) groups[date] = [];
-    groups[date].push(fixture);
-    return groups;
-  }, {});
+  const groupedFixtures = [
+    ...fixtures
+      .reduce<Map<string, GameweekFixture[]>>((groups, fixture) => {
+        const date = new Date(fixture.commenceTime).toLocaleDateString('en-GB', {
+          weekday: 'long',
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric',
+        });
+        const group = groups.get(date);
+        group ? group.push(fixture) : groups.set(date, [fixture]);
+        return groups;
+      }, new Map())
+      .entries(),
+  ]
+    .map(([date, fixtures]) => ({ date, fixtures }))
+    .sort(
+      (a, b) =>
+        new Date(a.fixtures[0].commenceTime).getTime() -
+        new Date(b.fixtures[0].commenceTime).getTime(),
+    );
 
   return json({
     accuracy,

@@ -9,5 +9,5 @@ export type GameweekFixture = {
   homeScoreBot: number | null;
   homeTeam: string;
   isComplete: boolean;
-  score: number;
+  score: number | null;
 };

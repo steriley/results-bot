@@ -7,7 +7,7 @@ type GameweekData = {
   fixtures: GameweekFixture[];
   dateRange: GameweekDateRange;
   totalPoints: number | null;
-  groupedFixtures: Record<string, GameweekFixture[]>;
+  groupedFixtures: { date: string; fixtures: GameweekFixture[] }[];
 };
 
 type CacheEntry = {
@@ -22,7 +22,7 @@ export const $gameweekData = atom<GameweekData>({
   fixtures: [],
   dateRange: { start: '', end: '' },
   totalPoints: null,
-  groupedFixtures: {},
+  groupedFixtures: [],
 });
 export const $loading = atom(false);
 export const $error = atom<string | null>(null);

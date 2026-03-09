@@ -13,9 +13,14 @@ interface Fixture extends GameweekFixture {
   isInteractive?: boolean;
 }
 
+interface GroupedFixture {
+  date: string;
+  fixtures: Fixture[];
+}
+
 interface Props {
   gameWeek: number;
-  groupedFixtures: Record<string, Fixture[]>;
+  groupedFixtures: GroupedFixture[];
   isInteractive?: boolean;
   totalPoints?: number;
 }
@@ -47,12 +52,12 @@ const cachedPoints = computed(() =>
 );
 
 const cachedFixtures = computed(() =>
-  Object.keys(gameweekData.value.groupedFixtures).length && !props.isInteractive
+  gameweekData.value.groupedFixtures?.length && !props.isInteractive
     ? gameweekData.value.groupedFixtures
     : props.groupedFixtures,
 );
 
-const flatFixtures = computed(() => Object.values(cachedFixtures.value).flat());
+const flatFixtures = computed(() => cachedFixtures.value.flatMap((group) => group.fixtures));
 
 const predictedScores = computed(() =>
   Object.values(predictions.value)
@@ -93,10 +98,11 @@ const onPrediction = (event: { id: string; score: number[] }) => {
 
 <template>
   <div class="space-y-6 pb-20">
-    <GameDay v-for="(games, date) in cachedFixtures" :date="date" class="space-y-3">
+    <GameDay v-for="group in cachedFixtures" :key="group.date" :date="group.date" class="space-y-3">
       <GameDetail
         v-bind="{ ...game }"
-        v-for="game in games"
+        v-for="game in group.fixtures"
+        :key="game._id"
         :isInteractive
         @prediction="onPrediction"
       />
