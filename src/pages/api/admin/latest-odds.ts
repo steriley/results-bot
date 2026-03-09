@@ -20,7 +20,7 @@ export const GET: APIRoute = async ({ request }) => {
 
   const fixtures = await Match.find(
     { gameWeek: parsedGameWeek },
-    { _id: 1, homeTeam: 1, awayTeam: 1 },
+    { _id: 1, homeTeam: 1, awayTeam: 1, commenceTime: 1 },
   ).lean();
 
   const { start, end } = getGameweekDateRange(fixtures);
