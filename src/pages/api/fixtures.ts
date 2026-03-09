@@ -1,45 +1,14 @@
 import { getSecret } from 'astro:env/server';
 import type { APIRoute } from 'astro';
 import mongoose from 'mongoose';
-import { Bootstrap } from '@/db/model/Bootstrap.model';
+import { getActiveEvent } from '@/db/model/Bootstrap.model';
 import { Match } from '@/db/model/Match.model';
-import { UserPrediction } from '@/db/model/UserPrediction.model';
+import { getPredictionAccuracy, UserPrediction } from '@/db/model/UserPrediction.model';
 import { getGameweekDateRange } from '@/helpers/game-week-date-range';
 import { $gameweek } from '@/stores/gameweek';
 import type { GameweekFixture } from '@/types/gameweek';
 
 const json = (obj: unknown) => new Response(JSON.stringify(obj));
-
-const getAccuracy = async (userId: string) => {
-  const result = await UserPrediction.aggregate([
-    { $match: { userId: new mongoose.Types.ObjectId(userId) } },
-    {
-      $group: {
-        _id: '$userId',
-        total: { $sum: 1 },
-        correct: {
-          $sum: { $cond: [{ $eq: ['$score', 10] }, 1, 0] },
-        },
-      },
-    },
-    {
-      $project: {
-        _id: 0,
-        totalPredictions: '$total',
-        correctPredictions: '$correct',
-        accuracyPercentage: {
-          $cond: [
-            { $eq: ['$total', 0] },
-            0,
-            { $multiply: [{ $divide: ['$correct', '$total'] }, 100] },
-          ],
-        },
-      },
-    },
-  ]);
-
-  return result[0] || { totalPredictions: 0, correctPredictions: 0, accuracyPercentage: 0 };
-};
 
 export const GET: APIRoute = async ({ request, locals }) => {
   const user = locals.user;
@@ -52,8 +21,9 @@ export const GET: APIRoute = async ({ request, locals }) => {
   await mongoose.connect(connectionUri);
 
   if (!gameWeek) {
-    const data = await Bootstrap.findOne({ 'events.is_current': true }, { 'events.$': 1 });
-    parsedGameWeek = data.events[0].id;
+    const { gameWeek } = await getActiveEvent();
+
+    parsedGameWeek = gameWeek;
   }
 
   $gameweek.set(parsedGameWeek);
@@ -76,7 +46,7 @@ export const GET: APIRoute = async ({ request, locals }) => {
       };
     });
 
-    accuracy = user?.id ? (await getAccuracy(user.id)).accuracyPercentage : 0;
+    accuracy = user?.id ? (await getPredictionAccuracy(user.id)).accuracyPercentage : 0;
   }
 
   const dateRange = getGameweekDateRange(fixtures);

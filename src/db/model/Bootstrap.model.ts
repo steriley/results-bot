@@ -58,7 +58,7 @@ export const getActiveEvent = async () => {
   return (
     result[0]?.events && {
       season: result[0].season,
-      gameWeek: result[0].events[0].id,
+      gameWeek: result[0].events[0].finished ? result[0].events[1].id : result[0].events[0].id,
       nextDeadline: result[0].events[1].deadline_time,
     }
   );
