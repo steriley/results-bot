@@ -7,16 +7,11 @@ import TotalParticipants from '@/components/Leaderboard/TotalParticipants.astro'
 import MainLayout from '@/components/MainLayout.astro';
 import PageWrapper from '@/components/PageWrapper.astro';
 import { getActiveEvent } from '@/db/model/Bootstrap.model';
-import { getLeagueTable } from '@/db/services/LeagueTable.service';
 import { getTimeRemaining } from '@/helpers/date-countdown';
 
 const activeEvent = await getActiveEvent();
 const ending = getTimeRemaining(new Date(activeEvent.nextDeadline));
 const pageSubtitle = `Season ${activeEvent.season} • Round ${activeEvent.gameWeek} • ${ending}`;
-
-const table = await getLeagueTable({ timeFilter: 'all-time', sortBy: 'totalPoints' });
-
-console.log(JSON.stringify(table, null, 2));
 ---
 
 <PageWrapper title="Results Bot | Premier League Dashboard">

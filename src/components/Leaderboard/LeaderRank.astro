@@ -1,0 +1,29 @@
+---
+const { rank, isUser } = Astro.props;
+
+let rankClass = '';
+
+switch (rank) {
+  case 1:
+    rankClass = 'bg-amber-400 text-amber-950';
+    break;
+  case 2:
+    rankClass = 'bg-slate-300 text-slate-800';
+    break;
+  case 3:
+    rankClass = 'bg-orange-400 text-orange-950';
+    break;
+  case 4:
+    rankClass = 'text-slate-500 dark:text-slate-400';
+    break;
+  case isUser:
+    rankClass = 'bg-slate-200 dark:bg-border-dark text-slate-900 dark:text-white';
+    break;
+}
+---
+
+<div
+  class:list={['flex items-center justify-center size-8 font-black rounded-lg text-sm', rankClass]}
+>
+  {rank}
+</div>

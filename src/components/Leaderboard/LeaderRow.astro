@@ -1,0 +1,37 @@
+---
+import UserProfilePicture from '@/components/Leaderboard/UserProfilePicture.astro';
+import LeaderRank from './LeaderRank.astro';
+
+const { rank, userName, played, correctResults, correctScores, totalPoints, isUser, isBot } =
+  Astro.props;
+---
+
+<tr class="hover:bg-slate-50 dark:hover:bg-border-dark transition-colors">
+  <td class="px-6 py-5"><LeaderRank rank={rank} /></td>
+  <td class="px-6 py-5">
+    <div class="flex items-center gap-3">
+      <div class="size-9 rounded-full overflow-hidden bg-slate-200"><UserProfilePicture /></div>
+      <span class="font-bold text-slate-900 dark:text-white"
+        >{userName}
+        {isUser &&
+        <span class="text-[10px] bg-slate-200 dark:bg-border-dark text-slate-600 dark:text-slate-300 px-1.5 py-0.5 rounded uppercase">
+          You
+        </span>}
+        {isBot &&
+          <span class="bg-primary/20 text-primary text-[10px] px-1 rounded uppercase font-bold">AI</span>}
+      </span>
+      {isBot && <span class="text-xs text-slate-500 dark:text-slate-400">Your Nemesis</span>}
+    </div>
+  </td>
+  <td class="px-6 py-5 text-center font-medium">{played}</td>
+  <td class="px-6 py-5 text-center font-medium">{correctResults}</td>
+  <td class="px-6 py-5 text-center font-medium">{correctScores}</td>
+  <td class="px-6 py-5 text-right font-black text-lg text-slate-900 dark:text-white">
+    {totalPoints}
+  </td>
+  <td class="px-6 py-5 text-right">
+    <button type="button" class="text-slate-400 hover:text-primary transition-colors">
+      <span class="material-symbols-outlined">chevron_right</span>
+    </button>
+  </td>
+</tr>
