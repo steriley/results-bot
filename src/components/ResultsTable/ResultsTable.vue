@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useStore } from '@nanostores/vue';
-import { computed, onBeforeMount, ref, watch } from 'vue';
+import { computed, onBeforeMount, onMounted, ref } from 'vue';
 import GameDetail from '@/components/ResultsTable/DateGroup.vue';
 import GameDay from '@/components/ResultsTable/GameDay.vue';
 import TotalPoints from '@/components/ResultsTable/TotalPoints.vue';
@@ -22,11 +22,24 @@ interface Props {
 
 const props = defineProps<Props>();
 
+const gameweekData = useStore($gameweekData);
+
+const predictions = ref({});
+
 onBeforeMount(() => {
   $gameweek.set(props.gameWeek);
 });
 
-const gameweekData = useStore($gameweekData);
+onMounted(() => {
+  if (props.isInteractive) {
+    predictions.value = flatFixtures.value.reduce((acc, fixture) => {
+      if (!Number.isInteger(fixture.homeScoreBot) && !Number.isInteger(fixture.awayScoreBot))
+        return acc;
+      return Object.assign(acc, { [fixture._id]: [fixture.homeScoreBot, fixture.awayScoreBot] });
+    }, {});
+  }
+});
+
 const cachedPoints = computed(() =>
   Number.isInteger(gameweekData.value.totalPoints) && !props.isInteractive
     ? gameweekData.value.totalPoints
@@ -41,9 +54,12 @@ const cachedFixtures = computed(() =>
 
 const flatFixtures = computed(() => Object.values(cachedFixtures.value).flat());
 
-const predictions = ref({});
+const predictedScores = computed(() =>
+  Object.values(predictions.value)
+    .flat()
+    .filter((score) => !Number.isNaN(score) && score !== null && score !== ''),
+);
 
-const predictedScores = computed(() => Object.values(predictions.value).flat().filter(Boolean));
 const predictionsComplete = computed(
   () =>
     predictedScores.value.length === flatFixtures.value.length * 2 &&
