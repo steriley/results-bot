@@ -93,6 +93,18 @@ async function getPredictionStatsByUser(
   return UserPrediction.aggregate<UserPredictionAggregation>([
     { $match: buildDateMatch(timeFilter) },
     {
+      $lookup: {
+        from: 'matches',
+        localField: 'matchId',
+        foreignField: '_id',
+        as: 'matchDetails',
+      },
+    },
+    { $unwind: '$matchDetails' },
+    {
+      $match: { 'matchDetails.isComplete': true },
+    },
+    {
       $group: {
         _id: '$userId',
         played: { $sum: 1 },
