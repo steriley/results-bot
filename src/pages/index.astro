@@ -1,16 +1,18 @@
 ---
+import { isPast } from 'date-fns/isPast';
 import GameWeekSelector from '@/components/GameWeekSelector.vue';
 import MainLayout from '@/components/MainLayout.astro';
 import PageWrapper from '@/components/PageWrapper.astro';
 import ResultsTable from '@/components/ResultsTable/ResultsTable.vue';
-
 import { GET as getFixtures } from './api/fixtures';
-
-const pageSubtitle = `The bot has made its predictions for this gameweek`;
 
 let response = await getFixtures(Astro);
 const { dateRange, gameWeek, totalPoints, groupedFixtures } = await response.json();
 const { start, end } = dateRange;
+
+const pageSubtitle = isPast(start)
+  ? `The bot has made its predictions for gameweek ${gameWeek}`
+  : `The bot is calculating its predictions for gameweek ${gameWeek}`;
 ---
 
 <PageWrapper title="Beat the Bot: EPL Predictions">
