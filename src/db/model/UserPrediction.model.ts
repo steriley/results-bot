@@ -33,6 +33,18 @@ export const getPredictionAccuracy = async (userId: string) => {
   const result = await UserPrediction.aggregate([
     { $match: { userId: new mongoose.Types.ObjectId(userId) } },
     {
+      $lookup: {
+        from: 'matches',
+        localField: 'matchId',
+        foreignField: '_id',
+        as: 'matchDetails',
+      },
+    },
+    { $unwind: '$matchDetails' },
+    {
+      $match: { 'matchDetails.isComplete': true },
+    },
+    {
       $group: {
         _id: '$userId',
         total: { $sum: 1 },
