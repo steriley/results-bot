@@ -20,7 +20,7 @@ function parseMatchResults(params: { scores: MatchScores; gameWeek: number; user
           awayScore,
         },
       },
-      upert: true,
+      upsert: true,
     },
   }));
 }
